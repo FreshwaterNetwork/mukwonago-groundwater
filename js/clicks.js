@@ -621,26 +621,34 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 							let attVal = atts[$(v).data('wfa')];
 							if(attVal == 0){
 								htmlVal = 'Not Applicable'
+								t.countVal = '0';
 							}else if(attVal == 1){
 								htmlVal = 'Moderate'
+								t.countVal = '1-3'
 							}else if(attVal == 2){
 								htmlVal = 'High'
+								t.countVal = '4-6'
 							}else if(attVal == 3){
 								htmlVal = 'Very High'
+								t.countVal = '7-9'
 							}
 							let spanElem = $(v).next().find('.s2Atts').html(htmlVal);
+
 							if(atts.WETLAND_TYPE == 'WWI'){
 								$(v).parent().find('.wfa-attributePatch').css('background-color', curColors[attVal])
 							}else{
 								$(v).parent().find('.wfa-attributePatch').css('background-color', potColors[attVal])
 							}
 						});
+						
 						// set the wetland where clause
 						t.wetlandID = atts.OBJECTID;
 						t.obj.wetlandWhere = "OBJECTID = " + t.wetlandID;
 					}else{
 						t.obj.wetlandClick = 'no'
 					}
+					console.log(t.countVal, '//////////////')
+					t.countValue = $('#' + t.id + 'countOptionText').html(t.countVal);
 					// call the control viz layers function ////////////////////////////////////
 					t.clicks.controlVizLayers(t,t.obj.maskWhere);
 					// call the radio attribute controller function
