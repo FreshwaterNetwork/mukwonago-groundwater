@@ -27,6 +27,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 				t.dynamicLayer.on("load", function () { 			
 					t.layersArray = t.dynamicLayer.layerInfos;
 					t.obj.dynamicLyrExt = t.dynamicLayer.fullExtent.expand(.6);
+					console.log(t.obj.dynamicLyrExt);
 					t.clicks.featureLayerListeners(t);
 					if (t.obj.stateSet == "no"){
 						t.map.setExtent(t.dynamicLayer.fullExtent.expand(.6), true)

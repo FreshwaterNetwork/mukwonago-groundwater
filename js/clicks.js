@@ -294,7 +294,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					}
 					// reset maskwhere tracker
 					t.obj.maskWhere = t.maskExps[id]
-					console.log(t.maskExps);
 					// set map extent on back button click
 					// below code is for if the user clicks on the full extent zoom //////////////////////////
 					if(id<1){
@@ -314,7 +313,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						t.obj.currentWet = 'null'; // reset this tracker
 						t.map.setExtent(t.hucExtents[id], true);
 						// set huc exp on back button click
-						console.log(t.hucExps, 'huc exp', t.obj.visibleLayers[1]);
 						t.clicks.hoverGraphic(t,t.obj.visibleLayers[1], t.hucExps[id]);
 						// control viz function
 						t.clicks.controlVizLayers(t,t.obj.maskWhere);
@@ -515,7 +513,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						// populate the viz layers and all the same attributes as if the user had clicked the huc 12 here
 						t.obj.funcTracker = 'Combined Services'
 						t.obj.currentHuc = 'WHUC6'
-						console.log(t.obj.maskWhere);
 						// query for for the huc 12 /////////////////////////////////////						
 						var q1 = new Query();
 						var qt1 = new QueryTask(t.url + "/" + 4);
@@ -528,7 +525,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 									$.each($(evt.features),function(i,v){
 										// make sure the values match the search value
 										if(v.attributes.name == searchValue){
-											console.log(v.attributes, '////////////////////////')
 											t.huc6Val = evt.features[0].attributes.WHUC6
 											t.huc8Val = evt.features[0].attributes.WHUC8;
 											t.huc10Val = evt.features[0].attributes.WHUC10;
@@ -536,7 +532,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 										}
 									});
 								}else{
-									console.log('look here', evt)
 									t.huc6Val = evt.features[0].attributes.WHUC6
 									t.huc8Val = evt.features[0].attributes.WHUC8;
 									t.huc10Val = evt.features[0].attributes.WHUC10;
@@ -556,7 +551,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								q1.returnGeometry = true;
 								q1.outFields = ["*"];
 								qt1.execute(q1, function(evt){
-									console.log(evt);
 									t.hucExtents[i] = evt.features[0].geometry.getExtent();
 								});
 							});
@@ -611,8 +605,11 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				wetQ.execute(wq, function(evt){
 					if (evt.features.length > 0 && t.obj.currentWet == 'wetland'){
 						t.obj.wetlandClick = 'yes'
-						var curColors  = ['rgb(237,248,233)', 'rgb(116,196,118)','rgb(49,163,84)', 'rgb(0,109,44)'];
-						var potColors = ['rgb(254,229,217)', 'rgb(251,106,74)','rgb(222,45,38)', 'rgb(165,15,21)'];
+						// var curColors  = ['rgb(237,248,233)', 'rgb(116,196,118)','rgb(49,163,84)', 'rgb(0,109,44)'];
+						var curColors  = ['rgb(237,248,233)', 'rgb(0,109,44)','rgb(49,163,84)', 'rgb(116,196,118)'];
+						// var potColors = ['rgb(254,229,217)', 'rgb(251,106,74)','rgb(222,45,38)', 'rgb(165,15,21)'];
+						var potColors = ['rgb(254,229,217)', 'rgb(165,15,21)','rgb(251,106,74)','rgb(222,45,38)'];
+						// var potColors = ['rgb(165,15,21)', 'rgb(222,45,38)','rgb(251,106,74)', 'rgb(254,229,217)'];
 						var atts = evt.features[0].attributes;
 						// update the attribute colors for wetlands
 						var title = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
@@ -623,17 +620,19 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								htmlVal = 'Not Applicable'
 								t.countVal = '0';
 							}else if(attVal == 1){
-								htmlVal = 'Moderate'
-								t.countVal = '1-3'
-							}else if(attVal == 2){
-								htmlVal = 'High'
-								t.countVal = '4-6'
-							}else if(attVal == 3){
 								htmlVal = 'Very High'
 								t.countVal = '7-9'
+							}else if(attVal == 2){
+								htmlVal = 'Moderate'
+								t.countVal = '4-6'
+							}else if(attVal == 3){
+								htmlVal = 'High'
+								t.countVal = '1-3'
 							}
 							let spanElem = $(v).next().find('.s2Atts').html(htmlVal);
-
+							if(v.innerHTML == 'Count of Service ≥ High:'){
+								t.countValue = $('#' + t.id + 'countOptionText').html(t.countVal);
+							}
 							if(atts.WETLAND_TYPE == 'WWI'){
 								$(v).parent().find('.wfa-attributePatch').css('background-color', curColors[attVal])
 							}else{
@@ -647,8 +646,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					}else{
 						t.obj.wetlandClick = 'no'
 					}
-					console.log(t.countVal, '//////////////')
-					t.countValue = $('#' + t.id + 'countOptionText').html(t.countVal);
 					// call the control viz layers function ////////////////////////////////////
 					t.clicks.controlVizLayers(t,t.obj.maskWhere);
 					// call the radio attribute controller function
@@ -657,7 +654,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 			},
 // control visible layers function /////////////////////////////////////////////////////////////////////////////
 			controlVizLayers :function(t, maskWhere){
-				console.log('1', t.obj.currentHuc)
 				if (t.obj.currentHuc != 'WHUC4') {
 					// manipulate string to the proper format, use the same tracker as for the queries but add 2 unless it is a huc 12
 					var curHucNum = t.obj.currentHuc.slice(-1);
@@ -669,7 +665,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					}
 					var newHuc = curHucNum2 + curHucNum3;
 					newHuc =  newHuc.substring(1);
-					console.log('2', newHuc)
 					var lyrName  = newHuc + ' - ' + t.obj.funcTracker;
 					var curWetLyrName = 'Current Wetlands - ' + t.obj.funcTracker;
 					var potWetLyrName = 'Potentially Restorable Wetlands - ' + t.obj.funcTracker;
@@ -725,6 +720,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				t.clicks.radioSelector(t);
 				// set layer defs and update the mask layer /////////////////////
 				t.layerDefinitions = [];
+				console.log(maskWhere)
 				t.layerDefinitions[0] =  maskWhere
 				t.layerDefinitions[5] = t.obj.wetlandWhere
 				t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
