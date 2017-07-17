@@ -608,7 +608,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						// var curColors  = ['rgb(237,248,233)', 'rgb(116,196,118)','rgb(49,163,84)', 'rgb(0,109,44)'];
 						var curColors  = ['rgb(237,248,233)', 'rgb(0,109,44)','rgb(49,163,84)', 'rgb(116,196,118)'];
 						// var potColors = ['rgb(254,229,217)', 'rgb(251,106,74)','rgb(222,45,38)', 'rgb(165,15,21)'];
-						var potColors = ['rgb(254,229,217)', 'rgb(165,15,21)','rgb(251,106,74)','rgb(222,45,38)'];
+						var potColors = ['rgb(254,229,217)', 'rgb(165,15,21)','rgb(222,45,38)','rgb(251,106,74)'];
 						// var potColors = ['rgb(165,15,21)', 'rgb(222,45,38)','rgb(251,106,74)', 'rgb(254,229,217)'];
 						var atts = evt.features[0].attributes;
 						// update the attribute colors for wetlands
@@ -624,7 +624,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								t.countVal = '7-9'
 							}else if(attVal == 2){
 								htmlVal = 'High'
-								
 								t.countVal = '4-6'
 							}else if(attVal == 3){
 								htmlVal = 'Moderate'
