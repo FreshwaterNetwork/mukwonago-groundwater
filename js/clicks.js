@@ -623,10 +623,11 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								htmlVal = 'Very High'
 								t.countVal = '7-9'
 							}else if(attVal == 2){
-								htmlVal = 'Moderate'
+								htmlVal = 'High'
+								
 								t.countVal = '4-6'
 							}else if(attVal == 3){
-								htmlVal = 'High'
+								htmlVal = 'Moderate'
 								t.countVal = '1-3'
 							}
 							let spanElem = $(v).next().find('.s2Atts').html(htmlVal);
