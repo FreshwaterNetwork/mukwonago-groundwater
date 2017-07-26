@@ -605,11 +605,8 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				wetQ.execute(wq, function(evt){
 					if (evt.features.length > 0 && t.obj.currentWet == 'wetland'){
 						t.obj.wetlandClick = 'yes'
-						// var curColors  = ['rgb(237,248,233)', 'rgb(116,196,118)','rgb(49,163,84)', 'rgb(0,109,44)'];
 						var curColors  = ['rgb(237,248,233)', 'rgb(0,109,44)','rgb(49,163,84)', 'rgb(116,196,118)'];
-						// var potColors = ['rgb(254,229,217)', 'rgb(251,106,74)','rgb(222,45,38)', 'rgb(165,15,21)'];
 						var potColors = ['rgb(254,229,217)', 'rgb(165,15,21)','rgb(222,45,38)','rgb(251,106,74)'];
-						// var potColors = ['rgb(165,15,21)', 'rgb(222,45,38)','rgb(251,106,74)', 'rgb(254,229,217)'];
 						var atts = evt.features[0].attributes;
 						// update the attribute colors for wetlands
 						var title = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
@@ -630,7 +627,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								t.countVal = '1-3'
 							}
 							let spanElem = $(v).next().find('.s2Atts').html(htmlVal);
-							if(v.innerHTML == 'Count of Service ≥ High:'){
+							if(v.innerHTML == 'Count of Services ≥ High:'){
 								t.countValue = $('#' + t.id + 'countOptionText').html(t.countVal);
 							}
 							if(atts.WETLAND_TYPE == 'WWI'){
@@ -788,8 +785,8 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								'do nothing'
 							}else{
 								$('#' + t.id + 'count-option').prop("checked", true);
-								t.obj.funcTracker = 'Count of Service ≥ High'
-								t.obj.visibleLayers = [0,4,6,16];
+								t.obj.funcTracker = 'Count of Services ≥ High'
+								t.obj.visibleLayers = [0,4,5,6,16];
 
 							}
 						}else if(data == 'wet'){
