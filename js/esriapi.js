@@ -1,9 +1,9 @@
 define([
 	"esri/layers/ArcGISDynamicMapServiceLayer", "esri/geometry/Extent", "esri/SpatialReference", "esri/tasks/query" ,"esri/tasks/QueryTask", "dojo/_base/declare", "esri/layers/FeatureLayer", 
-	"esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol","esri/symbols/SimpleMarkerSymbol", "esri/graphic", "dojo/_base/Color"
+	"esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol","esri/symbols/SimpleMarkerSymbol", "esri/graphic", "dojo/_base/Color", 
 ],
 function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, QueryTask, declare, FeatureLayer, 
-			SimpleLineSymbol, SimpleFillSymbol, SimpleMarkerSymbol, Graphic, Color ) {
+			SimpleLineSymbol, SimpleFillSymbol, SimpleMarkerSymbol, Graphic, Color) {
         "use strict";
 
         return declare(null, {
@@ -21,13 +21,13 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 				}
 				
-		
-
 // Dynamic layer on load ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				t.dynamicLayer.on("load", function () { 			
+				t.dynamicLayer.on("load", function () { 
+
+					
+
 					t.layersArray = t.dynamicLayer.layerInfos;
-					t.obj.dynamicLyrExt = t.dynamicLayer.fullExtent.expand(.6);
-					console.log(t.obj.dynamicLyrExt);
+					t.obj.dynamicLyrExt = t.dynamicLayer.fullExtent.expand(1);
 					t.clicks.featureLayerListeners(t);
 					if (t.obj.stateSet == "no"){
 						t.map.setExtent(t.dynamicLayer.fullExtent.expand(.6), true)
@@ -76,6 +76,42 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 						t.dynamicLayer2.setOpacity(t.obj.opacityVal2);
 					})	
 				});
+				// Work with the explain each choice buttons
+				$('.wfa-helpLinkText').unbind().on('click',function(c){
+					if(c.currentTarget.id == 'dijit_layout_ContentPane_0explainButton'){
+						let helpText = $('.wfa-helpText');
+						$.each(helpText,function(i,v){
+							if($(v).is(":visible") == false){
+								$(v).slideDown();
+								$(c.currentTarget).html('Hide Explanations')
+								$(c.currentTarget).css('color', 'rgb(140, 33, 48)')
+							}else{
+								$(v).slideUp();
+								$(c.currentTarget).html('Explain Each Section')
+								$(c.currentTarget).css('color', 'blue')
+							}
+						})
+					}
+				})
+
+// the code below may be useful. we used it to hide a legend item but it is clunky.
+				// t.map.on("update-end", function (e) {
+				// 	let span = $(".layer-legends").find('span');
+				// 	$.each(span,function(i,v){
+				// 		if($(v).html() == 'HUC - Mask'){
+				// 			$(v).parent().parent().hide()
+				// 		}
+				// 	});
+				// })	
+				// t.map.on("update-start", function (e) {
+				// 	let span = $(".layer-legends").find('span');
+				// 	$.each(span,function(i,v){
+				// 		if($(v).html() == 'HUC - Mask'){
+				// 			$(v).parent().parent().hide()
+				// 		}
+				// 	});
+				// })
+
 				t.dynamicLayer2.on("load", function () {	
 					t.layersArray2 = t.dynamicLayer.layerInfos;
 				});				

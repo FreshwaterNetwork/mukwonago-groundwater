@@ -1,13 +1,20 @@
-/*  Main CSS Styling for WI apps //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+  Main CSS Styling for WI apps //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
 .infoIcon{
-	margin-bottom:-2px; margin-left:3px; cursor:pointer; position: absolute; right: 10px; top: 7px;
+	margin-left:4px; cursor:pointer; height: 16px;
+}
+
+.wfa-helpText{
+	font-weight: 100 !important;
 }
 hr{
 	border-bottom: 1px solid #cdd5d5; width: 400px; margin-right: 14px;
 }
 /*.form-component{
 	display: block;
+}*/
+/*.wfa-headerInfoWrap{
+	margin-bottom: 4px;
 }*/
 .flex-center{
 	display:flex; align-items:center;
@@ -63,7 +70,7 @@ hr{
 	display:none; margin-left:-8px;
 }
 .wfa-radio-indent{
-	margin-left:22px;
+	margin-left:10px;
 }
 .wfa-grth{
 	display:none; color: #2f6384; font-weight: 700;
@@ -86,28 +93,34 @@ hr{
 }
 /* Attribute wrap styling for select a site /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 .wfa-fas_AttributeWrap{
-	margin-top: 0px; display: flex; flex-wrap: wrap; padding-bottom: 20px;
+	margin-top: 0px; display: flex; flex-wrap: wrap; padding-bottom: 20px; padding-left: 7px;
 }
 .wfa-fas_AttributeWrap div{
-	padding: 3px; line-height: 22px;
+	padding: 3px; line-height: 13px;
 }
 .wfa-watershedHoverText{
-	font-size: 15px; font-weight: 900; color: #101d28; margin-top: 40px; text-align: center;
+    color: #2f6384; text-align: center; margin-top: 8px; width: 350px; margin: auto; margin-top: 0px; margin-bottom: 0px;
+}
+.wfa-wetlandHoverText{
+	font-weight: normal; margin-bottom: 10px; width: 265px; text-align: center; margin: auto; margin-top: 0px; margin-bottom: 0px;
 }
 .wfa-sum-wrap {
-    width: 380px; margin: 3px; border: 1pt solid #cdd5d5; padding: 5px; box-shadow: 0 1px 1px rgba(16,22,26,.2); position: relative; display: flex;
+    width: 350px; margin: 3px; border: 1pt solid #cdd5d5; padding: 5px; box-shadow: 0 1px 1px rgba(16,22,26,.2); position: relative; display: flex;
 }
 .wfa-huc-wrap{
 	width: 300px; margin: 3px; border: 1pt solid #cdd5d5; padding: 5px; box-shadow: 0 1px 1px rgba(16,22,26,.2); position: relative;
 }
 .wfa-attributePatch{
-	height: 28px; width: 28px; background-color: red; margin-right: 5px; border: 1pt solid #cdd5d5; box-shadow: 0 1px 1px rgba(16,22,26,.2);
+	height: 18px; width: 18px; background-color: red; margin-right: 5px; border: 1pt solid #cdd5d5;
 }
 .s2Atts{
-	font-size: 14px; color: #2f6384; font-weight: bold;
+	font-size: 13px; color: #2f6384; font-weight: bold;
+}
+.wfa-transOpSlider{
+	border-top:1pt solid #dbe1e1; margin: 2px 15px 0px 10px; padding-bottom: 4px;
 }
 .wfa-hucSelWrap{
-	font-size: 15px; margin-right: 8px; border-radius: 5px; padding-left: 3px;
+	font-size: 13px; margin-right: 8px; border-radius: 5px; padding-left: 3px;
 }
 .wfa-hucSelWrap:hover{
 	background-color: #F3F3F3; cursor: pointer;
@@ -125,7 +138,7 @@ hr{
 	margin-right:-6px; margin-bottom:0 !important; background:#f3f3f3; border-bottom: 1px solid #cdd5d5 !important; border-top: 1px solid #cdd5d5 !important;
 }
 .wfa-funcWrapper{
-	margin-top: 20px; position: relative; display: flex; width:375px;
+	margin-top: 0px; position: relative; display: flex; width:375px;
 }
 .wfa-func_radioGroups{
 	flex: 1; width: 190px;
@@ -134,7 +147,7 @@ hr{
 	background: #fff; position: absolute; z-index: 1000; width: 420;
 }
 .wfa-mainContentWrap{
-	position: relative; top: 10px; padding-left: 7px;
+	position: relative; padding-left: 7px;
 }
 .wfa-dlwrap a {
 	color: blue !important; cursor: pointer !important;
@@ -145,13 +158,13 @@ hr{
 
 /* wildlife check/radio button section */
 .wfa-wildlifeCheck{
-	font-size: 13px; margin-top: 16px; font-weight: 900; margin-left: 14px;
+	font-size: 13px; margin-top: 16px; margin-left: 14px;
 }
 .wfa-wildlifeRadioButtons{
-	display: flex; margin-left: 24px;
+	display: flex; margin-left: 30px;
 }
 .wfa-prwCheck{
-	margin-left: 24px; font-weight: 700;
+	margin-left: 30px; color: #2f6384;
 }
 
 /* Bottom Bar Opacity slider Elements  ///////////////////////////////////////////////////////////////////////////////////////*/
@@ -168,9 +181,6 @@ hr{
 .sliderDiv{
 	width:252px; margin:0 auto; text-align:center; 
 }
-.ui-slider-horizontal {
- 	height: 0.6em !important;   
- }
 .leftSliderLabel{
 	display:inline-block; margin-right:9px; font-size:10pt;
 }	
@@ -194,5 +204,44 @@ hr{
 .wfa-searchWrapper{
 	background-color: #457545; height: 50px; width: 350px; padding: 10px; margin: auto;
 }
+/* Report section Styling //////////////////////////////////////////////////////////////////*/
+.wfa-buildReportText{
+	margin-left: 14px;
+}
+.wfa-buildReportBack{
+	position: absolute; top: 10px; right: 10px;
+}
+.wfa-reportIntText{
+	font-weight: normal; color: #2f6384; padding: 10px;
+}
+.wfa-wetlandSelected{
+	padding-left: 10px;
+}
+.wfa-wetlandSelected span{
+	font-weight: bold;
+}
+.wfa-wetlandSelected a{
+	color: blue; padding-left:5px; padding-right: 5px;
+}
+.wfa-wetlandSelected a:hover{
+	color: red; cursor: pointer; background-color: #F3F3F3; border-radius: 5px;
+}
+.wetlandSelCounter{
+	margin-left: 10px; color: #2f6384;
+}
+.wfa-reportContent{
+	width: 200px; position: absolute; top: 300px; right: 25px; background-color: red;
+}
 
+/* Help section styles*/
+
+.wfa-helpLinkWrapper{
+	display: flex; color: blue; margin: 5px 0 5px 0; font-size: 14px; 
+}
+.wfa-helpLinkText:hover{
+	color: #2795b6; cursor: pointer; 
+}
+.wfa-helpText{
+	margin: 5px 0 5px 0; font-weight: normal !important; color: rgb(140, 33, 48) !important;
+}
 

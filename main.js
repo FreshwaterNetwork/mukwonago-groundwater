@@ -5,9 +5,10 @@
 // Bring in dojo and javascript api classes as well as varObject.json, js files, and content.html
 define([
 	"dojo/_base/declare", "framework/PluginBase", "dijit/layout/ContentPane", "dojo/dom", "dojo/dom-style", "dojo/dom-geometry", "dojo/text!./obj.json", 
-	"dojo/text!./html/content.html", './js/esriapi', './js/clicks', 'dojo/_base/lang',"esri/dijit/Search", 'esri/map', "dojo/on", 'dojo/domReady!'
+	"dojo/text!./html/content.html","dojo/text!./html/report.html", './js/esriapi', './js/clicks','./js/addShapefile',
+	'./js/report', 'dojo/_base/lang',"esri/dijit/Search", 'esri/map', "dojo/on","esri/dijit/Legend", 'dojo/domReady!', 
 ],
-function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, content, esriapi, clicks, lang, Search, Map, on) {
+function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, content,reportHtml, esriapi, clicks, addShapefile,report, lang, Search, Map, on, Legend) {
 	return declare(PluginBase, {
 		// The height and width are set here when an infographic is defined. When the user click Continue it rebuilds the app window with whatever you put in.
 		toolbarName: "Wetlands and Watersheds Explorer", showServiceLayersInLegend: true, allowIdentifyWhenActive: false, rendered: false, resizable: false,
@@ -19,7 +20,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			declare.safeMixin(this, frameworkParameters);
 			// Define object to access global variables from JSON object. Only add variables to varObject.json that are needed by Save and Share. 
 			this.obj = dojo.eval("[" + obj + "]")[0];	
-			this.url = "http://cirrus-web-adapter-241060755.us-west-1.elb.amazonaws.com/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All/MapServer";
+			this.url = "http://tnc.eastus.cloudapp.azure.com/arcgis/rest/services/WI_FreshwaterNetwork/ScoringExplore_All_v08082017/MapServer";
 			this.layerDefs = [];
 		},
 		// Called after initialize at plugin startup (why the tests for undefined). Also called after deactivate when user closes app by clicking X. 
@@ -37,6 +38,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 				this.render();
 				$(this.printButton).hide();
 			}else{
+				$('#search').hide() // hide main search bar when app is open.
 				this.dynamicLayer.setVisibleLayers(this.obj.visibleLayers);
 				$('#' + this.id).parent().parent().css('display', 'flex');
 				this.clicks.updateAccord(this);
@@ -62,6 +64,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 		deactivate: function () {
 			this.open = "no";	
 			this.map.removeLayer(this.countiesGraphicsLayer); //
+			$('#search').show() // show main search bar when app is closed.
 		},	
 		// Called when user hits 'Save and Share' button. This creates the url that builds the app at a given state using JSON. 
 		// Write anything to you varObject.json file you have tracked during user activity.		
@@ -69,16 +72,16 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			// remove this conditional statement when minimize is added
 			if ( $('#' + this.id ).is(":visible") ){
 				// Get slider ids and values when values do not equal min or max
-				$.each($('#' + this.id + 'mng-act-wrap .slider'),lang.hitch(this,function(i,v){
-					var idArray = v.id.split('-');
-					var id = "-" + idArray[1] + "-" + idArray[2];
-					var min = $('#' + v.id).slider("option", "min");
-					var max = $('#' + v.id).slider("option", "max");
-					var values = $('#' + v.id).slider("option", "values");
-					if (min != values[0] || max != values[1]){
-						this.obj.slIdsVals.push([ id, [values[0], values[1]] ])
-					}
-				}));	
+				// $.each($('#' + this.id + 'mng-act-wrap .slider'),lang.hitch(this,function(i,v){
+				// 	var idArray = v.id.split('-');
+				// 	var id = "-" + idArray[1] + "-" + idArray[2];
+				// 	var min = $('#' + v.id).slider("option", "min");
+				// 	var max = $('#' + v.id).slider("option", "max");
+				// 	var values = $('#' + v.id).slider("option", "values");
+				// 	if (min != values[0] || max != values[1]){
+				// 		this.obj.slIdsVals.push([ id, [values[0], values[1]] ])
+				// 	}
+				// }));	
 				// Git ids of checked checkboxes above sliders
 				// $.each( $('#' + this.id + 'wfa-wrap .-slCb'),lang.hitch(this,function(i,v){
 				// 	if (v.checked == true){
@@ -119,9 +122,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 		},	
 		// Called by activate and builds the plugins elements and functions
 		render: function() {
-			
-
-
+			$('#search').hide() // hide main search bar when app is open.
 			this.obj.extent = this.map.geographicExtent;
 			//this.oid = -1;
 			//$('.basemap-selector').trigger('change', 3);
@@ -129,6 +130,9 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			// BRING IN OTHER JS FILES
 			this.esriapi = new esriapi();
 			this.clicks = new clicks();
+			this.addShapefile = new addShapefile();
+			this.report = new report();
+			
 			// ADD HTML TO APP
 			// Define Content Pane as HTML parent		
 			this.appDiv = new ContentPane({style:'padding:0; color:#000; flex:1; display:flex; flex-direction:column;}'});
@@ -140,6 +144,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 				$('#' + this.id).parent().parent().css('display', 'flex')
 			}		
 			// Get html from content.html, prepend appDiv.id to html element id's, and add to appDiv
+			this.report2 = reportHtml;
 			var idUpdate0 = content.replace(/for="/g, 'for="' + this.id);	
 			var idUpdate = idUpdate0.replace(/id="/g, 'id="' + this.id);
 			$('#' + this.id).html(idUpdate);
@@ -149,6 +154,11 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			this.basinId = this.basinDiv.id;
 			dom.byId('map-0').appendChild(this.basinDiv.domNode);
 			$('#' + this.basinId).html('<div class="wfa_basinText" id="basinMapText"></div>');
+			// add report popup 
+			this.reportDiv = new ContentPane({style:'width:100%; height:20%; padding:0; padding-left:5px; padding-right:5px; color:#FFF; background-color:#21658c; font-size: 17px; opacity: 0.9; margin-right:145px; flex:1; z-index:1000; position: absolute; bottom: 0px; text-align:center; border-radius:1px; -moz-box-shadow:0 1px 2px rgba(0,0,0,0.5); -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.5); box-shadow: 0 1px 2px rgba(0,0,0,0.5); }'});
+			this.reportId = this.reportDiv.id;
+			// dom.byId('map-0').appendChild(this.reportDiv.domNode);
+			$('#' + this.basinId).html('<div class="wfa-reportContent" id="reportWrapper"></div>');
 
 			// Set up variables
 			// Create ESRI objects and event listeners	
@@ -156,6 +166,8 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			this.clicks.makeVariables(this);
 			// Click listeners
 			this.clicks.eventListeners(this);
+			this.report.createReport(this);
+			  
 			//this.clicks.featureLayerListeners(this);
 			
 			this.rendered = true;	
