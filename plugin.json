@@ -1,6 +1,6 @@
 {
     "css": [
-		"plugins/wiApp/css/main.css"
+		"plugins/wetlands-watershed-explorer/css/main.css"
     ],
     "use": {
         "underscore": { "attach": "_" },

@@ -29,5 +29,6 @@
 	"maskExps": ["OBJECTID < 0","","",""],
 	"hucExtents": ["","","",""],
 	"hucExps": ["","","",""],
-	"hucNames": []
+	"hucNames": [],
+	"hucVal": ""
 }

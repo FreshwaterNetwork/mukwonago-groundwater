@@ -238,6 +238,9 @@ hr{
 .wfa-helpLinkWrapper{
 	display: flex; color: blue; margin: 5px 0 5px 0; font-size: 14px; 
 }
+.wfa-helpLinkText{
+	color: blue;
+}
 .wfa-helpLinkText:hover{
 	color: #2795b6; cursor: pointer; 
 }
