@@ -1,6 +1,6 @@
 {
     "css": [
-		"plugins/umr-floodplain/css/main.css"
+		"plugins/AOCapp/css/main.css"
     ],
     "use": {
         "underscore": { "attach": "_" },
