@@ -1,4 +1,12 @@
-.infoIcon{
+/* Main Content style*/
+.aoc-mainContentWrapper{
+	margin: 10px 0 0 5px;
+}
+
+
+
+
+/*.infoIcon{
 	margin-bottom:-2px; margin-left:3px; cursor:pointer;
 }
 .flex-center{
@@ -34,7 +42,7 @@
 .under{
 	text-decoration:underline;
 }
-/* fix the accordion height issue in Safari */
+/* fix the accordion height issue in Safari 
 .sidebar-content{
 	height:auto !important;
 }
@@ -49,4 +57,4 @@
 }
 .umr-radio-indent{
 	margin-left:22px;
-}
+}*/*/

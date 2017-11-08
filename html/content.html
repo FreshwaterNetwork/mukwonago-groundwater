@@ -3,7 +3,36 @@ Dijit ContentPane to hold all the elements. The ContentPane is assigned a dynami
 takes the ContentPane id and prepends it to every element with a declared id in this HTML before the elements are created.
 The unique ContentPane id makes all the element ids unique and prevents duplicate id errors across other apps.-->
 
-<div id="getHelpBtnWrap" class="getHelpBtnWrap hide">
+
+
+<!-- Main Content Wrapper -->
+<div id="mainContentWrapper" class="aoc-mainContentWrapper">
+	<div>
+		<div class="blueFont">INTRO TEXT ---- Wetlands provide many services for people and wildlife: improving water quality, reducing flood impacts, helping streams flow, supporting fish and wildlife habitat, and others.</div>
+		<h3>How would you like to explore the data?</h3>
+		<div class="toggle-btn" style="width:210px;">
+			<input type="radio" id="main-1" name="aocMain" value="wildlife"/>
+			<label for="main-1">Wildlife</label>
+			<input type="radio" id="main-2" name="aocMain" value="waterQuality"/>
+			<label for="main-2">Water Quality</label>
+		</div>	
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div id="getHelpBtnWrap" class="getHelpBtnWrap hide">
 	<button id="getHelpBtn" class="button button-default">Start Using Sample App</button>
 </div>
 <div id="umr-wrap" class="flex1 umr-wrap" style="padding:0.5em; color: #5d6165;">
@@ -287,5 +316,5 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			</div>	
 		</div>			
 	</section>
-</div>
+</div> -->
 

@@ -1,5 +1,5 @@
 {
-	"visibleLayers": [0],
+	"visibleLayers": [0,1],
 	"hucLayer": "0",
 	"mngmtAction": "cons",
 	"floodFreq": "1 in 100",

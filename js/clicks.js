@@ -6,6 +6,7 @@ function ( declare, Query, QueryTask ) {
 
         return declare(null, {
 			eventListeners: function(t){
+				console.log(t.obj.visibleLayers)
 				var clickCnt = 0;
 				// Flood frequency, HUC, and Management Action clicks
 				$('#' + t.id + 'top-controls input').on('click',function(c){

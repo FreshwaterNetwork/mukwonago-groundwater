@@ -17,37 +17,48 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 				t.dynamicLayer.on("load", function () { 			
 					t.layersArray = t.dynamicLayer.layerInfos;
 					if (t.obj.stateSet == "no"){
-						t.map.setExtent(t.dynamicLayer.fullExtent.expand(0.6), true)
+						t.map.setExtent(t.dynamicLayer.fullExtent.expand(1), true)
 					}
-					// Save and Share Handler					
-					if (t.obj.stateSet == "yes"){
-						// set slider values
-						$.each(t.obj.slIdsVals,function(i,v){
-							$('#' + t.id + v[0]).slider('values', v[1]);
-						});	
-						// checkboxes for sliders
-						$.each(t.obj.slCbIds,function(i,v){
-							$('#' + t.id + v).trigger('click');
-						})
-						// set radio buttons to checked state
-						$.each(t.obj.rbIds,function(i,v){
-							$('#' + t.id + v).attr('checked', true);
-						})
-						// checkboxes for radio buttons
-						$.each(t.obj.rbCbIds,function(i,v){
-							$('#' + t.id + v).trigger('click');
-						})
-						//extent
-						var extent = new Extent(t.obj.extent.xmin, t.obj.extent.ymin, t.obj.extent.xmax, t.obj.extent.ymax, new SpatialReference({ wkid:4326 }))
-						t.map.setExtent(extent, true);
-						t.obj.stateSet = "no";
-					}	
+
+
+					// t.map.on("pan", function(){
+					// 	console.log('pan');
+					// })
+					// t.map.on("pan-end", function(){
+					// 	console.log(t.map.extent);
+					// })
+					// //extent
+					// var extent = new Extent(-9881007.852022115, 5457363.017095501, -9759014.354878929, 5599230.141592842, new SpatialReference({ wkid:4326 }))
+					// t.map.setExtent(extent, true);
+					// // Save and Share Handler					
+					// if (t.obj.stateSet == "yes"){
+					// 	// set slider values
+					// 	$.each(t.obj.slIdsVals,function(i,v){
+					// 		$('#' + t.id + v[0]).slider('values', v[1]);
+					// 	});	
+					// 	// checkboxes for sliders
+					// 	$.each(t.obj.slCbIds,function(i,v){
+					// 		$('#' + t.id + v).trigger('click');
+					// 	})
+					// 	// set radio buttons to checked state
+					// 	$.each(t.obj.rbIds,function(i,v){
+					// 		$('#' + t.id + v).attr('checked', true);
+					// 	})
+					// 	// checkboxes for radio buttons
+					// 	$.each(t.obj.rbCbIds,function(i,v){
+					// 		$('#' + t.id + v).trigger('click');
+					// 	})
+					// 	//extent
+					// 	var extent = new Extent(t.obj.extent.xmin, t.obj.extent.ymin, t.obj.extent.xmax, t.obj.extent.ymax, new SpatialReference({ wkid:4326 }))
+					// 	t.map.setExtent(extent, true);
+					// 	t.obj.stateSet = "no";
+					// }	
 					// trigger initial top control clicks
-					$.each($('#' + t.id + 'top-controls input'),function(i,v){
-						if (t.obj[v.name] == v.value){
-							$('#' + v.id).trigger('click');	
-						}	
-					});
+					// $.each($('#' + t.id + 'top-controls input'),function(i,v){
+					// 	if (t.obj[v.name] == v.value){
+					// 		$('#' + v.id).trigger('click');	
+					// 	}	
+					// });
 				});					
 			}
 		});
