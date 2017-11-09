@@ -31,7 +31,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 				</div>
 			</div>
 			<!-- Main toggle buttons -->
-			<div class="toggle-btn" style="width:235px; margin-left: 15px;">
+			<div id="headerToggle" class="toggle-btn" style="width:235px; margin-left: 15px;">
 				<input type="radio" id="main-1" name="aocMain" value="wildlife"/>
 				<label for="main-1">Wildlife</label>
 				<input type="radio" id="main-2" name="aocMain" value="waterQuality"/>
@@ -43,15 +43,38 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 	<!-- Content below the header section. this will scroll under sticky header -->
 	<div class="aoc-contentBelowHeader" style="margin-top: 200px;">
 		<!-- Wildlife section wrapper -->
-		<div id="wildlifeSectionWrapper" class="aoc-wildlifeSectionWrapper">
+		<div id="wildlifeSectionWrapper" class="aoc-wildlifeSectionWrapper aoc-mainSection hide" data-value="wildlife">
 			<div>Wildlife section placeholder</div>
+
 			
 		</div>
 		<!-- Water quality section wrapper -->
-		<div id="waterQualitySectionWrapper" class="aoc-waterQualitySectionWrapper">
-			<div>water quality section placeholder</div>
-			
+		<div id="waterQualitySectionWrapper" class="aoc-waterQualitySectionWrapper aoc-mainSection hide" data-value="waterQuality">
+
+			<h4 class="blueFont">Click on a Wetland for more information</h4>
+
+			<h3 style="margin:10px 0 2px 5px;">Range of Services: <span id="siteServices_span">(Currently selected: All)</span></h3>
+			<!--  wetland attribute wrapper -->
+			<div id="wetAttWrapper" class="aoc-wetAttWrapper">
+				<div class="aoc-sum-wrap" data-aoc-mode='huc'>
+					<div class="aoc-attributePatch"></div>
+					<div data-aoc='AllNeeds'  class="elm-title">Combined Services:</div>
+					<div class="elm-results">
+						<span id="s2-SUM_NFOS_cac" class="aoc-attText">Low</span>
+					</div>	
+				</div>
+				<div class="aoc-sum-wrap" data-aoc-mode='huc'>	
+					<div class="aoc-attributePatch"></div>
+					<div data-aoc='FloodAb'  class="elm-title">Flood Abatement:</div>
+					<div class="elm-results">
+						<span id="s2-SUM_NFOS_cac" class="s2Atts">High</span>
+					</div>	
+				</div>
+				
+			</div>
+			<hr>
 		</div>
+
 	</div>
 	
 <!-- End of main content wrapper -->

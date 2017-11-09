@@ -10,6 +10,9 @@
 .aoc-mainContentWrapper{
 	/*margin: 10px 0 0 5px;*/
 }
+.aoc-mainSection{
+	padding-left: 7px;
+}
 .aoc-headerSectionWrapper{
 	 position: absolute; z-index: 1000; background-color: white; width: 100%; box-shadow: 0 2px 2px rgba(16,22,26,.5);
 }
@@ -25,9 +28,24 @@
 .aoc-hamburger{
 	width: 20px; margin: 4px; height: 3px; background-color: #2f6384;
 }
+hr{
+	width: 97%; margin-right: 5px;
+}
 
 
-
+/* attribute area styling*/
+.aoc-attributePatch{
+   	height: 18px; width: 18px; background-color: red; margin-right: 5px; border: 1pt solid #cdd5d5;
+ }
+.aoc-sum-wrap {
+    width: 350px; margin: 3px; border: 1pt solid #cdd5d5; padding: 5px; box-shadow: 0 1px 1px rgba(16,22,26,.2); position: relative; display: flex;
+}
+.aoc-attText{
+	font-size: 13px; color: #2f6384; font-weight: bold;
+}
+.aoc-wetAttWrapper{
+	margin-bottom: 10px;
+}
 
 
 
