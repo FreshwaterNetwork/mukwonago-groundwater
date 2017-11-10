@@ -47,7 +47,13 @@ hr{
 	margin-bottom: 10px;
 }
 
-
+/* Sup data styling */
+.aoc-supDataWrapper{
+	padding-left: 7px;
+}
+.aoc-supData{
+	display: flex; margin-left: 5px;
+}
 
 
 /*.infoIcon{
