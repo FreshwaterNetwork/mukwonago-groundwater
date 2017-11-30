@@ -1,3 +1,4 @@
+<<<<<<< HEAD
   Main CSS Styling for WI apps //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
 .infoIcon{
@@ -248,3 +249,115 @@ hr{
 	margin: 5px 0 5px 0; font-weight: normal !important; color: rgb(140, 33, 48) !important;
 }
 
+=======
+
+
+
+
+
+
+
+
+/* Main Content style*/
+.aoc-mainContentWrapper{
+	/*margin: 10px 0 0 5px;*/
+}
+.aoc-mainSection{
+	padding-left: 7px;
+}
+.aoc-headerSectionWrapper{
+	 position: absolute; z-index: 1000; background-color: white; width: 100%; box-shadow: 0 2px 2px rgba(16,22,26,.5);
+}
+.aoc-openingWrapper{
+	padding-left: 7px; padding-top: 5px;
+}
+.aoc-toolWrapper .button{
+	color: red; padding:2px; 
+}
+.aoc-toolWrapper{
+	text-align: right; margin: 10px 10px 0 auto;
+}
+.aoc-hamburger{
+	width: 20px; margin: 4px; height: 3px; background-color: #2f6384;
+}
+hr{
+	width: 97%; margin-right: 5px;
+}
+
+
+/* attribute area styling*/
+.aoc-attributePatch{
+   	height: 18px; width: 18px; background-color: red; margin-right: 5px; border: 1pt solid #cdd5d5;
+ }
+.aoc-sum-wrap {
+    width: 350px; margin: 3px; border: 1pt solid #cdd5d5; padding: 5px; box-shadow: 0 1px 1px rgba(16,22,26,.2); position: relative; display: flex;
+}
+.aoc-attText{
+	font-size: 13px; color: #2f6384; font-weight: bold;
+}
+.aoc-wetAttWrapper{
+	margin-bottom: 10px;
+}
+
+/* Sup data styling */
+.aoc-supDataWrapper{
+	padding-left: 7px;
+}
+.aoc-supData{
+	display: flex; margin-left: 5px;
+}
+
+
+/*.infoIcon{
+	margin-bottom:-2px; margin-left:3px; cursor:pointer;
+}
+.flex-center{
+	display:flex; align-items:center;
+}
+.flex1{
+	flex:1;
+}
+.flexColumn{
+	display:flex; flex-direction:column;
+}
+.hide{
+	display:none;
+}
+.explainWrap p{
+	margin-top:5px; margin-bottom:5px;
+}
+.getHelpBtnWrap{
+    background-color:#eef3f8; padding:10px 12px; z-index:500; text-align:center;
+}	
+.getHelpBtnWrap .button{
+	font-size:15px; width:100%; color:#2F6384; font-weight:bold;
+}	
+.sidebar-content .getHelpBtnWrap .button{
+	margin-bottom:0;
+}
+.umr-wrap .slider{
+	margin-left:30px;
+}
+.umr-first-section .toggle-btn{
+	margin-top:-10px;	
+}
+.under{
+	text-decoration:underline;
+}
+/* fix the accordion height issue in Safari 
+.sidebar-content{
+	height:auto !important;
+}
+.umr-count-font{
+	color:#2f6384; text-align:center; margin-top:-5px; margin-bottom:-10px;
+}
+.slider-container .ui-state-disabled {
+    cursor: not-allowed !important;
+}
+.umr-slider-label{
+	display:none; margin-left:-8px;
+}
+.umr-radio-indent{
+	margin-left:22px;
+}*/*/
+>>>>>>> refs/remotes/origin/master
