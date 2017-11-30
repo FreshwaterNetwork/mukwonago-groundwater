@@ -1,38 +1,5 @@
 {
 	"visibleLayers": [0,1],
-<<<<<<< HEAD
-	"visibleLayers2": [],
-	"hucClickTracker": "huc6",
-	"selHuc": 11,
-	"funcTracker": "Count of Services ≥ High",
-	"maskWhere": "OBJECTID < 0",
-	"wetlandWhere": "OBJECTID < 0",
-	"wildlifeCheck": "null",
-	"wildTracker": "All Guilds",
-	"prwTracker": "null",
-	"wildlifeOpenTracker": "null",
-	"wetlandClick": "no",
-	"currentHuc": "WHUC4",
-	"huc12Name": "",
-	"currentWet": "",
-	"dynamicLyrExt": "",
-	"opacityVal": 25,
-	"opacityVal2": 25,
-	"huc": "HUC 10",
-	"extent": "",
-	"stateSet": "no",
-	"search": "no",
-	"buildReport": "no",
-	"wetlandListArray": [],
-	"pnt": "",
-	"where": "OBJECTID > 0",
-	"maskClick": "",
-	"maskExps": ["OBJECTID < 0","","",""],
-	"hucExtents": ["","","",""],
-	"hucExps": ["","","",""],
-	"hucNames": [],
-	"hucVal": ""
-=======
 	"toggleSel": "",
 	"extent": "",
 	"stateSet": "no",
@@ -49,5 +16,4 @@
 	"rbIds": [],
 	"rbCbIds": [],
 	
->>>>>>> refs/remotes/origin/master
 }
