@@ -16,10 +16,11 @@ function ( declare, Query, QueryTask ) {
 					t.clicks.toggleFunc(t)
 				})
 				// Main header toggle button///////////////////////////////////////////
-				$('#' + t.id + 'headerToggle input').on('click',function(c){
+				$('#' + t.id + 'mainRadioBtns input').on('click',function(c){
 					let val = c.currentTarget.value
 					const sections = $(".aoc-contentBelowHeader .aoc-mainSection")
 					$.each(sections, function(i,v){
+						console.log(val, $(v).data().value)
 						if (val == $(v).data().value) {
 							$(v).slideDown();
 							t.obj.toggleSel = val
@@ -32,7 +33,7 @@ function ( declare, Query, QueryTask ) {
 			},
 			// main toggle button function./////////////////////////////////////////////
 			toggleFunc: function(t){
-				if (t.obj.toggleSel == 'waterQuality') {
+				if (t.obj.toggleSel == 'watershed') {
 					// see if zoomed in or out and 
 					if (t.obj.scale == 'in') {
 						t.obj.visibleLayers = [0,1,8,9]
@@ -41,8 +42,9 @@ function ( declare, Query, QueryTask ) {
 					}
 				}else if(t.obj.toggleSel == 'wildlife'){
 					t.obj.visibleLayers = [0,1,5]
-				}else{
+				}else if(t.obj.toggleSel == 'fish'){
 					''
+					t.obj.visibleLayers = [0,1,3]
 				}
 				t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 			},

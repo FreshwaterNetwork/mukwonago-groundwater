@@ -12,7 +12,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		<div class="aoc-openingWrapper">
 			<div class="blueFont">INTRO TEXT ---- Wetlands provide many services for people and wildlife: improving water quality, reducing flood impacts, helping streams flow, supporting fish and wildlife habitat, and others.</div>
 			<div style="display: flex; margin: 10px 0 5px 0;">
-				<h3>How would you like to explore the data?</h3>
+				<h3>How would you like to explore the Lower Fox?</h3>
 				<!-- Hamburger tool menu -->
 				<div class="aoc-toolWrapper">
 					<div class="dropdown">
@@ -31,25 +31,51 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 				</div>
 			</div>
 			<!-- Main toggle buttons -->
-			<div id="headerToggle" class="toggle-btn" style="width:235px; margin-left: 15px;">
+			<!-- <div id="headerToggle" class="toggle-btn" style="width:235px; margin-left: 15px;">
 				<input type="radio" id="main-1" name="aocMain" value="wildlife"/>
 				<label for="main-1">Wildlife</label>
 				<input type="radio" id="main-2" name="aocMain" value="waterQuality"/>
 				<label for="main-2">Water Quality</label>
-			</div>	
+			</div>	 -->
+			<!-- Main Radio Buttons -->
+			<div id="mainRadioBtns" class="aoc-mainRadioBtnsWrapper">
+				<label data-wfa-mode='wet' class="form-component wfa-funcLabel" for="count-option">
+					<input checked type="radio" id="count-option" name="func" class="rb_cb" value="wildlife">
+					<div class="check"></div>
+					<span class="form-text">AOC Wildlife and Habitat Opportunities</span>
+				</label>
+				<br>
+				<label data-wfa-mode='both' class="form-component wfa-funcLabel" for="flood-option">
+					<input type="radio" id="flood-option" name="func" class="rb_cb" value="watershed">
+					<div class="check"></div>
+					<span class="form-text">Watershed Contributions to AOC Wildlife and Habitats</span>
+				</label>
+				<br>
+				<label data-wfa-mode='both' class="form-component wfa-funcLabel" for="fish-option">
+					<input type="radio" id="fish-option" name="func" class="rb_cb" value="fish">
+					<div class="check"></div>
+					<span class="form-text">Fish Passage</span>
+				</label>
+			</div>
+			
 		</div>
 	<!-- end of header section wrapper -->
 	</div>
 	<!-- Content below the header section. this will scroll under sticky header -->
-	<div class="aoc-contentBelowHeader" style="margin-top: 200px;">
+	<div class="aoc-contentBelowHeader" style="margin-top: 231px;">
 		<!-- Wildlife section wrapper -->
 		<div id="wildlifeSectionWrapper" class="aoc-wildlifeSectionWrapper aoc-mainSection hide" data-value="wildlife">
 			<div>Wildlife section placeholder</div>
 
 			
 		</div>
+		<div id="fishSectionWrapper" class="aoc-fishSectionWrapper aoc-mainSection hide" data-value="fish">
+			<div>fish section placeholder</div>
+
+			
+		</div>
 		<!-- Water quality section wrapper -->
-		<div id="waterQualitySectionWrapper" class="aoc-waterQualitySectionWrapper aoc-mainSection hide" data-value="waterQuality">
+		<div id="watershedSectionWrapper" class="aoc-watershedSectionWrapper aoc-mainSection hide" data-value="watershed">
 
 			<h4 class="blueFont">Click on a Wetland for more information</h4>
 
