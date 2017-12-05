@@ -105,6 +105,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 		},	
 		// Called by activate and builds the plugins elements and functions
 		render: function() {
+			$('#legend-container-0').find('.legend-body').css('height', '99%'); // fix the legend overlap problem
 			//this.oid = -1;
 			//$('.basemap-selector').trigger('change', 3);
 			this.mapScale  = this.map.getScale();
