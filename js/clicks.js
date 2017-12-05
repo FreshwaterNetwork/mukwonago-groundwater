@@ -13,128 +13,90 @@ function ( declare, Query, QueryTask ) {
 					}else{
 						t.obj.scale = 'out'
 					}
-					t.clicks.toggleFunc(t)
+					// t.clicks.toggleFunc(t)
 				})
 				// Main header toggle button///////////////////////////////////////////
 				$('#' + t.id + 'mainRadioBtns input').on('click',function(c){
-					let val = c.currentTarget.value
-					const sections = $(".aoc-contentBelowHeader .aoc-mainSection")
-					$.each(sections, function(i,v){
-						console.log(val, $(v).data().value)
-						if (val == $(v).data().value) {
-							$(v).slideDown();
-							t.obj.toggleSel = val
-							t.clicks.toggleFunc(t)
-						}else{
-							$(v).slideUp();
-						}
-					})
+					// console.log(c);
+					let val = c.currentTarget.value;
+					console.log(val)
+					t.currentCheckVal = c.currentTarget;
+					const sections = $(".aoc-contentBelowHeader .aoc-mainSection");
+					t.clicks.toggleFunc(t)
+				});
+				// checkboxes for suplementary data
+				$('#' + t.id + 'supDataWrapper input').on('click',function(c){
+					let val = parseInt(c.currentTarget.value.split('-')[1]);
+					console.log(val)
+					if(c.currentTarget.checked){
+						t.obj.visibleLayers.push(val)
+						console.log(t.obj.visibleLayers)
+					}else{
+						// remove item from visible layer list
+						let index = t.obj.visibleLayers.indexOf(val)
+						t.obj.visibleLayers.splice(index,1);
+					}
+					// set the visible layers
+					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 				});
 			},
 			// main toggle button function./////////////////////////////////////////////
 			toggleFunc: function(t){
-				if (t.obj.toggleSel == 'watershed') {
-					// see if zoomed in or out and 
-					if (t.obj.scale == 'in') {
-						t.obj.visibleLayers = [0,1,8,9]
-					}else{
-						t.obj.visibleLayers = [0,1,6,7]
+				// declare layers for each section
+				const aocHabitat = [t.habitatSites];
+				const watershedContr = [t.wetlands, t.prwWetlands];
+				const fishPassage = [t.surveyRank]
+				// check to see if the checkbox is checked
+				if(t.currentCheckVal.checked){
+					switch(t.currentCheckVal.value){
+						case 'wildlife':
+							t.obj.visibleLayers = t.obj.visibleLayers.concat(aocHabitat)
+							break;
+						case 'watershed':
+							t.obj.visibleLayers = t.obj.visibleLayers.concat(watershedContr)
+							break;
+						case 'fish':
+							t.obj.visibleLayers = t.obj.visibleLayers.concat(fishPassage)
+							break;
+						default:
+							console.log('none of the cases matched');
 					}
-				}else if(t.obj.toggleSel == 'wildlife'){
-					t.obj.visibleLayers = [0,1,5]
-				}else if(t.obj.toggleSel == 'fish'){
-					''
-					t.obj.visibleLayers = [0,1,3]
+				}else{
+					switch(t.currentCheckVal.value){
+						case 'wildlife':
+							t.obj.visibleLayers = t.obj.visibleLayers.filter(function(x){
+								return aocHabitat.indexOf(x) < 0;
+							})
+							break;
+						case 'watershed':
+							t.obj.visibleLayers = t.obj.visibleLayers.filter(function(x){
+								return watershedContr.indexOf(x) < 0;
+							})
+							break;
+						case 'fish':
+							t.obj.visibleLayers = t.obj.visibleLayers.filter(function(x){
+								return fishPassage.indexOf(x) < 0;
+							})
+							break;
+						default:
+							console.log('none of the cases matched');
+					}
 				}
+				// set the visible layers
 				t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 			},
-
-
-			sliderChange: function(e, ui, t){
-				// // slider change was mouse-driven
-				// if (e.originalEvent) {
-				// 	var ben  = e.target.id.split("-").pop()
-				// 	t[ben] = "(" + ben + " >= " + ui.values[0] + " AND " + ben + " <= " + ui.values[1] + ")";	
-				// 	t.clicks.layerDefs(t);
-				// 	console.log("mouse click");
-				// }
-				// //slider change was programmatic
-				// else{
-				// 	if (t.obj.stateSet == "no"){
-				// 		var ben  = e.target.id.split("-").pop()
-				// 		t[ben] = "(" + ben + " >= " + ui.values[0] + " AND " + ben + " <= " + ui.values[1] + ")";	
-				// 		t.clicks.layerDefs(t);
-				// 		t.clicks.sliderSlide(e, ui, t);
-				// 		console.log("programmatic", e.target.id);
-				// 	}else{console.log("state set = yes");}
-				// }	
-			},
-			sliderSlide: function(e, ui, t){
-				// var sid = e.target.id.split("-");
-				// $('#' + t.id + '-' + sid[1] + '-' + sid[2]).parent().prev().find('.blueFont').each(function(i,v){
-				// 	if (ui.values[i] > 100000){
-				// 		var val = t.clicks.abbreviateNumber(ui.values[i])
-				// 	}else{
-				// 		var val = t.clicks.commaSeparateNumber(ui.values[i])
-				// 	}
-				// 	$(v).html(val)
-				// })	
-			},
-			layerDefs: function(t){
-				// if (t.obj.stateSet == "no"){
-					
-				// 	t.obj.exp = [t.NatNotProt, t.RowAgNotProt, t.RowAgProt, t.DevProt, t.FRStruct_TotLoss, t.AGLoss_7, 
-				// 				 t.NDelRet, t.Denitrification, t.Reconnection, t.BF_Existing, t.BF_Priority, t.SDM]
-				// }
-				// var exp = "";
-				// var cnt = 0;
-				// $.each(t.obj.exp, function(i, v){
-				// 	if (v.length > 0){
-				// 		cnt = cnt + 1;
-				// 	}	
-				// });	
-				// if (cnt > 0){
-				// 	t.obj.exp.unshift(t.obj.ffDef);
-				// 	$.each(t.obj.exp, function(i, v){
-				// 		if (v.length > 0){
-				// 			if (exp.length == 0){
-				// 				exp = v;
-				// 			}else{
-				// 				exp = exp + " AND " + v;
-				// 			}	
-				// 		}	
-				// 	});
-				// 	t.layerDefinitions = [];		
-				// 	t.layerDefinitions[t.obj.hucLayerSel] = exp;			
-				// 	t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
-				// 	t.obj.visibleLayers = [t.obj.hucLayerSel, t.obj.hucLayer];
-				// 	t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-				// 	var query = new Query();
-				// 	var queryTask = new QueryTask(t.url + '/' + t.obj.hucLayerSel);
-				// 	query.where = exp;
-				// 	queryTask.executeForCount(query,function(count){
-				// 		var countWcomma = t.clicks.commaSeparateNumber(count)
-				// 		$('#' + t.id + 'mng-act-wrap .fuCount').html(countWcomma); 
-				// 	});
-				// }else{
-				// 	t.obj.visibleLayers = [t.obj.hucLayer];
-				// 	t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-				// 	$('#' + t.id + 'mng-act-wrap .fuCount').html("0"); 
-				// }	
-			},
 			makeVariables: function(t){
-				// t.NatNotProt = "";
-				// t.RowAgNotProt = "";
-				// t.RowAgProt = "";
-				// t.DevProt = "";
-				// t.FRStruct_TotLoss = "";
-				// t.AGLoss_7 = "";
-				// t.NDelRet = "";
-				// t.Denitrification = "";
-				// t.Reconnection = "";
-				// t.BF_Existing = "";
-				// t.BF_Priority = "";
-				// t.SDM = "";
+				t.aoc = 0;
+				t.lowerFoxBound = 1;
+				t.countyBounds = 2;
+				t.surveyRank = 3;
+				t.otherSurvey = 4;
+				t.habitatSites = 5;
+				t.wetlands = 6;
+				t.prwWetlands = 7;
+				t.wetlandsBord = 8;
+				t.prwWetlandsBord = 9;
+				t.kepBound = 10;
 			},
 			commaSeparateNumber: function(val){
 				while (/(\d+)(\d{3})/.test(val.toString())){
