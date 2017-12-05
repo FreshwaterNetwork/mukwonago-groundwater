@@ -31,6 +31,10 @@
 hr{
 	width: 97%; margin-right: 5px;
 }
+.hide{
+	display: none;
+	
+}
 
 
 /* attribute area styling*/
