@@ -48,7 +48,9 @@ function ( declare, Query, QueryTask ) {
 			},
 			// map click query function /////////////////////////////////////////////////////////////////////
 			mapClickQuery: function(t, p){
+
 				t.layerDefinitions = [];
+				
 				// wetland click query /////////////////////////////////////////////////////////////////
 				let wetlandIndex = t.obj.visibleLayers.indexOf(t.wetlands);
 				if (wetlandIndex > -1){
@@ -65,10 +67,7 @@ function ( declare, Query, QueryTask ) {
 								'do nothing'
 							}else{
 								t.obj.visibleLayers.push(t.wetlandsSel);
-								// t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 							}
-							
-							// t.obj.visibleLayers.push(t.wetlandsSel);
 							// create the fish where clause to be used for the survey point seleceted feature
 							t.obj.wetlandOID = evt.features[0].attributes.OBJECTID;
 							t.obj.wetlandWhere = "OBJECTID = " + t.obj.wetlandOID;
@@ -85,25 +84,6 @@ function ( declare, Query, QueryTask ) {
 						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 					});
 				}
-
-				
-				// // prw wetland click query //////////////////////////////////////////
-				// let prwIndex = t.obj.visibleLayers.indexOf(t.prwWetlands);
-				// if (prwIndex > -1) {
-				// 	t.qp = new Query();
-				// 	t.qtp = new QueryTask(t.url + "/" + t.prwWetlands);
-				// 	t.qp.geometry = p;
-				// 	t.qp.returnGeometry = true;
-				// 	t.qp.outFields = ["*"];
-				// 	// query the map on click
-				// 	t.qtp.execute(t.qp, function(evt){
-				// 		if (evt.features.length > 0) {
-				// 			console.log('prw click')
-				// 		}
-
-				// 	});
-				// }
-				
 
 				// survey rank point click /////////////////////////////////////////////////////////////////////
 				let surveyRankIndex = t.obj.visibleLayers.indexOf(t.surveyRank);

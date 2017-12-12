@@ -56,8 +56,22 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 	</div>
 	<!-- Content below the header section. this will scroll under sticky header -->
 	<div class="aoc-contentBelowHeader" style="margin-top: 245px;">
+		<div class="aoc-attributeTabArea">
+			<h3>Select data on map by:</h3>
+			<div class="blueFont">Use the toggle below to determine which dataset you would like to select from  by clicking on the map.</div>
+			<div class="toggle-btn aoc-toggleBtn" style="width:300px;">
+				<input type="radio" id="yn1" name="yesno" value="yes" checked/>
+				<label for="yn1">Wildlife</label>
+				<input type="radio" id="yn2" name="yesno" value="no"/>
+				<label for="yn2">Wetland</label>
+				<input type="radio" id="yn3" name="yesno" value="no"/>
+				<label for="yn3">Fish Passage</label>
+			</div>
+		</div>
+		
+
 		<!-- Wildlife section wrapper -->
-		<div id="wildlifeSectionWrapper" class="aoc-wildlifeSectionWrapper aoc-mainSection hide" data-value="wildlife">
+	<!-- 	<div id="wildlifeSectionWrapper" class="aoc-wildlifeSectionWrapper aoc-mainSection hide" data-value="wildlife">
 			<div>Wildlife section placeholder</div>
 
 			
@@ -66,7 +80,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			<div>fish section placeholder</div>
 
 			
-		</div>
+		</div> -->
 		<!-- Water quality section wrapper -->
 		<div id="watershedSectionWrapper" class="aoc-watershedSectionWrapper aoc-mainSection hide" data-value="watershed">
 
