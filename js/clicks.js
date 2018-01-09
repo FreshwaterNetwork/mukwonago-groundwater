@@ -37,7 +37,7 @@ function ( declare, Query, QueryTask ) {
 					// set the visible layers
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 				});
-			},
+			}, 
 
 			// map click functionality call the map click query function //////////////////////////////////////////////////
 			mapClickFunction: function(t){
