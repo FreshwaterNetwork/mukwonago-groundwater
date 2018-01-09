@@ -48,6 +48,23 @@ function ( declare, Query, QueryTask ) {
 			},
 			// map click query function /////////////////////////////////////////////////////////////////////
 			mapClickQuery: function(t, p){
+				
+				$.each(t.obj.visibleLayers,function(i,v){
+					t.qw = new Query();
+					t.qtw = new QueryTask(t.url + '/' + v);
+					t.qw.geometry = p;
+					t.qw.returnGeometry = true;
+					t.qw.outFields = ["*"];
+					// query the map on click
+					t.qtw.execute(t.qw, function(evt){
+						// console.log(evt)
+						if(evt.features.length > 0){
+							console.log(evt, v)
+						}
+					})
+
+				})
+				
 
 				t.layerDefinitions = [];
 				
