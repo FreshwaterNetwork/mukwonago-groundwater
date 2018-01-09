@@ -6,6 +6,8 @@ function ( declare, Query, QueryTask ) {
 
         return declare(null, {
 			eventListeners: function(t){
+				// call the map click function at the start to load it
+				t.clicks.mapClickFunction(t);
 				// on zoom end turn on layer with and without borders depending on a zoom level scale of 75000 ///////////////
 				t.map.on("zoom-end", function(){
 					if(t.map.getScale() < 75001){
@@ -13,128 +15,196 @@ function ( declare, Query, QueryTask ) {
 					}else{
 						t.obj.scale = 'out'
 					}
-					t.clicks.toggleFunc(t)
 				})
 				// Main header toggle button///////////////////////////////////////////
 				$('#' + t.id + 'mainRadioBtns input').on('click',function(c){
-					let val = c.currentTarget.value
-					const sections = $(".aoc-contentBelowHeader .aoc-mainSection")
-					$.each(sections, function(i,v){
-						console.log(val, $(v).data().value)
-						if (val == $(v).data().value) {
-							$(v).slideDown();
-							t.obj.toggleSel = val
-							t.clicks.toggleFunc(t)
-						}else{
-							$(v).slideUp();
-						}
-					})
+					// console.log(c);
+					let val = c.currentTarget.value;
+					t.currentCheckVal = c.currentTarget;
+					const sections = $(".aoc-contentBelowHeader .aoc-mainSection");
+					t.clicks.toggleFunc(t)
+				});
+				// checkboxes for suplementary data
+				$('#' + t.id + 'supDataWrapper input').on('click',function(c){
+					let val = parseInt(c.currentTarget.value.split('-')[1]);
+					if(c.currentTarget.checked){
+						t.obj.visibleLayers.push(val)
+					}else{
+						// remove item from visible layer list
+						let index = t.obj.visibleLayers.indexOf(val)
+						t.obj.visibleLayers.splice(index,1);
+					}
+					// set the visible layers
+					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+				});
+			}, 
+
+			// map click functionality call the map click query function //////////////////////////////////////////////////
+			mapClickFunction: function(t){
+				t.map.on('click',function(c){
+					t.obj.pnt = c.mapPoint;
+					t.clicks.mapClickQuery(t,t.obj.pnt); // call t.mapClickQuery function
 				});
 			},
+			// map click query function /////////////////////////////////////////////////////////////////////
+			mapClickQuery: function(t, p){
+
+				t.layerDefinitions = [];
+				
+				// wetland click query /////////////////////////////////////////////////////////////////
+				let wetlandIndex = t.obj.visibleLayers.indexOf(t.wetlands);
+				if (wetlandIndex > -1){
+					t.qw = new Query();
+					t.qtw = new QueryTask(t.url + "/" + t.wetlandsSel);
+					t.qw.geometry = p;
+					t.qw.returnGeometry = true;
+					t.qw.outFields = ["*"];
+					// query the map on click
+					t.qtw.execute(t.qw, function(evt){
+						if (evt.features.length > 0) {
+							// push wetland selected layer to visible layers array
+							if(t.obj.visibleLayers.indexOf(t.wetlandsSel) > -1){
+								'do nothing'
+							}else{
+								t.obj.visibleLayers.push(t.wetlandsSel);
+							}
+							// create the fish where clause to be used for the survey point seleceted feature
+							t.obj.wetlandOID = evt.features[0].attributes.OBJECTID;
+							t.obj.wetlandWhere = "OBJECTID = " + t.obj.wetlandOID;
+							// set layer deffs
+							t.layerDefinitions[t.wetlandsSel] = t.obj.wetlandWhere;
+							t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
+						}else{
+							// remove the selected layer if no features were clicked
+							let index = t.obj.visibleLayers.indexOf(t.wetlandsSel)
+							if (index > -1) {
+								t.obj.visibleLayers.splice(index,1);
+							}
+						}
+						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+					});
+				}
+
+				// survey rank point click /////////////////////////////////////////////////////////////////////
+				let surveyRankIndex = t.obj.visibleLayers.indexOf(t.surveyRank);
+				if (surveyRankIndex > 0){
+					// adjust the tolerance of the point click
+					var centerPoint = new esri.geometry.Point(p.x,p.y,p.spatialReference);
+					var mapWidth = t.map.extent.getWidth();
+					var mapWidthPixels = t.map.width;
+					var pixelWidth = mapWidth/mapWidthPixels;
+					// change the tolerence below to adjust how many pixels will be grabbed when clicking on a point or line
+					var tolerance = 10 * pixelWidth;
+					var pnt = p;
+					var ext = new esri.geometry.Extent(1,1, tolerance, tolerance, p.spatialReference);
+					// query for the fish passage points click ///////////////////////////////
+					t.q2 = new Query();
+					t.qt2 = new QueryTask(t.url + "/" + t.surveyRank);
+					t.q2.geometry = ext.centerAt(centerPoint);;
+					t.q2.returnGeometry = true;
+					t.q2.outFields = ["*"];
+					// query the map on click
+					t.qt2.execute(t.q2, function(evt){
+						if (evt.features.length > 0){
+							// test to see if the survey point selected is already visible
+							if(t.obj.visibleLayers.indexOf(t.surveyRankSel) > 0){
+								'do nothing'
+							}else{
+								t.obj.visibleLayers.push(t.surveyRankSel);
+								t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+							}
+							// create the fish where clause to be used for the survey point seleceted feature
+							t.obj.fishOID = evt.features[0].attributes.OBJECTID;
+							t.obj.fishWhere = "OBJECTID = " + t.obj.fishOID;
+							
+							// set layer deffs
+							
+							t.layerDefinitions[t.surveyRankSel] = t.obj.fishWhere;
+							t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
+						}else{
+							// remove the selected layer if no features were clicked
+							let index = t.obj.visibleLayers.indexOf(t.surveyRankSel)
+							if (index > -1) {
+								t.obj.visibleLayers.splice(index,1);
+							}
+						}
+						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+					});
+				}
+				// t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+			},
+
 			// main toggle button function./////////////////////////////////////////////
 			toggleFunc: function(t){
-				if (t.obj.toggleSel == 'watershed') {
-					// see if zoomed in or out and 
-					if (t.obj.scale == 'in') {
-						t.obj.visibleLayers = [0,1,8,9]
-					}else{
-						t.obj.visibleLayers = [0,1,6,7]
+				// declare layers for each section
+				const aocHabitat = [t.habitatSites];
+				const watershedContr = [t.wetlands, t.prwWetlands];
+				const fishPassage = [t.surveyRank]
+				// check to see if the checkbox is checked
+				if(t.currentCheckVal.checked){
+					switch(t.currentCheckVal.value){
+						case 'wildlife':
+							t.obj.visibleLayers = t.obj.visibleLayers.concat(aocHabitat)
+							break;
+						case 'watershed':
+							t.obj.visibleLayers = t.obj.visibleLayers.concat(watershedContr)
+							break;
+						case 'fish':
+							t.obj.visibleLayers = t.obj.visibleLayers.concat(fishPassage)
+							break;
+						default:
+							console.log('none of the cases matched');
 					}
-				}else if(t.obj.toggleSel == 'wildlife'){
-					t.obj.visibleLayers = [0,1,5]
-				}else if(t.obj.toggleSel == 'fish'){
-					''
-					t.obj.visibleLayers = [0,1,3]
+				}else{
+					switch(t.currentCheckVal.value){
+						case 'wildlife':
+							t.obj.visibleLayers = t.obj.visibleLayers.filter(function(x){
+								return aocHabitat.indexOf(x) < 0;
+							})
+							break;
+						case 'watershed':
+							t.obj.visibleLayers = t.obj.visibleLayers.filter(function(x){
+								return watershedContr.indexOf(x) < 0;
+							})
+							let waterIndex = t.obj.visibleLayers.indexOf(t.wetlandsSel);
+							if (waterIndex > -1) {
+								t.obj.visibleLayers.splice(waterIndex,1);
+							}
+							break;
+						case 'fish':
+							// remove the fish passage layers if checkboxes is unchecked
+							t.obj.visibleLayers = t.obj.visibleLayers.filter(function(x){
+								return fishPassage.indexOf(x) < 0;
+							})
+							// remove the selected layer if its there
+							let index = t.obj.visibleLayers.indexOf(t.surveyRankSel);
+							if (index > -1) {
+								t.obj.visibleLayers.splice(index,1);
+							}
+							break;
+						default:
+							console.log('none of the cases matched');
+					}
 				}
+				// set the visible layers
 				t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 			},
-
-
-			sliderChange: function(e, ui, t){
-				// // slider change was mouse-driven
-				// if (e.originalEvent) {
-				// 	var ben  = e.target.id.split("-").pop()
-				// 	t[ben] = "(" + ben + " >= " + ui.values[0] + " AND " + ben + " <= " + ui.values[1] + ")";	
-				// 	t.clicks.layerDefs(t);
-				// 	console.log("mouse click");
-				// }
-				// //slider change was programmatic
-				// else{
-				// 	if (t.obj.stateSet == "no"){
-				// 		var ben  = e.target.id.split("-").pop()
-				// 		t[ben] = "(" + ben + " >= " + ui.values[0] + " AND " + ben + " <= " + ui.values[1] + ")";	
-				// 		t.clicks.layerDefs(t);
-				// 		t.clicks.sliderSlide(e, ui, t);
-				// 		console.log("programmatic", e.target.id);
-				// 	}else{console.log("state set = yes");}
-				// }	
-			},
-			sliderSlide: function(e, ui, t){
-				// var sid = e.target.id.split("-");
-				// $('#' + t.id + '-' + sid[1] + '-' + sid[2]).parent().prev().find('.blueFont').each(function(i,v){
-				// 	if (ui.values[i] > 100000){
-				// 		var val = t.clicks.abbreviateNumber(ui.values[i])
-				// 	}else{
-				// 		var val = t.clicks.commaSeparateNumber(ui.values[i])
-				// 	}
-				// 	$(v).html(val)
-				// })	
-			},
-			layerDefs: function(t){
-				// if (t.obj.stateSet == "no"){
-					
-				// 	t.obj.exp = [t.NatNotProt, t.RowAgNotProt, t.RowAgProt, t.DevProt, t.FRStruct_TotLoss, t.AGLoss_7, 
-				// 				 t.NDelRet, t.Denitrification, t.Reconnection, t.BF_Existing, t.BF_Priority, t.SDM]
-				// }
-				// var exp = "";
-				// var cnt = 0;
-				// $.each(t.obj.exp, function(i, v){
-				// 	if (v.length > 0){
-				// 		cnt = cnt + 1;
-				// 	}	
-				// });	
-				// if (cnt > 0){
-				// 	t.obj.exp.unshift(t.obj.ffDef);
-				// 	$.each(t.obj.exp, function(i, v){
-				// 		if (v.length > 0){
-				// 			if (exp.length == 0){
-				// 				exp = v;
-				// 			}else{
-				// 				exp = exp + " AND " + v;
-				// 			}	
-				// 		}	
-				// 	});
-				// 	t.layerDefinitions = [];		
-				// 	t.layerDefinitions[t.obj.hucLayerSel] = exp;			
-				// 	t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
-				// 	t.obj.visibleLayers = [t.obj.hucLayerSel, t.obj.hucLayer];
-				// 	t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-				// 	var query = new Query();
-				// 	var queryTask = new QueryTask(t.url + '/' + t.obj.hucLayerSel);
-				// 	query.where = exp;
-				// 	queryTask.executeForCount(query,function(count){
-				// 		var countWcomma = t.clicks.commaSeparateNumber(count)
-				// 		$('#' + t.id + 'mng-act-wrap .fuCount').html(countWcomma); 
-				// 	});
-				// }else{
-				// 	t.obj.visibleLayers = [t.obj.hucLayer];
-				// 	t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-				// 	$('#' + t.id + 'mng-act-wrap .fuCount').html("0"); 
-				// }	
-			},
 			makeVariables: function(t){
-				// t.NatNotProt = "";
-				// t.RowAgNotProt = "";
-				// t.RowAgProt = "";
-				// t.DevProt = "";
-				// t.FRStruct_TotLoss = "";
-				// t.AGLoss_7 = "";
-				// t.NDelRet = "";
-				// t.Denitrification = "";
-				// t.Reconnection = "";
-				// t.BF_Existing = "";
-				// t.BF_Priority = "";
-				// t.SDM = "";
+				t.aoc = 3;
+				t.lowerFoxBound = 4;
+				t.countyBounds = 5;
+				t.surveyRank = 6;
+				t.otherSurvey = 7;
+				t.habitatSites = 8;
+				t.wetlands = 9;
+				t.prwWetlands = 10;
+				t.wetlandsBord = 11;
+				t.prwWetlandsBord = 12;
+				t.kepBound = 13;
+
+				t.surveyRankSel = 2;
+				t.wetlandsSel= 1;
+				t.habitatSel = 0;
 			},
 			commaSeparateNumber: function(val){
 				while (/(\d+)(\d{3})/.test(val.toString())){
