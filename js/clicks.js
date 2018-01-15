@@ -41,6 +41,8 @@ function ( declare, Query, QueryTask ) {
 
 			// map click functionality call the map click query function //////////////////////////////////////////////////
 			mapClickFunction: function(t){
+				// wetland array of ids
+				t.wetlandIDArray = [];
 				t.map.on('click',function(c){
 					t.obj.pnt = c.mapPoint;
 					t.clicks.mapClickQuery(t,t.obj.pnt); // call t.mapClickQuery function
@@ -51,7 +53,9 @@ function ( declare, Query, QueryTask ) {
 				// query layer array, the layers here get queried.
 				t.queryLayers = [6,8,9,10]
 				// query array
-				t.queryArray = [];
+				// t.queryArray = [];
+				
+
 				// loop through all the query layers and query each one if they are viz.
 				$.each(t.queryLayers,function(i,v){
 					let index = t.obj.visibleLayers.indexOf(v);
@@ -77,8 +81,21 @@ function ( declare, Query, QueryTask ) {
 							if(evt.features.length > 0){
 								// console.log(evt, v);
 								if(v == 9){
-									console.log('wetland click')
-								};
+									var id = evt.features[0].attributes.OBJECTID
+									var atts = evt.features[0].attributes
+									// console.log(atts);
+									if(t.wetlandIDArray.indexOf(id) == -1 && t.wetlandIDArray.length < 5){
+										t.wetlandIDArray.push(id);
+										// add a new row to the table
+										$('#' + t.id + 'wetlandTable').append('<tr><td>' + atts.WETLAND_ID + '</td><td>' + atts.ALL_RANK + '</td><td>' + atts.PR_RANK + '</td></tr>');
+										// console.log($('#' + t.id + 'wetlandTable'));
+									}else{
+										// console.log('dont add');
+									}
+									// console.log('wetland click');
+									
+									// console.log(t.wetlandIDArray);
+								}
 								// t.queryArray.push(evt);
 
 								// t.clicks.appDisplayMapClick(t, t.queryArray);
@@ -87,6 +104,7 @@ function ( declare, Query, QueryTask ) {
 						})
 					}
 				})
+				// console.log(t.wetlandIDArray);
 				// console.log('hey')
 				// console.log(t.queryArray)
 				

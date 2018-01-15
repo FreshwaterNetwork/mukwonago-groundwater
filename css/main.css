@@ -67,6 +67,13 @@ hr{
 }
 
 
+/* Table styles*/
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
 /*.infoIcon{
 	margin-bottom:-2px; margin-left:3px; cursor:pointer;
 }

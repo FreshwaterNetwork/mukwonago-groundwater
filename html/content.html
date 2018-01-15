@@ -57,7 +57,23 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 	<!-- Content below the header section. this will scroll under sticky header -->
 	<div class="aoc-contentBelowHeader" style="margin-top: 245px;">
 		<h3>Selected Data:</h3>
-		<div class="toggle-btn aoc-toggleBtn">
+		<div class="aoc-tableWrapper">
+			<table id="wetlandTable">
+				<tr>
+					<th>Wetland ID</th>
+					<th>Sediment</th>
+					<th>Phosphorus</th>
+				</tr>
+				<!-- <tr>
+					<td> data point 1</td>
+					<td> data point 2</td>
+					<td> data point 3</td>
+				</tr> -->
+
+			</table>
+		</div>
+		
+		<!-- <div class="toggle-btn aoc-toggleBtn">
 			<input type="radio" id="yn1" name="yesno" value="yes" checked/>
 			<label style="display: none;" for="yn1">Wildlife</label>
 			<input type="radio" id="yn2" name="yesno" value="no"/>
@@ -66,7 +82,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			<label style="display: none;" for="yn4">Fish Passage</label>
 			<input type="radio" id="yn5" name="yesno" value="no"/>
 			<label style="display: none; line-height: 24px;" for="yn5">Fish another<span style="color: red; font-size: 24px;">&#9679;</span></label>
-		</div>
+		</div> -->
 		<hr>
 	
 		<!-- Water quality section wrapper -->
