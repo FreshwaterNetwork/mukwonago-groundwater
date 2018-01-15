@@ -50,6 +50,8 @@ function ( declare, Query, QueryTask ) {
 			mapClickQuery: function(t, p){
 				// query layer array, the layers here get queried.
 				t.queryLayers = [6,8,9,10]
+				// query array
+				t.queryArray = [];
 				// loop through all the query layers and query each one if they are viz.
 				$.each(t.queryLayers,function(i,v){
 					let index = t.obj.visibleLayers.indexOf(v);
@@ -73,12 +75,21 @@ function ( declare, Query, QueryTask ) {
 						// query the map on click
 						t.qt.execute(t.q, function(evt){
 							if(evt.features.length > 0){
-								console.log(evt, v)
+								// console.log(evt, v);
+								if(v == 9){
+									console.log('wetland click')
+								};
+								// t.queryArray.push(evt);
+
+								// t.clicks.appDisplayMapClick(t, t.queryArray);
+
 							}
 						})
 					}
 				})
-
+				// console.log('hey')
+				// console.log(t.queryArray)
+				
 				t.layerDefinitions = [];
 				
 				// // wetland click query /////////////////////////////////////////////////////////////////
@@ -162,6 +173,10 @@ function ( declare, Query, QueryTask ) {
 				// 	});
 				// }
 				// t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+			},
+
+			appDisplayMapClick: function(t, array){
+				console.log(array);
 			},
 
 			// main toggle button function./////////////////////////////////////////////
