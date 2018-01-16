@@ -69,7 +69,9 @@ function ( declare, Query, QueryTask ) {
 							let id = evt.features[0].attributes.WETLAND_ID
 							let atts = evt.features[0].attributes
 							// add a new row to the table
-							$('#' + t.id + 'wetlandTable').append('<tr><td>' + atts.WETLAND_ID + '</td><td>' + atts.ALL_RANK + '</td><td>' + atts.PR_RANK + '</td><td class="aoc-tableClose"' + '>' + 'Close' + '</td></tr>');
+							$('#' + t.id + 'wetlandTable').append('<tr><td>' + atts.WETLAND_ID + '</td><td>' + atts.WETLAND_TYPE + '</td><td>' + atts.ALL_RANK + '</td><td>' 
+								+ atts.PR_RANK + '</td><td class="aoc-tableClose"' + '>' + '&#10060' + '</td></tr>');
+
 							// check to see if the wetland selected layer has been added, only add it once
 							let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
 							if(index == -1){

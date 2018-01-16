@@ -1,12 +1,5 @@
 
-
-
-
-
-
-
-
-/* Main Content style*/
+/* Main Content style //////////////////////////////////////////////////////////////////////////////////////*/
 .aoc-mainContentWrapper{
 	/*margin: 10px 0 0 5px;*/
 }
@@ -36,8 +29,7 @@ hr{
 	
 }
 
-
-/* attribute area styling*/
+/* attribute area styling//////////////////////////////////////////////////////////////////////////////////*/ 
 .aoc-attributePatch{
    	height: 18px; width: 18px; background-color: red; margin-right: 5px; border: 1pt solid #cdd5d5;
  }
@@ -58,7 +50,7 @@ hr{
 	padding: 10px; padding-left: 10px !important;
 }
 
-/* Sup data styling */
+/* Sup data styling //////////////////////////////////////////////////////////////////////////////////////*/
 .aoc-supDataWrapper{
 	padding-left: 7px;
 }
@@ -66,81 +58,25 @@ hr{
 	display: flex; margin-left: 5px;
 }
 
-
-/* Table styles*/
-/*
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}*/
+/* Table styles //////////////////////////////////////////////////////////////////////////////////////////*/
+.aoc-tableWrapper{
+	margin: 5px 0 10px 0;
+}
 .aoc-wetlandTable{
-	border-collapse: collapse; border: 1px solid #ddd; box-shadow:0 1px 1px rgba(16,22,26,.2); width:350px; 
+	border-collapse: collapse; border: 1px solid #ddd; box-shadow:0 1px 1px rgba(16,22,26,.2); width:98%; 
 }
 .aoc-wetlandTable td{
-	border-top: 1px solid #999;
+	border-top: 1px solid #999; text-align: center;
 }
 .aoc-wetlandTable th, .aoc-wetlandTable td {
-    border-left: 1px solid #eee;
-    border-right: 1px solid #eee;
-    padding: 5px;
-    border-collapse: collapse;
-    font-size: 12px;
-    color: #5d6165;
-    margin-left: 3px;
+    border-left: 1px solid #eee; border-right: 1px solid #eee; padding: 5px; border-collapse: collapse; font-size: 12px; color: #5d6165; margin-left: 3px;
 }
 .aoc-wetlandTable th {
 	color: #5d6165; background: #f4f4f4; font-size: 12px;
 }
+.aoc-tableClose{
+	text-align: center;
+}
+.aoc-tableClose:hover{
+	color: rgb(140, 33, 48); cursor: pointer; background-color: #f4f4f4;
 
-/*.infoIcon{
-	margin-bottom:-2px; margin-left:3px; cursor:pointer;
-}
-.flex-center{
-	display:flex; align-items:center;
-}
-.flex1{
-	flex:1;
-}
-.flexColumn{
-	display:flex; flex-direction:column;
-}
-.hide{
-	display:none;
-}
-.explainWrap p{
-	margin-top:5px; margin-bottom:5px;
-}
-.getHelpBtnWrap{
-    background-color:#eef3f8; padding:10px 12px; z-index:500; text-align:center;
-}	
-.getHelpBtnWrap .button{
-	font-size:15px; width:100%; color:#2F6384; font-weight:bold;
-}	
-.sidebar-content .getHelpBtnWrap .button{
-	margin-bottom:0;
-}
-.umr-wrap .slider{
-	margin-left:30px;
-}
-.umr-first-section .toggle-btn{
-	margin-top:-10px;	
-}
-.under{
-	text-decoration:underline;
-}
-/* fix the accordion height issue in Safari 
-.sidebar-content{
-	height:auto !important;
-}
-.umr-count-font{
-	color:#2f6384; text-align:center; margin-top:-5px; margin-bottom:-10px;
-}
-.slider-container .ui-state-disabled {
-    cursor: not-allowed !important;
-}
-.umr-slider-label{
-	display:none; margin-left:-8px;
-}
-.umr-radio-indent{
-	margin-left:22px;
-}*/*/
