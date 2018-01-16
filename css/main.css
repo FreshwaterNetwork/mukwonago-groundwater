@@ -68,10 +68,28 @@ hr{
 
 
 /* Table styles*/
-
+/*
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
+}*/
+.aoc-wetlandTable{
+	border-collapse: collapse; border: 1px solid #ddd; box-shadow:0 1px 1px rgba(16,22,26,.2); width:350px; 
+}
+.aoc-wetlandTable td{
+	border-top: 1px solid #999;
+}
+.aoc-wetlandTable th, .aoc-wetlandTable td {
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    padding: 5px;
+    border-collapse: collapse;
+    font-size: 12px;
+    color: #5d6165;
+    margin-left: 3px;
+}
+.aoc-wetlandTable th {
+	color: #5d6165; background: #f4f4f4; font-size: 12px;
 }
 
 /*.infoIcon{

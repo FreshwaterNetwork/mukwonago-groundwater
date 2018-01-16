@@ -37,6 +37,7 @@ function ( declare, Query, QueryTask ) {
 					// set the visible layers
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 				});
+
 			}, 
 
 			// map click functionality call the map click query function //////////////////////////////////////////////////
@@ -44,7 +45,8 @@ function ( declare, Query, QueryTask ) {
 				// wetland array of ids
 				t.wetlandIDArray = [];
 				t.layerDefinitions = [];
-				t.obj.wetWhereArray = '';
+				t.obj.wetWhereArray = [];
+				t.obj.wetQuery = '';
 				t.map.on('click',function(c){
 					t.obj.pnt = c.mapPoint;
 					t.clicks.mapClickQuery(t,t.obj.pnt); // call t.mapClickQuery function
@@ -62,35 +64,63 @@ function ( declare, Query, QueryTask ) {
 				// query the map on click
 				t.qt.execute(t.q, function(evt){
 					if(evt.features.length > 0){
-						console.log(t.obj.wetWhereArray);
-						console.log(t.obj.wetWhereArray.split('OR').length);
-
-						if(t.obj.wetWhereArray.split('OR').length < 5){
-							var id = evt.features[0].attributes.OBJECTID
-							var atts = evt.features[0].attributes
+						if(t.obj.wetWhereArray.length < 5){
+							// set vars
+							let id = evt.features[0].attributes.WETLAND_ID
+							let atts = evt.features[0].attributes
 							// add a new row to the table
 							$('#' + t.id + 'wetlandTable').append('<tr><td>' + atts.WETLAND_ID + '</td><td>' + atts.ALL_RANK + '</td><td>' + atts.PR_RANK + '</td><td class="aoc-tableClose"' + '>' + 'Close' + '</td></tr>');
-
-							
-
 							// check to see if the wetland selected layer has been added, only add it once
 							let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
 							if(index == -1){
 								t.obj.visibleLayers.push(t.wetlandsSel);
 								t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 							}
-
-							// t.obj.wetWhereArray = t.obj.wetWhere;
-							console.log(t.obj.wetWhereArray.length);
-							if(t.obj.wetWhereArray.length > 0){
-								console.log('6')
-								t.obj.wetWhereArray += " OR OBJECTID = " + atts.OBJECTID;
-							}else{
-								console.log('7')
-								t.obj.wetWhereArray = "OBJECTID = " + atts.OBJECTID;;
-							}
-							t.layerDefinitions[t.wetlandsSel] = t.obj.wetWhereArray;
+							// push the id into the wet where query string
+							t.obj.wetWhereArray.push(id);
+							// build the wet query 
+							$.each(t.obj.wetWhereArray,function(i,v){
+								if(i == 0){
+									t.obj.wetQuery = "WETLAND_ID = " + v;
+								}else{
+									 t.obj.wetQuery += " OR WETLAND_ID = " + v;
+								}
+  							})
+  							// set dynamic layer deffs
+							t.layerDefinitions[t.wetlandsSel] = t.obj.wetQuery;
 							t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
+							// close button for tables //////////////
+							$('.aoc-tableClose').on('click',function(c){
+								// clear the table data row
+								$(c.currentTarget).parent().remove();
+								// remove the wetland id from the wet where array
+								let val = parseInt($(c.currentTarget).parent().children().first().text());
+								let index = t.obj.wetWhereArray.indexOf(val);
+								if(index > -1){
+									t.obj.wetWhereArray.splice(index, 1);
+								}
+								// loop through and rebuild the wet query based on the wetland where array
+								$.each(t.obj.wetWhereArray,function(i,v){
+									if(i == 0){
+										t.obj.wetQuery = "WETLAND_ID = " + v;
+									}else{
+										 t.obj.wetQuery += " OR WETLAND_ID = " + v;
+									}
+	  							})
+	  							// if the wet where array is empty, that means the last close has been clicked and 
+	  							// we need to remove the wetland sel layer
+	  							if(t.obj.wetWhereArray.length < 1){
+	  								let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
+	  								if(index > -1){
+	  									t.obj.visibleLayers.splice(index, 1);
+	  								}
+	  							}
+	  							// update visible layers and set dynamic layer deffs
+	  							t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+								t.layerDefinitions[t.wetlandsSel] = t.obj.wetQuery;
+								t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
+
+							});
 						}
 					}
 				})
@@ -245,6 +275,9 @@ function ( declare, Query, QueryTask ) {
 				// 	});
 				// }
 				// t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+
+
+
 			},
 
 
