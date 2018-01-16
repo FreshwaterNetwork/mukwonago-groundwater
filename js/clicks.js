@@ -43,6 +43,8 @@ function ( declare, Query, QueryTask ) {
 			mapClickFunction: function(t){
 				// wetland array of ids
 				t.wetlandIDArray = [];
+				t.layerDefinitions = [];
+				t.obj.wetWhereArray = '';
 				t.map.on('click',function(c){
 					t.obj.pnt = c.mapPoint;
 					t.clicks.mapClickQuery(t,t.obj.pnt); // call t.mapClickQuery function
@@ -50,65 +52,117 @@ function ( declare, Query, QueryTask ) {
 			},
 			// map click query function /////////////////////////////////////////////////////////////////////
 			mapClickQuery: function(t, p){
-				// query layer array, the layers here get queried.
-				t.queryLayers = [6,8,9,10]
-				// query array
-				// t.queryArray = [];
 				
+				// query for wetlands /////////////////////////////////////////////////////////////////////
+				t.q = new Query();
+				t.qt = new QueryTask(t.url + "/" + t.wetlandsSel);
+				t.q.geometry = p
+				t.q.returnGeometry = true;
+				t.q.outFields = ["*"];
+				// query the map on click
+				t.qt.execute(t.q, function(evt){
+					if(evt.features.length > 0){
+						console.log(t.obj.wetWhereArray);
+						console.log(t.obj.wetWhereArray.split('OR').length);
 
-				// loop through all the query layers and query each one if they are viz.
-				$.each(t.queryLayers,function(i,v){
-					let index = t.obj.visibleLayers.indexOf(v);
-					// test to see if one of the query layers is in the visible layers array
-					if (index > -1){
-						// adjust the tolerance of the point click
-						var centerPoint = new esri.geometry.Point(p.x,p.y,p.spatialReference);
-						var mapWidth = t.map.extent.getWidth();
-						var mapWidthPixels = t.map.width;
-						var pixelWidth = mapWidth/mapWidthPixels;
-						// change the tolerence below to adjust how many pixels will be grabbed when clicking on a point or line
-						var tolerance = 5 * pixelWidth;
-						var pnt = p;
-						var ext = new esri.geometry.Extent(1,1, tolerance, tolerance, p.spatialReference);
-						// query for the fish passage points click ///////////////////////////////
-						t.q = new Query();
-						t.qt = new QueryTask(t.url + "/" + v);
-						t.q.geometry = ext.centerAt(centerPoint);;
-						t.q.returnGeometry = true;
-						t.q.outFields = ["*"];
-						// query the map on click
-						t.qt.execute(t.q, function(evt){
-							if(evt.features.length > 0){
-								// console.log(evt, v);
-								if(v == 9){
-									var id = evt.features[0].attributes.OBJECTID
-									var atts = evt.features[0].attributes
-									// console.log(atts);
-									if(t.wetlandIDArray.indexOf(id) == -1 && t.wetlandIDArray.length < 5){
-										t.wetlandIDArray.push(id);
-										// add a new row to the table
-										$('#' + t.id + 'wetlandTable').append('<tr><td>' + atts.WETLAND_ID + '</td><td>' + atts.ALL_RANK + '</td><td>' + atts.PR_RANK + '</td></tr>');
-										// console.log($('#' + t.id + 'wetlandTable'));
-									}else{
-										// console.log('dont add');
-									}
-									// console.log('wetland click');
-									
-									// console.log(t.wetlandIDArray);
-								}
-								// t.queryArray.push(evt);
+						if(t.obj.wetWhereArray.split('OR').length < 5){
+							var id = evt.features[0].attributes.OBJECTID
+							var atts = evt.features[0].attributes
+							// add a new row to the table
+							$('#' + t.id + 'wetlandTable').append('<tr><td>' + atts.WETLAND_ID + '</td><td>' + atts.ALL_RANK + '</td><td>' + atts.PR_RANK + '</td><td class="aoc-tableClose"' + '>' + 'Close' + '</td></tr>');
 
-								// t.clicks.appDisplayMapClick(t, t.queryArray);
+							
 
+							// check to see if the wetland selected layer has been added, only add it once
+							let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
+							if(index == -1){
+								t.obj.visibleLayers.push(t.wetlandsSel);
+								t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 							}
-						})
+
+							// t.obj.wetWhereArray = t.obj.wetWhere;
+							console.log(t.obj.wetWhereArray.length);
+							if(t.obj.wetWhereArray.length > 0){
+								console.log('6')
+								t.obj.wetWhereArray += " OR OBJECTID = " + atts.OBJECTID;
+							}else{
+								console.log('7')
+								t.obj.wetWhereArray = "OBJECTID = " + atts.OBJECTID;;
+							}
+							t.layerDefinitions[t.wetlandsSel] = t.obj.wetWhereArray;
+							t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
+						}
 					}
 				})
-				// console.log(t.wetlandIDArray);
-				// console.log('hey')
-				// console.log(t.queryArray)
+
+
+				// t.obj.visibleLayers.push(t.wetlandsSel);
+				// t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+				// t.obj.wetWhere = "OBJECTID = " + atts.OBJECTID;
+				// t.layerDefinitions[t.wetlandsSel] = t.obj.wetWhere;
+				// console.log(t.layerDefinitions, t.obj.wetWhere);
+				// t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
+
+
+				// query layer array, the layers here get queried.
+				// t.queryLayers = [6,8,9,10]
+			
 				
-				t.layerDefinitions = [];
+
+				// // loop through all the query layers and query each one if they are viz.
+				// $.each(t.queryLayers,function(i,v){
+				// 	let index = t.obj.visibleLayers.indexOf(v);
+				// 	// test to see if one of the query layers is in the visible layers array
+				// 	if (index > -1){
+				// 		// adjust the tolerance of the point click
+				// 		var centerPoint = new esri.geometry.Point(p.x,p.y,p.spatialReference);
+				// 		var mapWidth = t.map.extent.getWidth();
+				// 		var mapWidthPixels = t.map.width;
+				// 		var pixelWidth = mapWidth/mapWidthPixels;
+				// 		// change the tolerence below to adjust how many pixels will be grabbed when clicking on a point or line
+				// 		var tolerance = 5 * pixelWidth;
+				// 		var pnt = p;
+				// 		var ext = new esri.geometry.Extent(1,1, tolerance, tolerance, p.spatialReference);
+				// 		// query for the fish passage points click ///////////////////////////////
+				// 		t.q = new Query();
+				// 		t.qt = new QueryTask(t.url + "/" + v);
+				// 		t.q.geometry = ext.centerAt(centerPoint);;
+				// 		t.q.returnGeometry = true;
+				// 		t.q.outFields = ["*"];
+				// 		// query the map on click
+				// 		t.qt.execute(t.q, function(evt){
+				// 			if(evt.features.length > 0){
+				// 				if(v == 9){
+				// 					var id = evt.features[0].attributes.OBJECTID
+				// 					var atts = evt.features[0].attributes
+				// 					if(t.wetlandIDArray.indexOf(id) == -1 && t.wetlandIDArray.length < 5){
+				// 						t.wetlandIDArray.push(id);
+				// 						// add a new row to the table
+				// 						$('#' + t.id + 'wetlandTable').append('<tr><td>' + atts.WETLAND_ID + '</td><td>' + atts.ALL_RANK + '</td><td>' + atts.PR_RANK + '</td></tr>');
+				// 						t.obj.visibleLayers.push(t.wetlandsSel);
+				// 						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+				// 						t.obj.wetWhere = "OBJECTID = " + atts.OBJECTID;
+				// 						t.layerDefinitions[t.wetlandsSel] = t.obj.wetWhere;
+				// 						console.log(t.layerDefinitions, t.obj.wetWhere);
+				// 						t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
+
+				// 					}else{
+				// 					}
+				// 				}
+				// 			}
+				// 		})
+				// 	}
+				// })
+
+
+
+				// t.layerDefinitions[t.surveyRankSel] = t.obj.fishWhere;
+				// t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
+				// // console.log(t.wetlandIDArray);
+				// // console.log('hey')
+				// // console.log(t.queryArray)
+				
+				// t.layerDefinitions = [];
 				
 				// // wetland click query /////////////////////////////////////////////////////////////////
 				// let wetlandIndex = t.obj.visibleLayers.indexOf(t.wetlands);
@@ -193,9 +247,6 @@ function ( declare, Query, QueryTask ) {
 				// t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 			},
 
-			appDisplayMapClick: function(t, array){
-				console.log(array);
-			},
 
 			// main toggle button function./////////////////////////////////////////////
 			toggleFunc: function(t){
