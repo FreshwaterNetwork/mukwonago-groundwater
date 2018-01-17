@@ -26,9 +26,9 @@ function ( declare, Query, QueryTask ) {
 					
 					// check to see if any radio button is checked and slide down div below header
 					if($('#' + t.id + 'mainRadioBtns input').is(":checked")){
-						console.log('slide down');
+						$('#' + t.id + 'contentBelowHeader').slideDown()
 					}else{ // else slide up the div
-						console.log('slide up')
+						$('#' + t.id + 'contentBelowHeader').slideUp()
 					}
 
 				});
@@ -72,6 +72,8 @@ function ( declare, Query, QueryTask ) {
 				// query the map on click
 				t.qt.execute(t.q, function(evt){
 					if(evt.features.length > 0){
+						$('#' + t.id + 'wetlandTableWrapper').slideDown();
+						$('#' + t.id + 'clickOnMapText').slideUp();
 						if(t.obj.wetWhereArray.length < 5){
 							// set vars
 							let id = evt.features[0].attributes.WETLAND_ID
@@ -122,11 +124,14 @@ function ( declare, Query, QueryTask ) {
 	  							// if the wet where array is empty, that means the last close has been clicked and 
 	  							// we need to remove the wetland sel layer
 	  							if(t.obj.wetWhereArray.length < 1){
+	  								$('#' + t.id + 'wetlandTableWrapper').slideUp();
+									$('#' + t.id + 'clickOnMapText').slideDown();
 	  								let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
 	  								if(index > -1){
 	  									t.obj.visibleLayers.splice(index, 1);
 	  								}
 	  							}
+	  							console.log(t.obj.wetWhereArray,'///////////');
 	  							// update visible layers and set dynamic layer deffs
 	  							t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 								t.layerDefinitions[t.wetlandsSel] = t.obj.wetQuery;
