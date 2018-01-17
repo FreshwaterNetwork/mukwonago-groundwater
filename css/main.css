@@ -79,4 +79,9 @@ hr{
 }
 .aoc-tableClose:hover{
 	color: rgb(140, 33, 48); cursor: pointer; background-color: #f4f4f4;
+}
+/* Tab styles */
+.aoc-tabWrapper span{
+	text-align: right;
+}
 

@@ -6,6 +6,9 @@ function ( declare, Query, QueryTask ) {
 
         return declare(null, {
 			eventListeners: function(t){
+				$( function() {
+				    $("#" + t.id + "tabs" ).tabs();
+				  } );
 				// call the map click function at the start to load it
 				t.clicks.mapClickFunction(t);
 				// on zoom end turn on layer with and without borders depending on a zoom level scale of 75000 ///////////////
@@ -62,7 +65,6 @@ function ( declare, Query, QueryTask ) {
 			},
 			// map click query function /////////////////////////////////////////////////////////////////////
 			mapClickQuery: function(t, p){
-				
 				// query for wetlands /////////////////////////////////////////////////////////////////////
 				t.q = new Query();
 				t.qt = new QueryTask(t.url + "/" + t.wetlandsSel);
@@ -72,8 +74,14 @@ function ( declare, Query, QueryTask ) {
 				// query the map on click
 				t.qt.execute(t.q, function(evt){
 					if(evt.features.length > 0){
+						// slide down the wetland table and slide up the click on map text
 						$('#' + t.id + 'wetlandTableWrapper').slideDown();
 						$('#' + t.id + 'clickOnMapText').slideUp();
+						// create a wetland data tab
+						
+						console.log('the table is open');
+
+						// only do the below if the array is less than 5 items
 						if(t.obj.wetWhereArray.length < 5){
 							// set vars
 							let id = evt.features[0].attributes.WETLAND_ID
@@ -100,6 +108,7 @@ function ( declare, Query, QueryTask ) {
 									 t.obj.wetQuery += " OR WETLAND_ID = " + v;
 								}
   							})
+
   							// set dynamic layer deffs
 							t.layerDefinitions[t.wetlandsSel] = t.obj.wetQuery;
 							t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
@@ -124,21 +133,32 @@ function ( declare, Query, QueryTask ) {
 	  							// if the wet where array is empty, that means the last close has been clicked and 
 	  							// we need to remove the wetland sel layer
 	  							if(t.obj.wetWhereArray.length < 1){
+	  								console.log('the table is closed')
+	  								// remove the wetlands tab if nothing is selected
+	  								
+	  								// slide up the wetland table and slide down the click on map text
 	  								$('#' + t.id + 'wetlandTableWrapper').slideUp();
 									$('#' + t.id + 'clickOnMapText').slideDown();
+									// remove the wetlands selected layer from viz layers
 	  								let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
 	  								if(index > -1){
 	  									t.obj.visibleLayers.splice(index, 1);
 	  								}
 	  							}
-	  							console.log(t.obj.wetWhereArray,'///////////');
 	  							// update visible layers and set dynamic layer deffs
 	  							t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 								t.layerDefinitions[t.wetlandsSel] = t.obj.wetQuery;
 								t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
 
 							});
+							// console.log(t.obj.wetWhereArray.length);
+  					// 		if(t.obj.wetWhereArray.length == 0){
+  					// 			console.log('the table is closed')
+  					// 		}else{
+  					// 			console.log('the table is open')
+  					// 		}
 						}
+						// console.log('')
 					}
 				})
 			},
