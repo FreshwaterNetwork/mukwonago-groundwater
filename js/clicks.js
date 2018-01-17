@@ -37,10 +37,16 @@ function ( declare, Query, QueryTask ) {
 					// set the visible layers
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 				});
+
 			}, 
 
 			// map click functionality call the map click query function //////////////////////////////////////////////////
 			mapClickFunction: function(t){
+				// wetland array of ids
+				t.wetlandIDArray = [];
+				t.layerDefinitions = [];
+				t.obj.wetWhereArray = [];
+				t.obj.wetQuery = '';
 				t.map.on('click',function(c){
 					t.obj.pnt = c.mapPoint;
 					t.clicks.mapClickQuery(t,t.obj.pnt); // call t.mapClickQuery function
@@ -48,91 +54,234 @@ function ( declare, Query, QueryTask ) {
 			},
 			// map click query function /////////////////////////////////////////////////////////////////////
 			mapClickQuery: function(t, p){
-
-				t.layerDefinitions = [];
 				
-				// wetland click query /////////////////////////////////////////////////////////////////
-				let wetlandIndex = t.obj.visibleLayers.indexOf(t.wetlands);
-				if (wetlandIndex > -1){
-					t.qw = new Query();
-					t.qtw = new QueryTask(t.url + "/" + t.wetlandsSel);
-					t.qw.geometry = p;
-					t.qw.returnGeometry = true;
-					t.qw.outFields = ["*"];
-					// query the map on click
-					t.qtw.execute(t.qw, function(evt){
-						if (evt.features.length > 0) {
-							// push wetland selected layer to visible layers array
-							if(t.obj.visibleLayers.indexOf(t.wetlandsSel) > -1){
-								'do nothing'
-							}else{
-								t.obj.visibleLayers.push(t.wetlandsSel);
-							}
-							// create the fish where clause to be used for the survey point seleceted feature
-							t.obj.wetlandOID = evt.features[0].attributes.OBJECTID;
-							t.obj.wetlandWhere = "OBJECTID = " + t.obj.wetlandOID;
-							// set layer deffs
-							t.layerDefinitions[t.wetlandsSel] = t.obj.wetlandWhere;
-							t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
-						}else{
-							// remove the selected layer if no features were clicked
-							let index = t.obj.visibleLayers.indexOf(t.wetlandsSel)
-							if (index > -1) {
-								t.obj.visibleLayers.splice(index,1);
-							}
-						}
-						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-					});
-				}
+				// query for wetlands /////////////////////////////////////////////////////////////////////
+				t.q = new Query();
+				t.qt = new QueryTask(t.url + "/" + t.wetlandsSel);
+				t.q.geometry = p
+				t.q.returnGeometry = true;
+				t.q.outFields = ["*"];
+				// query the map on click
+				t.qt.execute(t.q, function(evt){
+					if(evt.features.length > 0){
+						if(t.obj.wetWhereArray.length < 5){
+							// set vars
+							let id = evt.features[0].attributes.WETLAND_ID
+							let atts = evt.features[0].attributes
+							// add a new row to the table
+							$('#' + t.id + 'wetlandTable').append('<tr><td>' + atts.WETLAND_ID + '</td><td>' + atts.WETLAND_TYPE + '</td><td>' + atts.ALL_RANK + '</td><td>' 
+								+ atts.PR_RANK + '</td><td class="aoc-tableClose"' + '>' + '&#10060' + '</td></tr>');
 
-				// survey rank point click /////////////////////////////////////////////////////////////////////
-				let surveyRankIndex = t.obj.visibleLayers.indexOf(t.surveyRank);
-				if (surveyRankIndex > 0){
-					// adjust the tolerance of the point click
-					var centerPoint = new esri.geometry.Point(p.x,p.y,p.spatialReference);
-					var mapWidth = t.map.extent.getWidth();
-					var mapWidthPixels = t.map.width;
-					var pixelWidth = mapWidth/mapWidthPixels;
-					// change the tolerence below to adjust how many pixels will be grabbed when clicking on a point or line
-					var tolerance = 10 * pixelWidth;
-					var pnt = p;
-					var ext = new esri.geometry.Extent(1,1, tolerance, tolerance, p.spatialReference);
-					// query for the fish passage points click ///////////////////////////////
-					t.q2 = new Query();
-					t.qt2 = new QueryTask(t.url + "/" + t.surveyRank);
-					t.q2.geometry = ext.centerAt(centerPoint);;
-					t.q2.returnGeometry = true;
-					t.q2.outFields = ["*"];
-					// query the map on click
-					t.qt2.execute(t.q2, function(evt){
-						if (evt.features.length > 0){
-							// test to see if the survey point selected is already visible
-							if(t.obj.visibleLayers.indexOf(t.surveyRankSel) > 0){
-								'do nothing'
-							}else{
-								t.obj.visibleLayers.push(t.surveyRankSel);
+							// check to see if the wetland selected layer has been added, only add it once
+							let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
+							if(index == -1){
+								t.obj.visibleLayers.push(t.wetlandsSel);
 								t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 							}
-							// create the fish where clause to be used for the survey point seleceted feature
-							t.obj.fishOID = evt.features[0].attributes.OBJECTID;
-							t.obj.fishWhere = "OBJECTID = " + t.obj.fishOID;
-							
-							// set layer deffs
-							
-							t.layerDefinitions[t.surveyRankSel] = t.obj.fishWhere;
+							// push the id into the wet where query string
+							t.obj.wetWhereArray.push(id);
+							// build the wet query 
+							$.each(t.obj.wetWhereArray,function(i,v){
+								if(i == 0){
+									t.obj.wetQuery = "WETLAND_ID = " + v;
+								}else{
+									 t.obj.wetQuery += " OR WETLAND_ID = " + v;
+								}
+  							})
+  							// set dynamic layer deffs
+							t.layerDefinitions[t.wetlandsSel] = t.obj.wetQuery;
 							t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
-						}else{
-							// remove the selected layer if no features were clicked
-							let index = t.obj.visibleLayers.indexOf(t.surveyRankSel)
-							if (index > -1) {
-								t.obj.visibleLayers.splice(index,1);
-							}
+							// close button for tables //////////////
+							$('.aoc-tableClose').on('click',function(c){
+								// clear the table data row
+								$(c.currentTarget).parent().remove();
+								// remove the wetland id from the wet where array
+								let val = parseInt($(c.currentTarget).parent().children().first().text());
+								let index = t.obj.wetWhereArray.indexOf(val);
+								if(index > -1){
+									t.obj.wetWhereArray.splice(index, 1);
+								}
+								// loop through and rebuild the wet query based on the wetland where array
+								$.each(t.obj.wetWhereArray,function(i,v){
+									if(i == 0){
+										t.obj.wetQuery = "WETLAND_ID = " + v;
+									}else{
+										 t.obj.wetQuery += " OR WETLAND_ID = " + v;
+									}
+	  							})
+	  							// if the wet where array is empty, that means the last close has been clicked and 
+	  							// we need to remove the wetland sel layer
+	  							if(t.obj.wetWhereArray.length < 1){
+	  								let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
+	  								if(index > -1){
+	  									t.obj.visibleLayers.splice(index, 1);
+	  								}
+	  							}
+	  							// update visible layers and set dynamic layer deffs
+	  							t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+								t.layerDefinitions[t.wetlandsSel] = t.obj.wetQuery;
+								t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
+
+							});
 						}
-						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-					});
-				}
+					}
+				})
+
+
+				// t.obj.visibleLayers.push(t.wetlandsSel);
 				// t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+				// t.obj.wetWhere = "OBJECTID = " + atts.OBJECTID;
+				// t.layerDefinitions[t.wetlandsSel] = t.obj.wetWhere;
+				// console.log(t.layerDefinitions, t.obj.wetWhere);
+				// t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
+
+
+				// query layer array, the layers here get queried.
+				// t.queryLayers = [6,8,9,10]
+			
+				
+
+				// // loop through all the query layers and query each one if they are viz.
+				// $.each(t.queryLayers,function(i,v){
+				// 	let index = t.obj.visibleLayers.indexOf(v);
+				// 	// test to see if one of the query layers is in the visible layers array
+				// 	if (index > -1){
+				// 		// adjust the tolerance of the point click
+				// 		var centerPoint = new esri.geometry.Point(p.x,p.y,p.spatialReference);
+				// 		var mapWidth = t.map.extent.getWidth();
+				// 		var mapWidthPixels = t.map.width;
+				// 		var pixelWidth = mapWidth/mapWidthPixels;
+				// 		// change the tolerence below to adjust how many pixels will be grabbed when clicking on a point or line
+				// 		var tolerance = 5 * pixelWidth;
+				// 		var pnt = p;
+				// 		var ext = new esri.geometry.Extent(1,1, tolerance, tolerance, p.spatialReference);
+				// 		// query for the fish passage points click ///////////////////////////////
+				// 		t.q = new Query();
+				// 		t.qt = new QueryTask(t.url + "/" + v);
+				// 		t.q.geometry = ext.centerAt(centerPoint);;
+				// 		t.q.returnGeometry = true;
+				// 		t.q.outFields = ["*"];
+				// 		// query the map on click
+				// 		t.qt.execute(t.q, function(evt){
+				// 			if(evt.features.length > 0){
+				// 				if(v == 9){
+				// 					var id = evt.features[0].attributes.OBJECTID
+				// 					var atts = evt.features[0].attributes
+				// 					if(t.wetlandIDArray.indexOf(id) == -1 && t.wetlandIDArray.length < 5){
+				// 						t.wetlandIDArray.push(id);
+				// 						// add a new row to the table
+				// 						$('#' + t.id + 'wetlandTable').append('<tr><td>' + atts.WETLAND_ID + '</td><td>' + atts.ALL_RANK + '</td><td>' + atts.PR_RANK + '</td></tr>');
+				// 						t.obj.visibleLayers.push(t.wetlandsSel);
+				// 						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+				// 						t.obj.wetWhere = "OBJECTID = " + atts.OBJECTID;
+				// 						t.layerDefinitions[t.wetlandsSel] = t.obj.wetWhere;
+				// 						console.log(t.layerDefinitions, t.obj.wetWhere);
+				// 						t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
+
+				// 					}else{
+				// 					}
+				// 				}
+				// 			}
+				// 		})
+				// 	}
+				// })
+
+
+
+				// t.layerDefinitions[t.surveyRankSel] = t.obj.fishWhere;
+				// t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
+				// // console.log(t.wetlandIDArray);
+				// // console.log('hey')
+				// // console.log(t.queryArray)
+				
+				// t.layerDefinitions = [];
+				
+				// // wetland click query /////////////////////////////////////////////////////////////////
+				// let wetlandIndex = t.obj.visibleLayers.indexOf(t.wetlands);
+				// if (wetlandIndex > -1){
+				// 	t.qw = new Query();
+				// 	t.qtw = new QueryTask(t.url + "/" + t.wetlandsSel);
+				// 	t.qw.geometry = p;
+				// 	t.qw.returnGeometry = true;
+				// 	t.qw.outFields = ["*"];
+				// 	// query the map on click
+				// 	t.qtw.execute(t.qw, function(evt){
+				// 		if (evt.features.length > 0) {
+				// 			// push wetland selected layer to visible layers array
+				// 			if(t.obj.visibleLayers.indexOf(t.wetlandsSel) > -1){
+				// 				'do nothing'
+				// 			}else{
+				// 				t.obj.visibleLayers.push(t.wetlandsSel);
+				// 			}
+				// 			// create the fish where clause to be used for the survey point seleceted feature
+				// 			t.obj.wetlandOID = evt.features[0].attributes.OBJECTID;
+				// 			t.obj.wetlandWhere = "OBJECTID = " + t.obj.wetlandOID;
+				// 			// set layer deffs
+				// 			t.layerDefinitions[t.wetlandsSel] = t.obj.wetlandWhere;
+				// 			t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
+				// 		}else{
+				// 			// remove the selected layer if no features were clicked
+				// 			let index = t.obj.visibleLayers.indexOf(t.wetlandsSel)
+				// 			if (index > -1) {
+				// 				t.obj.visibleLayers.splice(index,1);
+				// 			}
+				// 		}
+				// 		t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+				// 	});
+				// }
+
+				// // survey rank point click /////////////////////////////////////////////////////////////////////
+				// let surveyRankIndex = t.obj.visibleLayers.indexOf(t.surveyRank);
+				// if (surveyRankIndex > 0){
+				// 	// adjust the tolerance of the point click
+				// 	var centerPoint = new esri.geometry.Point(p.x,p.y,p.spatialReference);
+				// 	var mapWidth = t.map.extent.getWidth();
+				// 	var mapWidthPixels = t.map.width;
+				// 	var pixelWidth = mapWidth/mapWidthPixels;
+				// 	// change the tolerence below to adjust how many pixels will be grabbed when clicking on a point or line
+				// 	var tolerance = 10 * pixelWidth;
+				// 	var pnt = p;
+				// 	var ext = new esri.geometry.Extent(1,1, tolerance, tolerance, p.spatialReference);
+				// 	// query for the fish passage points click ///////////////////////////////
+				// 	t.q2 = new Query();
+				// 	t.qt2 = new QueryTask(t.url + "/" + t.surveyRank);
+				// 	t.q2.geometry = ext.centerAt(centerPoint);;
+				// 	t.q2.returnGeometry = true;
+				// 	t.q2.outFields = ["*"];
+				// 	// query the map on click
+				// 	t.qt2.execute(t.q2, function(evt){
+				// 		if (evt.features.length > 0){
+				// 			// test to see if the survey point selected is already visible
+				// 			if(t.obj.visibleLayers.indexOf(t.surveyRankSel) > 0){
+				// 				'do nothing'
+				// 			}else{
+				// 				t.obj.visibleLayers.push(t.surveyRankSel);
+				// 				t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+				// 			}
+				// 			// create the fish where clause to be used for the survey point seleceted feature
+				// 			t.obj.fishOID = evt.features[0].attributes.OBJECTID;
+				// 			t.obj.fishWhere = "OBJECTID = " + t.obj.fishOID;
+							
+				// 			// set layer deffs
+							
+				// 			t.layerDefinitions[t.surveyRankSel] = t.obj.fishWhere;
+				// 			t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
+				// 		}else{
+				// 			// remove the selected layer if no features were clicked
+				// 			let index = t.obj.visibleLayers.indexOf(t.surveyRankSel)
+				// 			if (index > -1) {
+				// 				t.obj.visibleLayers.splice(index,1);
+				// 			}
+				// 		}
+				// 		t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+				// 	});
+				// }
+				// t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+
+
+
 			},
+
 
 			// main toggle button function./////////////////////////////////////////////
 			toggleFunc: function(t){
