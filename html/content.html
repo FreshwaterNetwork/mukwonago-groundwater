@@ -53,40 +53,32 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 	<!-- end of header section wrapper -->
 	</div>
 	<!-- Content below the header section. this will scroll under sticky header -->
-	<div class="aoc-contentBelowHeader" style="margin-top: 245px; margin-left: 7px;">
-		<h3>Selected Data:</h3>
-		<h4>Click rows to highlight record on map.</h4>
-		<div class="aoc-tableWrapper">
-			<table id="wetlandTable" class="aoc-wetlandTable">
-				<thead>
-				  	<colgroup>
-				       <col span="1" style="width: 10%;">
-				       <col span="1" style="width: 5%;">
-				       <col span="1" style="width: 5%;">
-				       <col span="1" style="width: 5%;">
-				       <col span="1" style="width: 1%;">
-				    </colgroup>
-				     <tr>
-						<th>Wetland ID</th>
-						<th>Type</th>
-						<th>S</th>
-						<th>Ph</th>
-						<th></th>
-					</tr>
-			  	</thead>
-			</table>
+	<div id="contentBelowHeader" class="aoc-contentBelowHeader hide" style="margin-top: 245px; margin-left: 7px;">
+		<div id="clickOnMapText" class="blueFont">Please click the data on the map to view more details.</div>
+		<div id="wetlandTableWrapper" class="hide">
+			<h3>Selected Data:</h3>
+			<h4>Click rows to highlight record on map.</h4>
+			<div class="aoc-tableWrapper">
+				<table id="wetlandTable" class="aoc-wetlandTable">
+					<thead>
+					  	<colgroup>
+					       <col span="1" style="width: 10%;">
+					       <col span="1" style="width: 5%;">
+					       <col span="1" style="width: 5%;">
+					       <col span="1" style="width: 5%;">
+					       <col span="1" style="width: 1%;">
+					    </colgroup>
+					     <tr>
+							<th>Wetland ID</th>
+							<th>Type</th>
+							<th>S</th>
+							<th>Ph</th>
+							<th></th>
+						</tr>
+				  	</thead>
+				</table>
+			</div>
 		</div>
-		
-		<!-- <div class="toggle-btn aoc-toggleBtn">
-			<input type="radio" id="yn1" name="yesno" value="yes" checked/>
-			<label style="display: none;" for="yn1">Wildlife</label>
-			<input type="radio" id="yn2" name="yesno" value="no"/>
-			<label style="display: none;" for="yn2">Wetland</label>
-			<input type="radio" id="yn4" name="yesno" value="no"/>
-			<label style="display: none;" for="yn4">Fish Passage</label>
-			<input type="radio" id="yn5" name="yesno" value="no"/>
-			<label style="display: none; line-height: 24px;" for="yn5">Fish another<span style="color: red; font-size: 24px;">&#9679;</span></label>
-		</div> -->
 		<hr>
 	
 		<!-- Water quality section wrapper -->
