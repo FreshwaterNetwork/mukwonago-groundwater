@@ -46,7 +46,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 							$('#' + t.id + 'contentBelowHeader').slideDown();
 						}
 						// build the table on the app pane
-
+						console.log(t.obj.wetlandTableObject);
 						// zoom to the correct area of the map
 						t.map.setExtent(t.obj.extent, true);
 					}

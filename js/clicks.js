@@ -14,6 +14,7 @@ function ( declare, Query, QueryTask ) {
 					t.obj.layerDefinitions = [];
 					t.obj.mainCheckArray = [];
 					t.obj.supCheckArray = [];
+					t.obj.wetlandTableObject = [];
 				}
 				t.clicks.mapClickFunction(t);
 				// on zoom end turn on layer with and without borders depending on a zoom level scale of 75000 ///////////////
@@ -122,6 +123,11 @@ function ( declare, Query, QueryTask ) {
 							// set vars
 							let id = evt.features[0].attributes.WETLAND_ID
 							let atts = evt.features[0].attributes
+							console.log(atts);
+							var obj  = {type: atts.WETLAND_TYPE, aRank: atts.ALL_RANK, phos: atts.PR_RANK, sed: atts.SS_RANK, fieldP: atts.FLDP_RANK, tile: atts.TILE_RANK, id: atts.WETLAND_ID}
+							console.log(obj);
+							t.obj.wetlandTableObject.push(obj);
+							console.log(t.obj.wetlandTableObject);
 							// add a new row to the table
 							$('#' + t.id + 'wetlandTable').append('<tr><td>' + atts.WETLAND_ID + '</td><td>' + atts.WETLAND_TYPE 
 								+ '</td><td>' + atts.ALL_RANK + '</td><td>' 
