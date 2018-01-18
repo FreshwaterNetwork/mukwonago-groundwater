@@ -10,6 +10,10 @@ function ( declare, Query, QueryTask ) {
 				    $("#" + t.id + "tabs" ).tabs();
 				  } );
 				// call the map click function at the start to load it
+				if(t.obj.stateSet != 'yes'){
+					t.obj.layerDefinitions = [];
+					t.obj.mainCheckArray = [];
+				}
 				t.clicks.mapClickFunction(t);
 				// on zoom end turn on layer with and without borders depending on a zoom level scale of 75000 ///////////////
 				t.map.on("zoom-end", function(){
@@ -33,7 +37,22 @@ function ( declare, Query, QueryTask ) {
 					}else{ // else slide up the div
 						$('#' + t.id + 'contentBelowHeader').slideUp()
 					}
-
+					
+					if(t.obj.stateSet != 'yes'){
+						// create an array that has the values of each checkbox that is checked for save and share
+						t.obj.mainCheckArray = [];
+						$.each($('#' + t.id + 'mainRadioBtns input'),function(i,v){
+							// call the map click function at the start to load it
+							if(v.checked == true){
+								t.obj.mainCheckArray.push(v.value);
+							}else{
+								var index = t.obj.mainCheckArray.indexOf(v.value)
+								if(index > -1){
+									t.obj.mainCheckArray.splice(index, 1);
+								}
+							}
+						})
+					}
 				});
 				// checkboxes for suplementary data
 				$('#' + t.id + 'supDataWrapper input').on('click',function(c){
@@ -48,6 +67,7 @@ function ( declare, Query, QueryTask ) {
 					// set the visible layers
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 				});
+				console.log('llllllllllll');
 
 			}, 
 
@@ -55,7 +75,8 @@ function ( declare, Query, QueryTask ) {
 			mapClickFunction: function(t){
 				// wetland array of ids
 				t.wetlandIDArray = [];
-				t.layerDefinitions = [];
+				console.log('map click')
+				
 				t.obj.wetWhereArray = [];
 				t.obj.wetQuery = '';
 				t.map.on('click',function(c){
@@ -110,8 +131,10 @@ function ( declare, Query, QueryTask ) {
   							})
 
   							// set dynamic layer deffs
-							t.layerDefinitions[t.wetlandsSel] = t.obj.wetQuery;
-							t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
+  							console.log(t.obj.layerDefinitions)
+							t.obj.layerDefinitions[t.wetlandsSel] = t.obj.wetQuery;
+							console.log(t.obj.layerDefinitions);
+							t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
 							// close button for tables //////////////
 							$('.aoc-tableClose').on('click',function(c){
 								// clear the table data row
@@ -148,8 +171,9 @@ function ( declare, Query, QueryTask ) {
 	  							}
 	  							// update visible layers and set dynamic layer deffs
 	  							t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-								t.layerDefinitions[t.wetlandsSel] = t.obj.wetQuery;
-								t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
+								t.obj.layerDefinitions[t.wetlandsSel] = t.obj.wetQuery;
+
+								t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
 
 							});
 							// console.log(t.obj.wetWhereArray.length);
