@@ -82,6 +82,8 @@ hr{
 }
 /* Tab styles */
 .aoc-tabWrapper span{
-	text-align: right;
+	padding-left: 10px;
 }
-
+.aoc-tabWrapper{
+	display: none;
+}

@@ -76,10 +76,10 @@ function ( declare, Query, QueryTask ) {
 					if(evt.features.length > 0){
 						// slide down the wetland table and slide up the click on map text
 						$('#' + t.id + 'wetlandTableWrapper').slideDown();
+						$('#' + t.id + 'toggleButtons').slideDown();
 						$('#' + t.id + 'clickOnMapText').slideUp();
-						// create a wetland data tab
-						
-						console.log('the table is open');
+						// check the appropriate tab based on what was clicked on map
+						console.log(evt)
 
 						// only do the below if the array is less than 5 items
 						if(t.obj.wetWhereArray.length < 5){
@@ -138,6 +138,7 @@ function ( declare, Query, QueryTask ) {
 	  								
 	  								// slide up the wetland table and slide down the click on map text
 	  								$('#' + t.id + 'wetlandTableWrapper').slideUp();
+	  								$('#' + t.id + 'toggleButtons').slideUp();
 									$('#' + t.id + 'clickOnMapText').slideDown();
 									// remove the wetlands selected layer from viz layers
 	  								let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
