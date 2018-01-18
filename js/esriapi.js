@@ -19,7 +19,6 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 					if (t.obj.stateSet == "no"){
 						t.map.setExtent(t.dynamicLayer.fullExtent.expand(1), true)
 					}
-					console.log('mmmmmmmmmmmmmmmmmm')
 ////////////	/////// save and share code below ////////////////////////////////////////////////////////////
 					if(t.obj.stateSet == 'yes'){
 						// update the layer deffs for viz layers using data object
@@ -43,7 +42,9 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 							})
 						})
 						// slide down the correct html elems
-
+						if($('#' + t.id + 'mainRadioBtns input').is(":checked")){
+							$('#' + t.id + 'contentBelowHeader').slideDown();
+						}
 						// build the table on the app pane
 
 						// zoom to the correct area of the map

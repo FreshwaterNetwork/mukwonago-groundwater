@@ -13,6 +13,7 @@ function ( declare, Query, QueryTask ) {
 				if(t.obj.stateSet != 'yes'){
 					t.obj.layerDefinitions = [];
 					t.obj.mainCheckArray = [];
+					t.obj.supCheckArray = [];
 				}
 				t.clicks.mapClickFunction(t);
 				// on zoom end turn on layer with and without borders depending on a zoom level scale of 75000 ///////////////
