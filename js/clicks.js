@@ -66,9 +66,23 @@ function ( declare, Query, QueryTask ) {
 					}
 					// set the visible layers
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+					// if not state set
+					if(t.obj.stateSet != 'yes'){
+						// create an array that has the values of each checkbox that is checked for save and share
+						t.obj.supCheckArray = [];
+						$.each($('#' + t.id + 'supDataWrapper input'),function(i,v){
+							// call the map click function at the start to load it
+							if(v.checked == true){
+								t.obj.supCheckArray.push(v.value);
+							}else{
+								var index = t.obj.supCheckArray.indexOf(v.value)
+								if(index > -1){
+									t.obj.supCheckArray.splice(index, 1);
+								}
+							}
+						})
+					}
 				});
-				console.log('llllllllllll');
-
 			}, 
 
 			// map click functionality call the map click query function //////////////////////////////////////////////////
@@ -131,9 +145,7 @@ function ( declare, Query, QueryTask ) {
   							})
 
   							// set dynamic layer deffs
-  							console.log(t.obj.layerDefinitions)
 							t.obj.layerDefinitions[t.wetlandsSel] = t.obj.wetQuery;
-							console.log(t.obj.layerDefinitions);
 							t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
 							// close button for tables //////////////
 							$('.aoc-tableClose').on('click',function(c){
@@ -176,14 +188,7 @@ function ( declare, Query, QueryTask ) {
 								t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
 
 							});
-							// console.log(t.obj.wetWhereArray.length);
-  					// 		if(t.obj.wetWhereArray.length == 0){
-  					// 			console.log('the table is closed')
-  					// 		}else{
-  					// 			console.log('the table is open')
-  					// 		}
 						}
-						// console.log('')
 					}
 				})
 			},

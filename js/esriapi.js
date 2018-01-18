@@ -26,7 +26,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 						t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
 						// display the correct layers on the map
 						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-						// check the correct checkboxes on the main section
+						// check the correct checkboxes on the main section ////////////////////////
 						$.each(t.obj.mainCheckArray,function(i,y){
 							$.each($('#' + t.id + 'mainRadioBtns input'),function(i,v){
 								if(y == v.value){
@@ -34,18 +34,21 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 								}
 							})
 						})
-						// check the correct checkboxes in the sup data section
-
+						// check the correct checkboxes in the sup data section ////////////////////////
+						$.each(t.obj.supCheckArray,function(i,y){
+							$.each($('#' + t.id + 'supDataWrapper input'),function(i,v){
+								if(y == v.value){
+									$(v).prop('checked', 'true');
+								}
+							})
+						})
 						// slide down the correct html elems
 
 						// build the table on the app pane
 
 						// zoom to the correct area of the map
 						t.map.setExtent(t.obj.extent, true);
-
 					}
-
-					
 				});					
 			}
 		});
