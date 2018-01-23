@@ -75,7 +75,7 @@ hr{
 	color: #5d6165; background: #f4f4f4; font-size: 12px;
 }
 .aoc-tableClose{
-	text-align: center;
+	text-align: center; color: #5d6165;
 }
 .aoc-tableClose:hover{
 	color: rgb(140, 33, 48); cursor: pointer; background-color: #f4f4f4;
