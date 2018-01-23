@@ -3,7 +3,7 @@ define([
 	"esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol","esri/symbols/SimpleMarkerSymbol", "esri/graphic", "dojo/_base/Color"
 ],
 function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, QueryTask, declare, FeatureLayer, 
-			SimpleLineSymbol, SimpleFillSymbol, SimpleMarkerSymbol, Graphic, Color ) {
+			SimpleLineSymbol, SimpleFillSymbol, SimpleMarkerSymbol, Graphic, Color) {
         "use strict";
 
         return declare(null, {
@@ -14,13 +14,15 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 				if (t.obj.visibleLayers.length > 0){	
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 				}
-				t.dynamicLayer.on("load", function () { 			
+				t.dynamicLayer.on("load", function () {
+					t.clicks.tableRowClose(t); 			
 					t.layersArray = t.dynamicLayer.layerInfos;
 					if (t.obj.stateSet == "no"){
 						t.map.setExtent(t.dynamicLayer.fullExtent.expand(1), true)
 					}
-////////////	/////// save and share code below ////////////////////////////////////////////////////////////
+////////////////////////////// save and share code below ////////////////////////////////////////////////////////////
 					if(t.obj.stateSet == 'yes'){
+						console.log(t.obj.wetWhereArray);
 						// update the layer deffs for viz layers using data object
 						t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
 						// display the correct layers on the map
@@ -41,12 +43,31 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 								}
 							})
 						})
-						// slide down the correct html elems
+						// slide down the correct html elems /////////////////////////////////////
 						if($('#' + t.id + 'mainRadioBtns input').is(":checked")){
 							$('#' + t.id + 'contentBelowHeader').slideDown();
 						}
-						// build the table on the app pane
-						console.log(t.obj.wetlandTableObject);
+						// build the table on the app pane /////////////////////////////////////////
+						// 
+						// loop through the object and append table rows
+						$.each(t.obj.wetlandTableObject,function(i,y){
+							// slide down table
+							$('#' + t.id + 'wetlandTableWrapper').slideDown();
+							// slide toogle buttons down
+							$('#' + t.id + 'toggleButtons').slideDown();
+							// slide up click on map text
+							$('#' + t.id + 'clickOnMapText').slideUp();
+							// append rows to table
+							$('#' + t.id + 'wetlandTable').append('<tr><td>' + y["id"] + '</td><td>' + y["type"] 
+								+ '</td><td>' + y["aRank"]  + '</td><td>' 
+								+ y["phos"]  + '</td><td class="aoc-tableClose"' 
+								+ '>' + '&#10060' + '</td></tr>');
+							// call the table close function
+							t.clicks.tableRowClose(t);
+							
+						})
+						// calculate the number of selected items based on data array
+						$(".aoc-selCounter").first().html(t.obj.wetWhereArray.length);
 						// zoom to the correct area of the map
 						t.map.setExtent(t.obj.extent, true);
 					}
