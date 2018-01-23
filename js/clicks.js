@@ -125,7 +125,7 @@ function ( declare, Query, QueryTask ) {
 							$('#' + t.id + 'wetlandTable').append('<tr><td>' + atts.WETLAND_ID + '</td><td>' + atts.WETLAND_TYPE 
 								+ '</td><td>' + atts.ALL_RANK + '</td><td>' + atts.SS_RANK + '</td><td>'
 								+ atts.PR_RANK +  '</td><td>' + atts.FLDP_RANK + '</td><td>' + atts.TILE_RANK + '</td>' 
-								+ '<td class="aoc-tableClose"' + '>' + '&#10060' + '</td></tr>');
+								+ '<td class="aoc-tableClose"' + '>' + '&#215;' + '</td></tr>');
 
 							// check to see if the wetland selected layer has been added, only add it once
 							let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
