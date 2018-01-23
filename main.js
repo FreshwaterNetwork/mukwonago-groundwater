@@ -53,44 +53,43 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 		getState: function () {
 			// remove this conditional statement when minimize is added
 			if ( $('#' + this.id ).is(":visible") ){
-				// Get slider ids and values when values do not equal min or max
-				$.each($('#' + this.id + 'mng-act-wrap .slider'),lang.hitch(this,function(i,v){
-					var idArray = v.id.split('-');
-					var id = "-" + idArray[1] + "-" + idArray[2];
-					var min = $('#' + v.id).slider("option", "min");
-					var max = $('#' + v.id).slider("option", "max");
-					var values = $('#' + v.id).slider("option", "values");
-					if (min != values[0] || max != values[1]){
-						this.obj.slIdsVals.push([ id, [values[0], values[1]] ])
-					}
-				}));	
-				// Git ids of checked checkboxes above sliders
-				$.each( $('#' + this.id + 'umr-wrap .-slCb'),lang.hitch(this,function(i,v){
-					if (v.checked == true){
-						var id = "-" + v.id.split('-').pop();
-						this.obj.slCbIds.push(id)
-					}
-				}))
-				// Get ids of checked radio buttons
-				$.each( $('#' + this.id + ' .umr-radio-indent input'),lang.hitch(this,function(i,v){
-					if (v.checked == true){
-						var id = "-" + v.id.split('-').pop();
-						this.obj.rbIds.push(id)
-					}
-				}));	
-				// Get ids of checked checkboxes above radio buttons
-				$.each( $('#' + this.id + 'umr-wrap .rb_cb'),lang.hitch(this,function(i,v){
-					if (v.checked == true){
-						var id = "-" + v.id.split('-').pop();
-						this.obj.rbCbIds.push(id)
-					}
-				}));	
+				// // Get slider ids and values when values do not equal min or max
+				// $.each($('#' + this.id + 'mng-act-wrap .slider'),lang.hitch(this,function(i,v){
+				// 	var idArray = v.id.split('-');
+				// 	var id = "-" + idArray[1] + "-" + idArray[2];
+				// 	var min = $('#' + v.id).slider("option", "min");
+				// 	var max = $('#' + v.id).slider("option", "max");
+				// 	var values = $('#' + v.id).slider("option", "values");
+				// 	if (min != values[0] || max != values[1]){
+				// 		this.obj.slIdsVals.push([ id, [values[0], values[1]] ])
+				// 	}
+				// }));	
+				// // Git ids of checked checkboxes above sliders
+				// $.each( $('#' + this.id + 'umr-wrap .-slCb'),lang.hitch(this,function(i,v){
+				// 	if (v.checked == true){
+				// 		var id = "-" + v.id.split('-').pop();
+				// 		this.obj.slCbIds.push(id)
+				// 	}
+				// }))
+				// // Get ids of checked radio buttons
+				// $.each( $('#' + this.id + ' .umr-radio-indent input'),lang.hitch(this,function(i,v){
+				// 	if (v.checked == true){
+				// 		var id = "-" + v.id.split('-').pop();
+				// 		this.obj.rbIds.push(id)
+				// 	}
+				// }));	
+				// // Get ids of checked checkboxes above radio buttons
+				// $.each( $('#' + this.id + 'umr-wrap .rb_cb'),lang.hitch(this,function(i,v){
+				// 	if (v.checked == true){
+				// 		var id = "-" + v.id.split('-').pop();
+				// 		this.obj.rbCbIds.push(id)
+				// 	}
+				// }));	
 				//extent
 				this.obj.extent = this.map.geographicExtent;
 				this.obj.stateSet = "yes";	
 				var state = new Object();
 				state = this.obj;
-				console.log(this.obj)
 				return state;	
 			}
 		},

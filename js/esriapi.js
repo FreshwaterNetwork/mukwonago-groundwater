@@ -3,7 +3,7 @@ define([
 	"esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol","esri/symbols/SimpleMarkerSymbol", "esri/graphic", "dojo/_base/Color"
 ],
 function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, QueryTask, declare, FeatureLayer, 
-			SimpleLineSymbol, SimpleFillSymbol, SimpleMarkerSymbol, Graphic, Color ) {
+			SimpleLineSymbol, SimpleFillSymbol, SimpleMarkerSymbol, Graphic, Color) {
         "use strict";
 
         return declare(null, {
@@ -14,51 +14,64 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 				if (t.obj.visibleLayers.length > 0){	
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 				}
-				t.dynamicLayer.on("load", function () { 			
+				t.dynamicLayer.on("load", function () {
+					t.clicks.tableRowClose(t); 			
 					t.layersArray = t.dynamicLayer.layerInfos;
 					if (t.obj.stateSet == "no"){
 						t.map.setExtent(t.dynamicLayer.fullExtent.expand(1), true)
 					}
-
-
-					// t.map.on("pan", function(){
-					// 	console.log('pan');
-					// })
-					// t.map.on("pan-end", function(){
-					// 	console.log(t.map.extent);
-					// })
-					// //extent
-					// var extent = new Extent(-9881007.852022115, 5457363.017095501, -9759014.354878929, 5599230.141592842, new SpatialReference({ wkid:4326 }))
-					// t.map.setExtent(extent, true);
-					// // Save and Share Handler					
-					// if (t.obj.stateSet == "yes"){
-					// 	// set slider values
-					// 	$.each(t.obj.slIdsVals,function(i,v){
-					// 		$('#' + t.id + v[0]).slider('values', v[1]);
-					// 	});	
-					// 	// checkboxes for sliders
-					// 	$.each(t.obj.slCbIds,function(i,v){
-					// 		$('#' + t.id + v).trigger('click');
-					// 	})
-					// 	// set radio buttons to checked state
-					// 	$.each(t.obj.rbIds,function(i,v){
-					// 		$('#' + t.id + v).attr('checked', true);
-					// 	})
-					// 	// checkboxes for radio buttons
-					// 	$.each(t.obj.rbCbIds,function(i,v){
-					// 		$('#' + t.id + v).trigger('click');
-					// 	})
-					// 	//extent
-					// 	var extent = new Extent(t.obj.extent.xmin, t.obj.extent.ymin, t.obj.extent.xmax, t.obj.extent.ymax, new SpatialReference({ wkid:4326 }))
-					// 	t.map.setExtent(extent, true);
-					// 	t.obj.stateSet = "no";
-					// }	
-					// trigger initial top control clicks
-					// $.each($('#' + t.id + 'top-controls input'),function(i,v){
-					// 	if (t.obj[v.name] == v.value){
-					// 		$('#' + v.id).trigger('click');	
-					// 	}	
-					// });
+////////////////////////////// save and share code below ////////////////////////////////////////////////////////////
+					if(t.obj.stateSet == 'yes'){
+						console.log(t.obj.wetWhereArray);
+						// update the layer deffs for viz layers using data object
+						t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
+						// display the correct layers on the map
+						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+						// check the correct checkboxes on the main section ////////////////////////
+						$.each(t.obj.mainCheckArray,function(i,y){
+							$.each($('#' + t.id + 'mainRadioBtns input'),function(i,v){
+								if(y == v.value){
+									$(v).prop('checked', 'true');
+								}
+							})
+						})
+						// check the correct checkboxes in the sup data section ////////////////////////
+						$.each(t.obj.supCheckArray,function(i,y){
+							$.each($('#' + t.id + 'supDataWrapper input'),function(i,v){
+								if(y == v.value){
+									$(v).prop('checked', 'true');
+								}
+							})
+						})
+						// slide down the correct html elems /////////////////////////////////////
+						if($('#' + t.id + 'mainRadioBtns input').is(":checked")){
+							$('#' + t.id + 'contentBelowHeader').slideDown();
+						}
+						// build the table on the app pane /////////////////////////////////////////
+						// 
+						console.log(t.obj.wetlandTableObject);
+						// loop through the object and append table rows
+						$.each(t.obj.wetlandTableObject,function(i,atts){
+							// slide down table
+							$('#' + t.id + 'wetlandTableWrapper').slideDown();
+							// slide toogle buttons down
+							$('#' + t.id + 'toggleButtons').slideDown();
+							// slide up click on map text
+							$('#' + t.id + 'clickOnMapText').slideUp();
+							// append rows to table
+							$('#' + t.id + 'wetlandTable').append('<tr><td>' + atts['WETLAND_ID'] + '</td><td>' + atts['WETLAND_TYPE'] 
+								+ '</td><td>' + atts['ALL_RANK'] + '</td><td>' + atts['SS_RANK'] + '</td><td>'
+								+ atts['PR_RANK'] +  '</td><td>' + atts['FLDP_RANK'] + '</td><td>' + atts['TILE_RANK'] + '</td>' 
+								+ '<td class="aoc-tableClose"' + '>' + '&#10060' + '</td></tr>');
+							// call the table close function
+							t.clicks.tableRowClose(t);
+							
+						})
+						// calculate the number of selected items based on data array
+						$(".aoc-selCounter").first().html(t.obj.wetWhereArray.length);
+						// zoom to the correct area of the map
+						t.map.setExtent(t.obj.extent, true);
+					}
 				});					
 			}
 		});
