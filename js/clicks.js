@@ -119,16 +119,13 @@ function ( declare, Query, QueryTask ) {
 							// set vars
 							let id = evt.features[0].attributes.WETLAND_ID
 							let atts = evt.features[0].attributes
-							console.log(atts);
-							var obj  = {type: atts.WETLAND_TYPE, aRank: atts.ALL_RANK, phos: atts.PR_RANK, sed: atts.SS_RANK, fieldP: atts.FLDP_RANK, tile: atts.TILE_RANK, id: atts.WETLAND_ID}
-							console.log(obj);
+							var obj  = {WETLAND_TYPE: atts.WETLAND_TYPE, ALL_RANK: atts.ALL_RANK, PR_RANK: atts.PR_RANK, SS_RANK: atts.SS_RANK, FLDP_RANK: atts.FLDP_RANK, TILE_RANK: atts.TILE_RANK, WETLAND_ID: atts.WETLAND_ID}
 							t.obj.wetlandTableObject.push(obj);
-							console.log(t.obj.wetlandTableObject);
 							// add a new row to the table
 							$('#' + t.id + 'wetlandTable').append('<tr><td>' + atts.WETLAND_ID + '</td><td>' + atts.WETLAND_TYPE 
-								+ '</td><td>' + atts.ALL_RANK + '</td><td>' 
-								+ atts.PR_RANK + '</td><td class="aoc-tableClose"' 
-								+ '>' + '&#10060' + '</td></tr>');
+								+ '</td><td>' + atts.ALL_RANK + '</td><td>' + atts.SS_RANK + '</td><td>'
+								+ atts.PR_RANK +  '</td><td>' + atts.FLDP_RANK + '</td><td>' + atts.TILE_RANK + '</td>' 
+								+ '<td class="aoc-tableClose"' + '>' + '&#10060' + '</td></tr>');
 
 							// check to see if the wetland selected layer has been added, only add it once
 							let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
@@ -182,17 +179,13 @@ function ( declare, Query, QueryTask ) {
 					})
 					// if the wet where array is empty, that means the last close has been clicked and 
 					// we need to remove the wetland sel layer
-					console.log(t.obj.wetWhereArray.length)
-					console.log(t.obj.wetWhereArray)
 					if(t.obj.wetWhereArray.length < 1){
-						console.log('the table is closed')
 						// remove the wetlands tab if nothing is selected
-						
 						// slide up the wetland table and slide down the click on map text
 						$('#' + t.id + 'wetlandTableWrapper').slideUp();
 						$('#' + t.id + 'toggleButtons').slideUp();
-					$('#' + t.id + 'clickOnMapText').slideDown();
-					// remove the wetlands selected layer from viz layers
+						$('#' + t.id + 'clickOnMapText').slideDown();
+						// remove the wetlands selected layer from viz layers
 						let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
 						if(index > -1){
 							t.obj.visibleLayers.splice(index, 1);
@@ -206,6 +199,25 @@ function ( declare, Query, QueryTask ) {
 					t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
 
 				});
+				// close button for tables //////////////
+				$('.aoc-allClose').on('click',function(c){
+					// remove wetland selecetd layer from viz layers
+					let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
+					if(index > -1){
+						t.obj.visibleLayers.splice(index, 1);
+					}
+					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+					// empty table rows
+					$('#' + t.id + 'wetlandTable').find('td').parent().empty();
+					// slide up table and toggle buttons
+					$('#' + t.id + 'wetlandTableWrapper').slideUp();
+					$('#' + t.id + 'toggleButtons').slideUp();
+					$('#' + t.id + 'clickOnMapText').slideDown();
+					// reset the wetland arrays
+					t.obj.wetWhereArray = [];
+					t.obj.wetlandTableObject = [];
+
+				})
 			},
 
 			// main toggle button function./////////////////////////////////////////////
@@ -269,14 +281,19 @@ function ( declare, Query, QueryTask ) {
 				t.lowerFoxBound = 4;
 				t.countyBounds = 5;
 				t.surveyRank = 6;
-				t.otherSurvey = 7;
-				t.habitatSites = 8;
+				t.habitatSites = 7;
+				t.siteVisits = 8;
 				t.wetlands = 9;
 				t.prwWetlands = 10;
 				t.wetlandsBord = 11;
 				t.prwWetlandsBord = 12;
-				t.kepBound = 13;
-
+				t.wetlandsFAH = 13;
+				t.prwFAH = 14;
+				// sup data
+				t.huc12Bounds = 15;
+				t.oneidaBound = 16;
+				t.kepBound = 17;
+				// sel data
 				t.surveyRankSel = 2;
 				t.wetlandsSel= 1;
 				t.habitatSel = 0;

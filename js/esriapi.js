@@ -49,8 +49,9 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 						}
 						// build the table on the app pane /////////////////////////////////////////
 						// 
+						console.log(t.obj.wetlandTableObject);
 						// loop through the object and append table rows
-						$.each(t.obj.wetlandTableObject,function(i,y){
+						$.each(t.obj.wetlandTableObject,function(i,atts){
 							// slide down table
 							$('#' + t.id + 'wetlandTableWrapper').slideDown();
 							// slide toogle buttons down
@@ -58,10 +59,10 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 							// slide up click on map text
 							$('#' + t.id + 'clickOnMapText').slideUp();
 							// append rows to table
-							$('#' + t.id + 'wetlandTable').append('<tr><td>' + y["id"] + '</td><td>' + y["type"] 
-								+ '</td><td>' + y["aRank"]  + '</td><td>' 
-								+ y["phos"]  + '</td><td class="aoc-tableClose"' 
-								+ '>' + '&#10060' + '</td></tr>');
+							$('#' + t.id + 'wetlandTable').append('<tr><td>' + atts['WETLAND_ID'] + '</td><td>' + atts['WETLAND_TYPE'] 
+								+ '</td><td>' + atts['ALL_RANK'] + '</td><td>' + atts['SS_RANK'] + '</td><td>'
+								+ atts['PR_RANK'] +  '</td><td>' + atts['FLDP_RANK'] + '</td><td>' + atts['TILE_RANK'] + '</td>' 
+								+ '<td class="aoc-tableClose"' + '>' + '&#10060' + '</td></tr>');
 							// call the table close function
 							t.clicks.tableRowClose(t);
 							

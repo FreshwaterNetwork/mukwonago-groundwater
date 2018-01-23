@@ -80,6 +80,9 @@ hr{
 .aoc-tableClose:hover{
 	color: rgb(140, 33, 48); cursor: pointer; background-color: #f4f4f4;
 }
+.aoc-allClose:hover{
+	color: rgb(140, 33, 48); cursor: pointer; background-color: rgba(140,33,45,.1);
+}
 /* Tab styles */
 .aoc-tabWrapper span{
 	padding-left: 3px;
