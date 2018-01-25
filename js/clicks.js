@@ -85,6 +85,13 @@ function ( declare, Query, QueryTask ) {
 						})
 					}
 				});
+				// table row click function
+				$('#' + t.id + ' .aoc-tableRow').on('click',function(c){
+					console.log('look here', c);
+				})
+				$('.aoc-tableRow').on('click',function(c){
+					console.log('look here', c);
+				})
 			}, 
 
 			// map click functionality call the map click query function //////////////////////////////////////////////////
@@ -122,7 +129,7 @@ function ( declare, Query, QueryTask ) {
 							var obj  = {WETLAND_TYPE: atts.WETLAND_TYPE, ALL_RANK: atts.ALL_RANK, PR_RANK: atts.PR_RANK, SS_RANK: atts.SS_RANK, FLDP_RANK: atts.FLDP_RANK, TILE_RANK: atts.TILE_RANK, WETLAND_ID: atts.WETLAND_ID}
 							t.obj.wetlandTableObject.push(obj);
 							// add a new row to the table
-							$('#' + t.id + 'wetlandTable').append('<tr><td>' + atts.WETLAND_ID + '</td><td>' + atts.WETLAND_TYPE 
+							$('#' + t.id + 'wetlandTable').append('<tr class="aoc-tableRow"><td>' + atts.WETLAND_ID + '</td><td>' + atts.WETLAND_TYPE 
 								+ '</td><td>' + atts.ALL_RANK + '</td><td>' + atts.SS_RANK + '</td><td>'
 								+ atts.PR_RANK +  '</td><td>' + atts.FLDP_RANK + '</td><td>' + atts.TILE_RANK + '</td>' 
 								+ '<td class="aoc-tableClose"' + '>' + '&#215;' + '</td></tr>');
