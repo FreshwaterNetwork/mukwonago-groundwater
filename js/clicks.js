@@ -233,20 +233,15 @@ function ( declare, Query, QueryTask ) {
 
 			// main toggle button function./////////////////////////////////////////////
 			toggleFunc: function(t){
-				console.log('look here')
 				// declare layers for each section
 				const aocHabitat = [t.habitatSites];
-				console.log(t.obj.wetWhereArray);
-				console.log(t.obj.wetWhereArray.length);
-				if(t.obj.wetWhereArray.length > 0){
-					console.log('1')
-					const watershedContr = [t.wetlands, t.prwWetlands, t.siteVisits, t.wetlandsSel];
-				}else{
-					console.log('2');
-					const watershedContr = [t.wetlands, t.prwWetlands, t.siteVisits];
-				}
-				// const watershedContr = [t.wetlands, t.prwWetlands, t.siteVisits];
 				const fishPassage = [t.surveyRank,t.wetlandsFAH , t.prwFAH];
+				// show the wetalnd selected layer based on array length
+				if(t.obj.wetWhereArray.length > 0){
+					t.watershedContr = [t.wetlands, t.prwWetlands, t.siteVisits, t.wetlandsSel];
+				}else{
+					t.watershedContr = [t.wetlands, t.prwWetlands, t.siteVisits];
+				}
 				// check to see if the checkbox is checked
 				if(t.currentCheckVal.checked){
 					switch(t.currentCheckVal.value){
@@ -254,7 +249,7 @@ function ( declare, Query, QueryTask ) {
 							t.obj.visibleLayers = t.obj.visibleLayers.concat(aocHabitat)
 							break;
 						case 'watershed':
-							t.obj.visibleLayers = t.obj.visibleLayers.concat(watershedContr)
+							t.obj.visibleLayers = t.obj.visibleLayers.concat(t.watershedContr)
 							break;
 						case 'fish':
 							t.obj.visibleLayers = t.obj.visibleLayers.concat(fishPassage)
@@ -271,7 +266,7 @@ function ( declare, Query, QueryTask ) {
 							break;
 						case 'watershed':
 							t.obj.visibleLayers = t.obj.visibleLayers.filter(function(x){
-								return watershedContr.indexOf(x) < 0;
+								return t.watershedContr.indexOf(x) < 0;
 							})
 							let waterIndex = t.obj.visibleLayers.indexOf(t.wetlandsSel);
 							if (waterIndex > -1) {
