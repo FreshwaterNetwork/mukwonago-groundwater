@@ -232,8 +232,8 @@ function ( declare, Query, QueryTask ) {
 				console.log('look here')
 				// declare layers for each section
 				const aocHabitat = [t.habitatSites];
-				const watershedContr = [t.wetlands, t.prwWetlands];
-				const fishPassage = [t.surveyRank]
+				const watershedContr = [t.wetlands, t.prwWetlands, t.siteVisits];
+				const fishPassage = [t.surveyRank,t.wetlandsFAH , t.prwFAH]
 				// check to see if the checkbox is checked
 				if(t.currentCheckVal.checked){
 					switch(t.currentCheckVal.value){
