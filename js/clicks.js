@@ -106,61 +106,65 @@ function ( declare, Query, QueryTask ) {
 			},
 			// map click query function /////////////////////////////////////////////////////////////////////
 			mapClickQuery: function(t, p){
-				// query for wetlands /////////////////////////////////////////////////////////////////////
-				t.q = new Query();
-				t.qt = new QueryTask(t.url + "/" + t.wetlandsSel);
-				t.q.geometry = p
-				t.q.returnGeometry = true;
-				t.q.outFields = ["*"];
-				// query the map on click
-				t.qt.execute(t.q, function(evt){
-					if(evt.features.length > 0){
-						// slide down the wetland table and slide up the click on map text
-						$('#' + t.id + 'wetlandTableWrapper').slideDown();
-						$('#' + t.id + 'toggleButtons').slideDown();
-						$('#' + t.id + 'clickOnMapText').slideUp();
-						// check the appropriate tab based on what was clicked on map
+				// run the wetland query if watershed checkbox is checked
+				if($('#' + t.id + 'watershed-option')[0].checked){
+					// query for wetlands /////////////////////////////////////////////////////////////////////
+					t.q = new Query();
+					t.qt = new QueryTask(t.url + "/" + t.wetlandsSel);
+					t.q.geometry = p
+					t.q.returnGeometry = true;
+					t.q.outFields = ["*"];
+					// query the map on click
+					t.qt.execute(t.q, function(evt){
+						if(evt.features.length > 0){
+							// slide down the wetland table and slide up the click on map text
+							$('#' + t.id + 'wetlandTableWrapper').slideDown();
+							$('#' + t.id + 'toggleButtons').slideDown();
+							$('#' + t.id + 'clickOnMapText').slideUp();
+							// check the appropriate tab based on what was clicked on map
 
-						// only do the below if the array is less than 5 items
-						if(t.obj.wetWhereArray.length < 5){
-							// set vars
-							let id = evt.features[0].attributes.WETLAND_ID
-							let atts = evt.features[0].attributes
-							var obj  = {WETLAND_TYPE: atts.WETLAND_TYPE, ALL_RANK: atts.ALL_RANK, PR_RANK: atts.PR_RANK, SS_RANK: atts.SS_RANK, FLDP_RANK: atts.FLDP_RANK, TILE_RANK: atts.TILE_RANK, WETLAND_ID: atts.WETLAND_ID}
-							t.obj.wetlandTableObject.push(obj);
-							// add a new row to the table
-							$('#' + t.id + 'wetlandTable').append('<tr class="aoc-tableRow"><td>' + atts.WETLAND_ID + '</td><td>' + atts.WETLAND_TYPE 
-								+ '</td><td>' + atts.ALL_RANK + '</td><td>' + atts.SS_RANK + '</td><td>'
-								+ atts.PR_RANK +  '</td><td>' + atts.FLDP_RANK + '</td><td>' + atts.TILE_RANK + '</td>' 
-								+ '<td class="aoc-tableClose"' + '>' + '&#215;' + '</td></tr>');
+							// only do the below if the array is less than 5 items
+							if(t.obj.wetWhereArray.length < 5){
+								// set vars
+								let id = evt.features[0].attributes.WETLAND_ID
+								let atts = evt.features[0].attributes
+								var obj  = {WETLAND_TYPE: atts.WETLAND_TYPE, ALL_RANK: atts.ALL_RANK, PR_RANK: atts.PR_RANK, SS_RANK: atts.SS_RANK, FLDP_RANK: atts.FLDP_RANK, TILE_RANK: atts.TILE_RANK, WETLAND_ID: atts.WETLAND_ID}
+								t.obj.wetlandTableObject.push(obj);
+								// add a new row to the table
+								$('#' + t.id + 'wetlandTable').append('<tr class="aoc-tableRow"><td>' + atts.WETLAND_ID + '</td><td>' + atts.WETLAND_TYPE 
+									+ '</td><td>' + atts.ALL_RANK + '</td><td>' + atts.SS_RANK + '</td><td>'
+									+ atts.PR_RANK +  '</td><td>' + atts.FLDP_RANK + '</td><td>' + atts.TILE_RANK + '</td>' 
+									+ '<td class="aoc-tableClose"' + '>' + '&#215;' + '</td></tr>');
 
-							// check to see if the wetland selected layer has been added, only add it once
-							let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
-							if(index == -1){
-								t.obj.visibleLayers.push(t.wetlandsSel);
-								t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-							}
-							// push the id into the wet where query string
-							t.obj.wetWhereArray.push(id);
-							// build the wet query 
-							$.each(t.obj.wetWhereArray,function(i,v){
-								if(i == 0){
-									t.obj.wetQuery = "WETLAND_ID = " + v;
-								}else{
-									 t.obj.wetQuery += " OR WETLAND_ID = " + v;
+								// check to see if the wetland selected layer has been added, only add it once
+								let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
+								if(index == -1){
+									t.obj.visibleLayers.push(t.wetlandsSel);
+									t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 								}
-  							})
+								// push the id into the wet where query string
+								t.obj.wetWhereArray.push(id);
+								// build the wet query 
+								$.each(t.obj.wetWhereArray,function(i,v){
+									if(i == 0){
+										t.obj.wetQuery = "WETLAND_ID = " + v;
+									}else{
+										 t.obj.wetQuery += " OR WETLAND_ID = " + v;
+									}
+	  							})
 
-  							// set dynamic layer deffs
-							t.obj.layerDefinitions[t.wetlandsSel] = t.obj.wetQuery;
-							t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
-							// // close button for tables //////////////
-							t.clicks.tableRowClose(t);
-							// calculate the number of selected items based on data array
-							$(".aoc-selCounter").first().html(t.obj.wetWhereArray.length);
+	  							// set dynamic layer deffs
+								t.obj.layerDefinitions[t.wetlandsSel] = t.obj.wetQuery;
+								t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
+								// // close button for tables //////////////
+								t.clicks.tableRowClose(t);
+								// calculate the number of selected items based on data array
+								$(".aoc-selCounter").first().html(t.obj.wetWhereArray.length);
+							}
 						}
-					}
-				})
+					})
+				}
+				
 			},
 
 			tableRowClose: function(t){
@@ -232,8 +236,17 @@ function ( declare, Query, QueryTask ) {
 				console.log('look here')
 				// declare layers for each section
 				const aocHabitat = [t.habitatSites];
-				const watershedContr = [t.wetlands, t.prwWetlands, t.siteVisits];
-				const fishPassage = [t.surveyRank,t.wetlandsFAH , t.prwFAH]
+				console.log(t.obj.wetWhereArray);
+				console.log(t.obj.wetWhereArray.length);
+				if(t.obj.wetWhereArray.length > 0){
+					console.log('1')
+					const watershedContr = [t.wetlands, t.prwWetlands, t.siteVisits, t.wetlandsSel];
+				}else{
+					console.log('2');
+					const watershedContr = [t.wetlands, t.prwWetlands, t.siteVisits];
+				}
+				// const watershedContr = [t.wetlands, t.prwWetlands, t.siteVisits];
+				const fishPassage = [t.surveyRank,t.wetlandsFAH , t.prwFAH];
 				// check to see if the checkbox is checked
 				if(t.currentCheckVal.checked){
 					switch(t.currentCheckVal.value){
