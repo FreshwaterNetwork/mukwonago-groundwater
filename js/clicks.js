@@ -39,7 +39,18 @@ function ( declare, Query, QueryTask ) {
 					}else{ // else slide up the div
 						$('#' + t.id + 'contentBelowHeader').slideUp()
 					}
+
 					
+					// add and remove opacity class from the tabs based on if the coorect cb is checked
+					$.each($('#' + t.id + 'toggleButtons input'),function(i,v){
+						// console.log(v.value);
+						if(val == v.value){
+							console.log(val);
+							$(v).next().addClass( "aoc-opacity" );
+						}
+					})
+
+					// if state set = yes
 					if(t.obj.stateSet != 'yes'){
 						// create an array that has the values of each checkbox that is checked for save and share
 						t.obj.mainCheckArray = [];
