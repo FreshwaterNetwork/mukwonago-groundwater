@@ -39,7 +39,18 @@ function ( declare, Query, QueryTask ) {
 					}else{ // else slide up the div
 						$('#' + t.id + 'contentBelowHeader').slideUp()
 					}
+
 					
+					// add and remove opacity class from the tabs based on if the coorect cb is checked
+					$.each($('#' + t.id + 'toggleButtons input'),function(i,v){
+						// console.log(v.value);
+						if(val == v.value){
+							console.log(val);
+							$(v).next().addClass( "aoc-opacity" );
+						}
+					})
+
+					// if state set = yes
 					if(t.obj.stateSet != 'yes'){
 						// create an array that has the values of each checkbox that is checked for save and share
 						t.obj.mainCheckArray = [];
@@ -292,25 +303,27 @@ function ( declare, Query, QueryTask ) {
 				t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 			},
 			makeVariables: function(t){
-				t.aoc = 3;
-				t.lowerFoxBound = 4;
-				t.countyBounds = 5;
-				t.surveyRank = 6;
-				t.habitatSites = 7;
-				t.siteVisits = 8;
-				t.wetlands = 9;
-				t.prwWetlands = 10;
-				t.wetlandsBord = 11;
-				t.prwWetlandsBord = 12;
-				t.wetlandsFAH = 13;
-				t.prwFAH = 14;
+				t.aoc = 4;
+				t.lowerFoxBound = 5;
+				t.countyBounds = 6;
+				t.surveyRank = 7;
+				t.habitatSites = 8;
+				t.siteVisits = 9;
+				t.wetlands = 10;
+				t.prwWetlands = 11;
+				t.wetlandsBord = 12;
+				t.prwWetlandsBord = 13;
+				t.wetlandsFAH = 14;
+				t.prwFAH = 15;
 				// sup data
-				t.huc12Bounds = 15;
-				t.oneidaBound = 16;
-				t.kepBound = 17;
+				t.AOCPriorityAreas = 16;
+				t.huc12Bounds = 17;
+				t.oneidaBound = 18;
+				t.kepBound = 19;
 				// sel data
-				t.surveyRankSel = 2;
-				t.wetlandsSel= 1;
+				t.surveyRankSel = 3;
+				t.wetlandsSel= 2;
+				t.wetlandsSubSel = 1;
 				t.habitatSel = 0;
 			},
 			commaSeparateNumber: function(val){

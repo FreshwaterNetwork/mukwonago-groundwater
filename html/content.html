@@ -71,14 +71,15 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			<h4>Click rows to highlight record on map.</h4>
 			<div id="toggleButtons" class="aoc-tabWrapper">
 				<div class="toggle-btn" style="width: 460px;">
-					<input checked type="radio" id="ch1" name="ch" value="first"/>
+					<input checked type="radio" id="ch1" name="ch" value="watershed"/>
 					<label style="width: 33%;" for="ch1">Wetlands<span><br><span class="aoc-selCounter">0</span> of 5</span></label>
-					<input type="radio" id="ch2" name="ch" value="second"/>
-					<label style="width: 33%;" class="" for="ch2">AOC Wildlife <br><span class="aoc-selCounter"><span>0</span> of 5</span></label>
-					<input type="radio" id="ch3" name="ch" value="third"/>
-					<label style="width: 33%;" class="" for="ch3">Fish Passage<br><span class="aoc-selCounter"><span>0</span> of 5</span></label>
+					<input type="radio" id="ch2" name="ch" value="wildlife"/>
+					<label style="width: 33%;" class="aoc-opacity" for="ch2">AOC Wildlife <br><span class="aoc-selCounter"><span>0</span> of 5</span></label>
+					<input type="radio" id="ch3" name="ch" value="fish"/>
+					<label style="width: 33%;" class="aoc-opacity" for="ch3">Fish Passage<br><span class="aoc-selCounter"><span>0</span> of 5</span></label>
 					<input type="radio" id="ch4" name="ch" value="fourth"/>
-					<label style="width: 33%;" class="" for="ch4">PRW Site Visit<br><span class="aoc-selCounter"><span>0</span> of 5</span></label>
+					<label style="width: 33%;" class="aoc-opacity" for="ch4">PRW Site Visit<br><span class="aoc-selCounter"><span>0</span> of 5</span></label>		
+					
 				</div>
 			</div>
 			<div class="aoc-tableWrapper">
@@ -168,7 +169,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 				<div style="width: 185px;">
 					<div class="aoc-wildCheckWrapper">
 						<label class="form-component aoc-funcLabel" for="total-option">
-							<input checked type="checkbox" id="total-option" name="wild" class="rb_cb" value="layer-4">
+							<input checked type="checkbox" id="total-option" name="wild" class="rb_cb" value="layer-5">
 							<div class="check"></div>
 							<span class="form-text">Lower Fox Watershed</span>
 							<div style="z-index: 100000;" id="wildDialogBoxTest"></div>
@@ -177,14 +178,14 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 					</div>
 					<div class="aoc-wildCheckWrapper">
 						<label class="form-component aoc-funcLabel" style="display: block;" for="forest-option">
-							<input checked type="checkbox" id="forest-option" name="wild" class="rb_cb" value="layer-3">
+							<input checked type="checkbox" id="forest-option" name="wild" class="rb_cb" value="layer-4">
 							<div class="check"></div>
 							<span class="form-text">Lower Fox AOC</span>
 						</label>
 					</div>
 					<div class="aoc-wildCheckWrapper">
 						<label  class="form-component aoc-funcLabel" style="display: block;" for="swamp-option">
-							<input type="checkbox" id="swamp-option" name="wild" class="rb_cb" value="layer-5">
+							<input type="checkbox" id="swamp-option" name="wild" class="rb_cb" value="layer-6">
 							<div class="check"></div>
 							<span class="form-text">County Boundaries</span>
 						</label>
@@ -193,21 +194,21 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 				<div>
 					<div class="aoc-wildCheckWrapper">
 						<label  class="form-component aoc-funcLabel" style="display: block;" for="swamp-option5">
-							<input type="checkbox" id="swamp-option5" name="wild" class="rb_cb" value="layer-15">
+							<input type="checkbox" id="swamp-option5" name="wild" class="rb_cb" value="layer-17">
 							<div class="check"></div>
 							<span class="form-text">HUC 12 Boundaries</span>
 						</label>
 					</div>
 					<div class="aoc-wildCheckWrapper">
 						<label  class="form-component aoc-funcLabel" style="display: block;" for="swamp-option4">
-							<input type="checkbox" id="swamp-option4" name="wild" class="rb_cb" value="layer-16">
+							<input type="checkbox" id="swamp-option4" name="wild" class="rb_cb" value="layer-18">
 							<div class="check"></div>
 							<span class="form-text">Oneida Boundary</span>
 						</label>
 					</div>
 					<div class="aoc-wildCheckWrapper">
 						<label  class="form-component aoc-funcLabel" style="display: block;" for="swamp-option3">
-							<input type="checkbox" id="swamp-option3" name="wild" class="rb_cb" value="layer-17">
+							<input type="checkbox" id="swamp-option3" name="wild" class="rb_cb" value="layer-19">
 							<div class="check"></div>
 							<span class="form-text">KEP Boundaries</span>
 						</label>

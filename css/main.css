@@ -97,3 +97,6 @@ hr{
 .aoc-tabWrapper{
 	display: none;
 }
+.aoc-opacity{
+	opacity: .2;
+}
