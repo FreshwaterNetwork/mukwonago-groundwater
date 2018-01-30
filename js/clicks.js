@@ -26,7 +26,8 @@ function ( declare, Query, QueryTask ) {
 					}
 				})
 				// Main header toggle button///////////////////////////////////////////
-				$('#' + t.id + 'mainRadioBtns input').on('click',function(c){
+				$('#' + t.id + 'mainRadioBtns .aoc-mainCB input').on('click',function(c){
+					console.log(c);
 					let val = c.currentTarget.value;
 					t.currentCheckVal = c.currentTarget;
 					const sections = $(".aoc-contentBelowHeader .aoc-mainSection");
@@ -34,27 +35,30 @@ function ( declare, Query, QueryTask ) {
 					t.clicks.toggleFunc(t)
 					
 					// check to see if any radio button is checked and slide down div below header
-					if($('#' + t.id + 'mainRadioBtns input').is(":checked")){
+					if($('#' + t.id + 'mainRadioBtns .aoc-mainCB input').is(":checked")){
 						$('#' + t.id + 'contentBelowHeader').slideDown()
 					}else{ // else slide up the div
 						$('#' + t.id + 'contentBelowHeader').slideUp()
 					}
 
 					
-					// add and remove opacity class from the tabs based on if the coorect cb is checked
-					$.each($('#' + t.id + 'toggleButtons input'),function(i,v){
-						// console.log(v.value);
-						if(val == v.value){
-							console.log(val);
-							$(v).next().addClass( "aoc-opacity" );
-						}
-					})
+					// // add and remove opacity class from the tabs based on if the coorect cb is checked
+					// $.each($('#' + t.id + 'toggleButtons input'),function(i,v){
+					// 	console.log(v.checked);
+					// 	// if()
+					// 	if(v.checked){
+					// 		console.log(val);
+					// 		$(v).next().removeClass( "aoc-opacity" );
+					// 	}else{
+					// 		$(v).next().addClass( "aoc-opacity" );
+					// 	}
+					// })
 
 					// if state set = yes
 					if(t.obj.stateSet != 'yes'){
 						// create an array that has the values of each checkbox that is checked for save and share
 						t.obj.mainCheckArray = [];
-						$.each($('#' + t.id + 'mainRadioBtns input'),function(i,v){
+						$.each($('#' + t.id + 'mainRadioBtns .aoc-mainCB input'),function(i,v){
 							// call the map click function at the start to load it
 							if(v.checked == true){
 								t.obj.mainCheckArray.push(v.value);

@@ -29,7 +29,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 						// check the correct checkboxes on the main section ////////////////////////
 						$.each(t.obj.mainCheckArray,function(i,y){
-							$.each($('#' + t.id + 'mainRadioBtns input'),function(i,v){
+							$.each($('#' + t.id + 'mainRadioBtns .aoc-mainCB input'),function(i,v){
 								if(y == v.value){
 									$(v).prop('checked', 'true');
 								}
@@ -44,7 +44,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 							})
 						})
 						// slide down the correct html elems /////////////////////////////////////
-						if($('#' + t.id + 'mainRadioBtns input').is(":checked")){
+						if($('#' + t.id + 'mainRadioBtns .aoc-mainCB input').is(":checked")){
 							$('#' + t.id + 'contentBelowHeader').slideDown();
 						}
 						// build the table on the app pane /////////////////////////////////////////
