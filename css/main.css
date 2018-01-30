@@ -57,6 +57,9 @@ hr{
 .aoc-supData{
 	display: flex; margin-left: 5px;
 }
+.aoc-selectableLayersWrapper{
+	display: flex; margin-left: 5px;
+}
 
 /* Table styles //////////////////////////////////////////////////////////////////////////////////////////*/
 .aoc-tableWrapper{

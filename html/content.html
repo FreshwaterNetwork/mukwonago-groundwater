@@ -83,8 +83,8 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			</div>
 		</div> -->
 		
-		<div id="wetlandTableWrapper" class="hide">
-			<!-- <h3>Selected Data:</h3> -->
+		<!-- <div id="wetlandTableWrapper" class="hide">
+			
 			<h4>Click rows to highlight record on map.</h4>
 			<div id="toggleButtons" class="aoc-tabWrapper">
 				<div class="toggle-btn" style="width: 460px;">
@@ -124,8 +124,24 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 				  	</tbody>
 				</table>
 			</div>
+		</div> -->
+		<div id="wetlandTableWrapper" class="hide">
+			<p>wetland wrapper</p>
 		</div>
-		<hr>
+
+		<div id="restorableSitesWrapper" class="hide">
+			<p>restoreable sites wrapper</p>
+		</div>
+
+		<div id="surveyRankWrapper" class="hide">
+			<p>survey wrapper</p>
+		</div>
+
+		<div id="habitatSitesWrapper" class="hide">
+			<p>habitat wrapper</p>
+		</div>
+
+		<hr> 
 	
 		<!-- Water quality section wrapper -->
 		<div id="watershedSectionWrapper" class="aoc-watershedSectionWrapper aoc-mainSection hide" data-value="watershed">
@@ -181,6 +197,63 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			<hr>
 		</div>
 		<div id="supDataWrapper" class="aoc-supDataWrapper">
+			<h3>Selectable layers:</h3>
+
+			<!-- aoc selectable layers warpper -->
+			<div id="aoc-selectableLayersWrapper" class="aoc-selectableLayersWrapper">
+				
+				<!--  wetland selectable layer wrapper -->
+				<div id="wetlandSelectLayersWrapper">
+					<!-- <h4>Wetland Selectable Layers</h4> -->
+					<div class="aoc-selectWrapper">
+						<label class="form-component aoc-funcLabel" for="wet-option">
+							<input checked type="checkbox" id="wet-option" name="wild" class="rb_cb" value="layer-10">
+							<div class="check"></div>
+							<span class="form-text">Wetlands for Water Quality</span>
+						</label>
+					</div>
+					<div class="aoc-selectWrapper">
+						<label class="form-component aoc-funcLabel" style="display: block;" for="prw-option">
+							<input checked type="checkbox" id="prw-option" name="wild" class="rb_cb" value="layer-11">
+							<div class="check"></div>
+							<span class="form-text">PRW for Water Quality</span>
+						</label>
+					</div>
+					<div class="aoc-selectWrapper">
+						<label class="form-component aoc-funcLabel" style="display: block;" for="restore-option">
+							<input checked type="checkbox" id="restore-option" name="wild" class="rb_cb" value="layer-9">
+							<div class="check"></div>
+							<span class="form-text">Potentially Restorable Site Visits</span>
+						</label>
+					</div>
+				</div>
+				<div>
+					<!--  habitat selectable layer wrapper -->
+					<div id="habitatSelectLayersWrapper">
+						<!-- <h4>Habitat Selectable Layers</h4> -->
+						<div class="aoc-selectWrapper">
+							<label class="form-component aoc-funcLabel" for="habitat-option">
+								<input checked type="checkbox" id="habitat-option" name="wild" class="rb_cb" value="layer-8">
+								<div class="check"></div>
+								<span class="form-text">Habitat Sites</span>
+							</label>
+						</div>
+					</div>
+					<!--  fish selectable layer wrapper -->
+					<div id="fishSelectLayersWrapper">
+						<!-- <h4>Fish Passage Selectable Layers</h4> -->
+						<div class="aoc-selectWrapper">
+							<label class="form-component aoc-funcLabel" for="barrier-option">
+								<input checked type="checkbox" id="barrier-option" name="wild" class="rb_cb" value="layer-7">
+								<div class="check"></div>
+								<span class="form-text">Surveyed Barrier Rank</span>
+							</label>
+						</div>
+					</div>
+				</div>
+		
+			</div>
+			<!-- other sup data wrapper -->
 			<h3>Supplementary Data:</h3>
 			<div class="aoc-supData">
 				<div style="width: 185px;">
@@ -208,7 +281,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 						</label>
 					</div>
 				</div>
-				<div>
+				<div style="margin-left: 29px;">
 					<div class="aoc-wildCheckWrapper">
 						<label  class="form-component aoc-funcLabel" style="display: block;" for="swamp-option5">
 							<input type="checkbox" id="swamp-option5" name="wild" class="rb_cb" value="layer-17">
