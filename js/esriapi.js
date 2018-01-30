@@ -37,7 +37,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 						})
 						// check the correct checkboxes in the sup data section ////////////////////////
 						$.each(t.obj.supCheckArray,function(i,y){
-							$.each($('#' + t.id + 'supDataWrapper input'),function(i,v){
+							$.each($('#' + t.id + 'supData input'),function(i,v){
 								if(y == v.value){
 									$(v).prop('checked', 'true');
 								}

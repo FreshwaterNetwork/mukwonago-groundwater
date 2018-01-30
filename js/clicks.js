@@ -27,33 +27,17 @@ function ( declare, Query, QueryTask ) {
 				})
 				// Main header toggle button///////////////////////////////////////////
 				$('#' + t.id + 'mainRadioBtns .aoc-mainCB input').on('click',function(c){
-					console.log(c);
 					let val = c.currentTarget.value;
 					t.currentCheckVal = c.currentTarget;
 					const sections = $(".aoc-contentBelowHeader .aoc-mainSection");
 					// call the toggle function
 					t.clicks.toggleFunc(t)
-					
 					// check to see if any radio button is checked and slide down div below header
 					if($('#' + t.id + 'mainRadioBtns .aoc-mainCB input').is(":checked")){
 						$('#' + t.id + 'contentBelowHeader').slideDown()
 					}else{ // else slide up the div
 						$('#' + t.id + 'contentBelowHeader').slideUp()
 					}
-
-					
-					// // add and remove opacity class from the tabs based on if the coorect cb is checked
-					// $.each($('#' + t.id + 'toggleButtons input'),function(i,v){
-					// 	console.log(v.checked);
-					// 	// if()
-					// 	if(v.checked){
-					// 		console.log(val);
-					// 		$(v).next().removeClass( "aoc-opacity" );
-					// 	}else{
-					// 		$(v).next().addClass( "aoc-opacity" );
-					// 	}
-					// })
-
 					// if state set = yes
 					if(t.obj.stateSet != 'yes'){
 						// create an array that has the values of each checkbox that is checked for save and share
@@ -71,8 +55,20 @@ function ( declare, Query, QueryTask ) {
 						})
 					}
 				});
-				// checkboxes for suplementary data
-				$('#' + t.id + 'supDataWrapper input').on('click',function(c){
+				// checkboxes for selectable layers ////////////////////////////////////////////////////
+				$('#' + t.id + 'selectableLayersWrapper input').on('click',function(c){
+					let val = parseInt(c.currentTarget.value.split('-')[1]);
+					if(c.currentTarget.checked){
+						t.obj.visibleLayers.push(val)
+					}else{
+						let index = t.obj.visibleLayers.indexOf(val)
+						t.obj.visibleLayers.splice(index,1);
+					}
+					// set the visible layers
+					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+				})
+				// checkboxes for suplementary data ///////////////////////////////////////////////////
+				$('#' + t.id + 'supData input').on('click',function(c){
 					console.log(c,'c');
 					let val = parseInt(c.currentTarget.value.split('-')[1]);
 					if(c.currentTarget.checked){
@@ -88,7 +84,7 @@ function ( declare, Query, QueryTask ) {
 					if(t.obj.stateSet != 'yes'){
 						// create an array that has the values of each checkbox that is checked for save and share
 						t.obj.supCheckArray = [];
-						$.each($('#' + t.id + 'supDataWrapper input'),function(i,v){
+						$.each($('#' + t.id + 'supData input'),function(i,v){
 							// call the map click function at the start to load it
 							if(v.checked == true){
 								t.obj.supCheckArray.push(v.value);
@@ -260,20 +256,24 @@ function ( declare, Query, QueryTask ) {
 				}
 				// check to see if the checkbox is checked
 				if(t.currentCheckVal.checked){
-					console.log(t.currentCheckVal);
 					switch(t.currentCheckVal.value){
 						case 'habitat':
 							t.obj.visibleLayers = t.obj.visibleLayers.concat(aocHabitat)
-							console.log('look here')
-							$('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper').removeClass('aoc-opacity');
+							$.each($('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper input'),function(i,v){
+								$(v).prop('disabled', false)
+							})
 							break;
 						case 'wetland':
 							t.obj.visibleLayers = t.obj.visibleLayers.concat(t.watershedContr)
-							$('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper').removeClass('aoc-opacity');
+							$.each($('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper input'),function(i,v){
+								$(v).prop('disabled', false)
+							})
 							break;
 						case 'fish':
 							t.obj.visibleLayers = t.obj.visibleLayers.concat(fishPassage)
-							$('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper').removeClass('aoc-opacity');
+							$.each($('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper input'),function(i,v){
+								$(v).prop('disabled', false)
+							})
 							break;
 						default:
 							console.log('none of the cases matched');
@@ -284,7 +284,9 @@ function ( declare, Query, QueryTask ) {
 							t.obj.visibleLayers = t.obj.visibleLayers.filter(function(x){
 								return aocHabitat.indexOf(x) < 0;
 							})
-							$('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper').addClass('aoc-opacity');
+							$.each($('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper input'),function(i,v){
+								$(v).prop('disabled', true)
+							})
 							break;
 						case 'wetland':
 							t.obj.visibleLayers = t.obj.visibleLayers.filter(function(x){
@@ -294,7 +296,9 @@ function ( declare, Query, QueryTask ) {
 							if (waterIndex > -1) {
 								t.obj.visibleLayers.splice(waterIndex,1);
 							}
-							$('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper').addClass('aoc-opacity');
+							$.each($('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper input'),function(i,v){
+								$(v).prop('disabled', true)
+							})
 							break;
 						case 'fish':
 							// remove the fish passage layers if checkboxes is unchecked
@@ -306,7 +310,9 @@ function ( declare, Query, QueryTask ) {
 							if (index > -1) {
 								t.obj.visibleLayers.splice(index,1);
 							}
-							$('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper').addClass('aoc-opacity');
+							$.each($('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper input'),function(i,v){
+								$(v).prop('disabled', true)
+							})
 							break;
 						default:
 							console.log('none of the cases matched');

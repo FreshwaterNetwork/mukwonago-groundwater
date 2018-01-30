@@ -183,28 +183,28 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			<h3>Selectable layers:</h3>
 
 			<!-- aoc selectable layers warpper -->
-			<div id="aoc-selectableLayersWrapper" class="aoc-selectableLayersWrapper">
+			<div id="selectableLayersWrapper" class="aoc-selectableLayersWrapper">
 				
 				<!--  wetland selectable layer wrapper -->
-				<div id="wetlandSelectLayersWrapper" class="aoc-opacity">
+				<div id="wetlandSelectLayersWrapper">
 					<!-- <h4>Wetland Selectable Layers</h4> -->
 					<div class="aoc-selectWrapper">
 						<label class="form-component aoc-funcLabel" for="wet-option">
-							<input checked type="checkbox" id="wet-option" name="wild" class="rb_cb" value="layer-10">
+							<input disabled="true" checked type="checkbox" id="wet-option" name="wild" class="rb_cb" value="layer-10">
 							<div class="check"></div>
 							<span class="form-text">Wetlands for Water Quality</span>
 						</label>
 					</div>
 					<div class="aoc-selectWrapper">
 						<label class="form-component aoc-funcLabel" style="display: block;" for="prw-option">
-							<input checked type="checkbox" id="prw-option" name="wild" class="rb_cb" value="layer-11">
+							<input disabled="true" checked type="checkbox" id="prw-option" name="wild" class="rb_cb" value="layer-11">
 							<div class="check"></div>
 							<span class="form-text">PRW for Water Quality</span>
 						</label>
 					</div>
 					<div class="aoc-selectWrapper">
 						<label class="form-component aoc-funcLabel" style="display: block;" for="restore-option">
-							<input checked type="checkbox" id="restore-option" name="wild" class="rb_cb" value="layer-9">
+							<input disabled="true" checked type="checkbox" id="restore-option" name="wild" class="rb_cb" value="layer-9">
 							<div class="check"></div>
 							<span class="form-text">Potentially Restorable Site Visits</span>
 						</label>
@@ -212,22 +212,22 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 				</div>
 				<div>
 					<!--  habitat selectable layer wrapper -->
-					<div id="habitatSelectLayersWrapper" class="aoc-opacity">
+					<div id="habitatSelectLayersWrapper" >
 						<!-- <h4>Habitat Selectable Layers</h4> -->
 						<div class="aoc-selectWrapper">
 							<label class="form-component aoc-funcLabel" for="habitat-option">
-								<input checked type="checkbox" id="habitat-option" name="wild" class="rb_cb" value="layer-8">
+								<input disabled="true" checked type="checkbox" id="habitat-option" name="wild" class="rb_cb" value="layer-8">
 								<div class="check"></div>
 								<span class="form-text">Habitat Sites</span>
 							</label>
 						</div>
 					</div>
 					<!--  fish selectable layer wrapper -->
-					<div id="fishSelectLayersWrapper" class="aoc-opacity">
+					<div id="fishSelectLayersWrapper">
 						<!-- <h4>Fish Passage Selectable Layers</h4> -->
 						<div class="aoc-selectWrapper">
 							<label class="form-component aoc-funcLabel" for="barrier-option">
-								<input checked type="checkbox" id="barrier-option" name="wild" class="rb_cb" value="layer-7">
+								<input disabled="true" checked type="checkbox" id="barrier-option" name="wild" class="rb_cb" value="layer-7">
 								<div class="check"></div>
 								<span class="form-text">Surveyed Barrier Rank</span>
 							</label>
@@ -238,7 +238,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			</div>
 			<!-- other sup data wrapper -->
 			<h3>Supplementary Data:</h3>
-			<div class="aoc-supData">
+			<div id="supData" class="aoc-supData">
 				<div style="width: 185px;">
 					<div class="aoc-wildCheckWrapper">
 						<label class="form-component aoc-funcLabel" for="total-option">
