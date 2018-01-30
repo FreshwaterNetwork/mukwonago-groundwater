@@ -58,7 +58,7 @@ hr{
 	display: flex; margin-left: 5px;
 }
 .aoc-selectableLayersWrapper{
-	display: flex; margin-left: 5px;
+	display: flex; margin-left: 5px; color: #2f6384;
 }
 
 /* Table styles //////////////////////////////////////////////////////////////////////////////////////////*/
@@ -103,3 +103,6 @@ hr{
 .aoc-opacity{
 	opacity: .2;
 }
+/*.aoc-opacity:hover{
+	cursor:not-allowed !important;
+}*/

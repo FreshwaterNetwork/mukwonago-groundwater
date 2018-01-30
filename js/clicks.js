@@ -73,6 +73,7 @@ function ( declare, Query, QueryTask ) {
 				});
 				// checkboxes for suplementary data
 				$('#' + t.id + 'supDataWrapper input').on('click',function(c){
+					console.log(c,'c');
 					let val = parseInt(c.currentTarget.value.split('-')[1]);
 					if(c.currentTarget.checked){
 						t.obj.visibleLayers.push(val)
@@ -259,27 +260,33 @@ function ( declare, Query, QueryTask ) {
 				}
 				// check to see if the checkbox is checked
 				if(t.currentCheckVal.checked){
+					console.log(t.currentCheckVal);
 					switch(t.currentCheckVal.value){
-						case 'wildlife':
+						case 'habitat':
 							t.obj.visibleLayers = t.obj.visibleLayers.concat(aocHabitat)
+							console.log('look here')
+							$('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper').removeClass('aoc-opacity');
 							break;
-						case 'watershed':
+						case 'wetland':
 							t.obj.visibleLayers = t.obj.visibleLayers.concat(t.watershedContr)
+							$('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper').removeClass('aoc-opacity');
 							break;
 						case 'fish':
 							t.obj.visibleLayers = t.obj.visibleLayers.concat(fishPassage)
+							$('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper').removeClass('aoc-opacity');
 							break;
 						default:
 							console.log('none of the cases matched');
 					}
 				}else{
 					switch(t.currentCheckVal.value){
-						case 'wildlife':
+						case 'habitat':
 							t.obj.visibleLayers = t.obj.visibleLayers.filter(function(x){
 								return aocHabitat.indexOf(x) < 0;
 							})
+							$('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper').addClass('aoc-opacity');
 							break;
-						case 'watershed':
+						case 'wetland':
 							t.obj.visibleLayers = t.obj.visibleLayers.filter(function(x){
 								return t.watershedContr.indexOf(x) < 0;
 							})
@@ -287,6 +294,7 @@ function ( declare, Query, QueryTask ) {
 							if (waterIndex > -1) {
 								t.obj.visibleLayers.splice(waterIndex,1);
 							}
+							$('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper').addClass('aoc-opacity');
 							break;
 						case 'fish':
 							// remove the fish passage layers if checkboxes is unchecked
@@ -298,11 +306,13 @@ function ( declare, Query, QueryTask ) {
 							if (index > -1) {
 								t.obj.visibleLayers.splice(index,1);
 							}
+							$('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper').addClass('aoc-opacity');
 							break;
 						default:
 							console.log('none of the cases matched');
 					}
 				}
+				// slide down the correct 
 				// set the visible layers
 				t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 			},

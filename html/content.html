@@ -32,34 +32,17 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			<!-- Main Checkboxes Buttons -->
 			<div id="mainRadioBtns" class="aoc-mainRadioBtnsWrapper">
 				<label class="form-component aoc-mainCB" for="count-option">
-					<input type="checkbox" id="count-option" name="func" class="rb_cb" value="wildlife">
+					<input type="checkbox" id="count-option" name="func" class="rb_cb" value="habitat">
 					<div class="check"></div>
 					<span class="form-text">AOC Wildlife and Habitat Opportunities</span>
 				</label>
 				<br>
-				<!-- wildlife and habiatat sub checkboxes -->
-		<!-- 		<div style="margin-left: 10px;">
-					<label class="form-component" for="c-option">
-						<input checked type="checkbox" id="c-option" name="food">
-						<div class="check"></div>
-						<span class="form-text">Habitat Sites</span>
-					</label>
-				</div> -->
-
 				<label class="form-component aoc-mainCB" for="watershed-option">
-					<input type="checkbox" id="watershed-option" name="func" class="rb_cb" value="watershed">
+					<input type="checkbox" id="watershed-option" name="func" class="rb_cb" value="wetland">
 					<div class="check"></div>
 					<span class="form-text">Watershed Contributions to AOC Wildlife and Habitats</span>
 				</label>
 				<br>
-				<!-- wildlife and habiatat sub checkboxes -->
-				<!-- <div style="margin-left: 10px;">
-					<label class="form-component" for="c-option">
-						<input checked type="checkbox" id="c-option" name="food">
-						<div class="check"></div>
-						<span class="form-text">wetlands</span>
-					</label>
-				</div> -->
 				<label class="form-component aoc-mainCB" for="fish-option">
 					<input type="checkbox" id="fish-option" name="func" class="rb_cb" value="fish">
 					<div class="check"></div>
@@ -203,7 +186,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			<div id="aoc-selectableLayersWrapper" class="aoc-selectableLayersWrapper">
 				
 				<!--  wetland selectable layer wrapper -->
-				<div id="wetlandSelectLayersWrapper">
+				<div id="wetlandSelectLayersWrapper" class="aoc-opacity">
 					<!-- <h4>Wetland Selectable Layers</h4> -->
 					<div class="aoc-selectWrapper">
 						<label class="form-component aoc-funcLabel" for="wet-option">
@@ -229,7 +212,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 				</div>
 				<div>
 					<!--  habitat selectable layer wrapper -->
-					<div id="habitatSelectLayersWrapper">
+					<div id="habitatSelectLayersWrapper" class="aoc-opacity">
 						<!-- <h4>Habitat Selectable Layers</h4> -->
 						<div class="aoc-selectWrapper">
 							<label class="form-component aoc-funcLabel" for="habitat-option">
@@ -240,7 +223,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 						</div>
 					</div>
 					<!--  fish selectable layer wrapper -->
-					<div id="fishSelectLayersWrapper">
+					<div id="fishSelectLayersWrapper" class="aoc-opacity">
 						<!-- <h4>Fish Passage Selectable Layers</h4> -->
 						<div class="aoc-selectWrapper">
 							<label class="form-component aoc-funcLabel" for="barrier-option">
