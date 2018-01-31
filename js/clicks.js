@@ -118,129 +118,139 @@ function ( declare, Query, QueryTask ) {
 			},
 			// map click query function /////////////////////////////////////////////////////////////////////
 			mapClickQuery: function(t, p){
-				// run the wetland query if watershed checkbox is checked
-				if($('#' + t.id + 'watershed-option')[0].checked){
-					// query for wetlands /////////////////////////////////////////////////////////////////////
-					t.q = new Query();
-					t.qt = new QueryTask(t.url + "/" + t.wetlandsSel);
-					t.q.geometry = p
-					t.q.returnGeometry = true;
-					t.q.outFields = ["*"];
-					// query the map on click
-					t.qt.execute(t.q, function(evt){
-						if(evt.features.length > 0){
-							// slide down the wetland table and slide up the click on map text
-							$('#' + t.id + 'wetlandTableWrapper').slideDown();
-							$('#' + t.id + 'toggleButtons').slideDown();
-							$('#' + t.id + 'clickOnMapText').slideUp();
-							// check the appropriate tab based on what was clicked on map
+				let array = [3,0,2];
+				t.q = new Query();
+				t.qt = new QueryTask(t.url + "/" + t.wetlandsSel);
+				t.q.geometry = p
+				t.q.returnGeometry = true;
+				t.q.outFields = ["*"];
+				// query the map on click
+				t.qt.execute(t.q, function(evt){
 
-							// only do the below if the array is less than 5 items
-							if(t.obj.wetWhereArray.length < 5){
-								// set vars
-								let id = evt.features[0].attributes.WETLAND_ID
-								let atts = evt.features[0].attributes
-								var obj  = {WETLAND_TYPE: atts.WETLAND_TYPE, ALL_RANK: atts.ALL_RANK, PR_RANK: atts.PR_RANK, SS_RANK: atts.SS_RANK, FLDP_RANK: atts.FLDP_RANK, TILE_RANK: atts.TILE_RANK, WETLAND_ID: atts.WETLAND_ID}
-								t.obj.wetlandTableObject.push(obj);
-								// add a new row to the table
-								$('#' + t.id + 'wetlandTable').append('<tr class="aoc-tableRow"><td>' + atts.WETLAND_ID + '</td><td>' + atts.WETLAND_TYPE 
-									+ '</td><td>' + atts.ALL_RANK + '</td><td>' + atts.SS_RANK + '</td><td>'
-									+ atts.PR_RANK +  '</td><td>' + atts.FLDP_RANK + '</td><td>' + atts.TILE_RANK + '</td>' 
-									+ '<td class="aoc-tableClose"' + '>' + '&#215;' + '</td></tr>');
+				})
+				// // run the wetland query if watershed checkbox is checked
+				// if($('#' + t.id + 'watershed-option')[0].checked){
+				// 	// query for wetlands /////////////////////////////////////////////////////////////////////
+				// 	t.q = new Query();
+				// 	t.qt = new QueryTask(t.url + "/" + t.wetlandsSel);
+				// 	t.q.geometry = p
+				// 	t.q.returnGeometry = true;
+				// 	t.q.outFields = ["*"];
+				// 	// query the map on click
+				// 	t.qt.execute(t.q, function(evt){
+				// 		if(evt.features.length > 0){
+				// 			// slide down the wetland table and slide up the click on map text
+				// 			$('#' + t.id + 'wetlandTableWrapper').slideDown();
+				// 			$('#' + t.id + 'toggleButtons').slideDown();
+				// 			$('#' + t.id + 'clickOnMapText').slideUp();
+				// 			// check the appropriate tab based on what was clicked on map
 
-								// check to see if the wetland selected layer has been added, only add it once
-								let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
-								if(index == -1){
-									t.obj.visibleLayers.push(t.wetlandsSel);
-									t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-								}
-								// push the id into the wet where query string
-								t.obj.wetWhereArray.push(id);
-								// build the wet query 
-								$.each(t.obj.wetWhereArray,function(i,v){
-									if(i == 0){
-										t.obj.wetQuery = "WETLAND_ID = " + v;
-									}else{
-										 t.obj.wetQuery += " OR WETLAND_ID = " + v;
-									}
-	  							})
+				// 			// only do the below if the array is less than 5 items
+				// 			if(t.obj.wetWhereArray.length < 5){
+				// 				// set vars
+				// 				let id = evt.features[0].attributes.WETLAND_ID
+				// 				let atts = evt.features[0].attributes
+				// 				var obj  = {WETLAND_TYPE: atts.WETLAND_TYPE, ALL_RANK: atts.ALL_RANK, PR_RANK: atts.PR_RANK, SS_RANK: atts.SS_RANK, FLDP_RANK: atts.FLDP_RANK, TILE_RANK: atts.TILE_RANK, WETLAND_ID: atts.WETLAND_ID}
+				// 				t.obj.wetlandTableObject.push(obj);
+				// 				// add a new row to the table
+				// 				$('#' + t.id + 'wetlandTable').append('<tr class="aoc-tableRow"><td>' + atts.WETLAND_ID + '</td><td>' + atts.WETLAND_TYPE 
+				// 					+ '</td><td>' + atts.ALL_RANK + '</td><td>' + atts.SS_RANK + '</td><td>'
+				// 					+ atts.PR_RANK +  '</td><td>' + atts.FLDP_RANK + '</td><td>' + atts.TILE_RANK + '</td>' 
+				// 					+ '<td class="aoc-tableClose"' + '>' + '&#215;' + '</td></tr>');
 
-	  							// set dynamic layer deffs
-								t.obj.layerDefinitions[t.wetlandsSel] = t.obj.wetQuery;
-								t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
-								// // close button for tables //////////////
-								t.clicks.tableRowClose(t);
-								// calculate the number of selected items based on data array
-								$(".aoc-selCounter").first().html(t.obj.wetWhereArray.length);
-							}
-						}
-					})
-				}
+				// 				// check to see if the wetland selected layer has been added, only add it once
+				// 				let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
+				// 				if(index == -1){
+				// 					t.obj.visibleLayers.push(t.wetlandsSel);
+				// 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+				// 				}
+				// 				// push the id into the wet where query string
+				// 				t.obj.wetWhereArray.push(id);
+				// 				// build the wet query 
+				// 				$.each(t.obj.wetWhereArray,function(i,v){
+				// 					if(i == 0){
+				// 						t.obj.wetQuery = "WETLAND_ID = " + v;
+				// 					}else{
+				// 						 t.obj.wetQuery += " OR WETLAND_ID = " + v;
+				// 					}
+	  	// 						})
+
+	  	// 						// set dynamic layer deffs
+				// 				t.obj.layerDefinitions[t.wetlandsSel] = t.obj.wetQuery;
+				// 				t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
+				// 				// // close button for tables //////////////
+				// 				t.clicks.tableRowClose(t);
+				// 				// calculate the number of selected items based on data array
+				// 				$(".aoc-selCounter").first().html(t.obj.wetWhereArray.length);
+				// 			}
+				// 		}
+				// 	})
+				// }
 				
 			},
 
 			tableRowClose: function(t){
-				console.log('hey')
-				// close button for tables //////////////
-				$('.aoc-tableClose').on('click',function(c){
-					console.log('hey 2')
-					// clear the table data row
-					$(c.currentTarget).parent().remove();
-					// remove the wetland id from the wet where array
-					let val = parseInt($(c.currentTarget).parent().children().first().text());
-					let index = t.obj.wetWhereArray.indexOf(val);
-					if(index > -1){
-						t.obj.wetWhereArray.splice(index, 1);
-					}
-					// loop through and rebuild the wet query based on the wetland where array
-					$.each(t.obj.wetWhereArray,function(i,v){
-						if(i == 0){
-							t.obj.wetQuery = "WETLAND_ID = " + v;
-						}else{
-							 t.obj.wetQuery += " OR WETLAND_ID = " + v;
-						}
-					})
-					// if the wet where array is empty, that means the last close has been clicked and 
-					// we need to remove the wetland sel layer
-					if(t.obj.wetWhereArray.length < 1){
-						// remove the wetlands tab if nothing is selected
-						// slide up the wetland table and slide down the click on map text
-						$('#' + t.id + 'wetlandTableWrapper').slideUp();
-						$('#' + t.id + 'toggleButtons').slideUp();
-						$('#' + t.id + 'clickOnMapText').slideDown();
-						// remove the wetlands selected layer from viz layers
-						let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
-						if(index > -1){
-							t.obj.visibleLayers.splice(index, 1);
-						}
-					}
-					// calculate the number of selected items based on data array
-					$(".aoc-selCounter").first().html(t.obj.wetWhereArray.length);
-					// update visible layers and set dynamic layer deffs
-					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-					t.obj.layerDefinitions[t.wetlandsSel] = t.obj.wetQuery;
-					t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
+				// console.log('hey')
+				// // close button for tables //////////////
+				// $('.aoc-tableClose').on('click',function(c){
+				// 	console.log('hey 2')
+				// 	// clear the table data row
+				// 	$(c.currentTarget).parent().remove();
+				// 	// remove the wetland id from the wet where array
+				// 	let val = parseInt($(c.currentTarget).parent().children().first().text());
+				// 	let index = t.obj.wetWhereArray.indexOf(val);
+				// 	if(index > -1){
+				// 		t.obj.wetWhereArray.splice(index, 1);
+				// 	}
+				// 	// loop through and rebuild the wet query based on the wetland where array
+				// 	$.each(t.obj.wetWhereArray,function(i,v){
+				// 		if(i == 0){
+				// 			t.obj.wetQuery = "WETLAND_ID = " + v;
+				// 		}else{
+				// 			 t.obj.wetQuery += " OR WETLAND_ID = " + v;
+				// 		}
+				// 	})
+				// 	// if the wet where array is empty, that means the last close has been clicked and 
+				// 	// we need to remove the wetland sel layer
+				// 	if(t.obj.wetWhereArray.length < 1){
+				// 		// remove the wetlands tab if nothing is selected
+				// 		// slide up the wetland table and slide down the click on map text
+				// 		$('#' + t.id + 'wetlandTableWrapper').slideUp();
+				// 		$('#' + t.id + 'toggleButtons').slideUp();
+				// 		$('#' + t.id + 'clickOnMapText').slideDown();
+				// 		// remove the wetlands selected layer from viz layers
+				// 		let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
+				// 		if(index > -1){
+				// 			t.obj.visibleLayers.splice(index, 1);
+				// 		}
+				// 	}
+				// 	// calculate the number of selected items based on data array
+				// 	$(".aoc-selCounter").first().html(t.obj.wetWhereArray.length);
+				// 	// update visible layers and set dynamic layer deffs
+				// 	t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+				// 	t.obj.layerDefinitions[t.wetlandsSel] = t.obj.wetQuery;
+				// 	t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
 
-				});
-				// close button for tables //////////////
-				$('.aoc-allClose').on('click',function(c){
-					// remove wetland selecetd layer from viz layers
-					let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
-					if(index > -1){
-						t.obj.visibleLayers.splice(index, 1);
-					}
-					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-					// empty table rows
-					$('#' + t.id + 'wetlandTable').find('td').parent().empty();
-					// slide up table and toggle buttons
-					$('#' + t.id + 'wetlandTableWrapper').slideUp();
-					$('#' + t.id + 'toggleButtons').slideUp();
-					$('#' + t.id + 'clickOnMapText').slideDown();
-					// reset the wetland arrays
-					t.obj.wetWhereArray = [];
-					t.obj.wetlandTableObject = [];
+				// });
+				// // close button for tables //////////////
+				// $('.aoc-allClose').on('click',function(c){
+				// 	// remove wetland selecetd layer from viz layers
+				// 	let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
+				// 	if(index > -1){
+				// 		t.obj.visibleLayers.splice(index, 1);
+				// 	}
+				// 	t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+				// 	// empty table rows
+				// 	$('#' + t.id + 'wetlandTable').find('td').parent().empty();
+				// 	// slide up table and toggle buttons
+				// 	$('#' + t.id + 'wetlandTableWrapper').slideUp();
+				// 	$('#' + t.id + 'toggleButtons').slideUp();
+				// 	$('#' + t.id + 'clickOnMapText').slideDown();
+				// 	// reset the wetland arrays
+				// 	t.obj.wetWhereArray = [];
+				// 	t.obj.wetlandTableObject = [];
 
-				})
+				// })
 			},
 
 			// main toggle button function./////////////////////////////////////////////
