@@ -118,16 +118,122 @@ function ( declare, Query, QueryTask ) {
 			},
 			// map click query function /////////////////////////////////////////////////////////////////////
 			mapClickQuery: function(t, p){
-				let array = [3,0,2];
-				t.q = new Query();
-				t.qt = new QueryTask(t.url + "/" + t.wetlandsSel);
-				t.q.geometry = p
-				t.q.returnGeometry = true;
-				t.q.outFields = ["*"];
-				// query the map on click
-				t.qt.execute(t.q, function(evt){
+				// console.log(t.obj.pnt);
+				// console.log(p,t.obj.pnt); 
+				console.log(t.obj.visibleLayers);
+				var centerPoint = new esri.geometry.Point(t.obj.pnt.x,t.obj.pnt.y,t.obj.pnt.spatialReference);
+				var mapWidth = t.map.extent.getWidth();
+				var mapWidthPixels = t.map.width;
+				var pixelWidth = mapWidth/mapWidthPixels;
+				// change the tolerence below to adjust how many pixels will be grabbed when clicking on a point or line
+				var tolerance = 10 * pixelWidth;
+				var pnt = t.obj.pnt;
+				var ext = new esri.geometry.Extent(1,1, tolerance, tolerance, t.obj.pnt.spatialReference);
 
+
+				t.q = new Query();
+				t.qt = new QueryTask(t.url + "/" + 3);
+				t.q.geometry = ext.centerAt(centerPoint);
+				// t.q.returnGeometry = true;
+				t.q.outFields = ["*"];
+				t.qt.execute(t.q);
+				t.qt.on('complete', function(evt){
+					console.log('llok here 3')
+					if(evt.featureSet.features.length > 0){
+						let index = t.obj.visibleLayers.indexOf(7);
+						console.log(index);
+						if (index > -1) {
+							console.log('barrier complete');
+						}
+						
+					}else{
+						console.log('look here 2')
+						t.q = new Query();
+						t.qt = new QueryTask(t.url + "/" + 0);
+						t.q.geometry = p
+						// t.q.returnGeometry = true;
+						t.q.outFields = ["*"];
+						t.qt.execute(t.q);
+						t.qt.on('complete', function(evt){
+							if(evt.featureSet.features.length >0){
+								let index = t.obj.visibleLayers.indexOf(8);
+								console.log(index)
+								if (index > -1) {
+									console.log('habitat complete');
+								}
+							}else{
+								t.q = new Query();
+								t.qt = new QueryTask(t.url + "/" + 2);
+								t.q.geometry = p
+								// t.q.returnGeometry = true;
+								t.q.outFields = ["*"];
+								t.qt.execute(t.q);
+								t.qt.on('complete', function(evt){
+									if(evt.featureSet.features.length >0){
+										let index = t.obj.visibleLayers.indexOf(10);
+										if (index > -1) {
+											console.log('wetland complete');
+										}
+									}else{
+										console.log('none selected')
+									}
+								})
+							}
+						})
+					}
 				})
+
+				// // the array controls which layers get queried 
+				// let array = [3,0,2];
+				// t.featLength = false;
+				// console.log(t.featLength);
+				
+				// // console.log('in if')
+				// // loop through the array
+				// $.each(array,function(i,v){
+				// 	// console.log('at the top')
+				// 	t.q = new Query();
+				// 	t.qt = new QueryTask(t.url + "/" + v);
+				// 	t.q.geometry = p
+				// 	// t.q.returnGeometry = true;
+				// 	t.q.outFields = ["*"];
+					
+				// 	console.log(t.featLength);
+				// 	if(!t.featLength){
+				// 		t.qt.execute(t.q);
+				// 		console.log('look here')
+				// 		// on query complete
+				// 		t.qt.on('complete', function(evt){
+				// 			if(evt.featureSet.features.length > 0){
+				// 				console.log('break')
+				// 				t.featLength = true;
+				// 			}
+				// 		})
+				// 	}
+					
+				// })
+				
+				// // loop through the array
+				// $.each(array,function(i,v){
+				// 	console.log('at the top')
+				// 	t.q = new Query();
+				// 	t.qt = new QueryTask(t.url + "/" + v);
+				// 	t.q.geometry = p
+				// 	// t.q.returnGeometry = true;
+				// 	t.q.outFields = ["*"];
+				// 	t.qt.execute(t.q);
+				// 	// on query complete
+				// 	t.qt.on('complete', function(evt){
+				// 		if(evt.featureSet.features.length > 0){
+				// 			console.log('break')
+				// 			t.featLength = 1;
+
+				// 			// return(evt.featureSet.features.length !== 1);
+				// 		}
+				// 	})
+				// })
+				
+				
 				// // run the wetland query if watershed checkbox is checked
 				// if($('#' + t.id + 'watershed-option')[0].checked){
 				// 	// query for wetlands /////////////////////////////////////////////////////////////////////
