@@ -119,44 +119,6 @@ function ( declare, Query, QueryTask ) {
 			// map click query function /////////////////////////////////////////////////////////////////////
 			mapClickQuery: function(t, p){
 				t.attsArray = [];
-				// console.log(t.obj.visibleLayers);
-				// function firstFunction(){
-				// 	console.log('start of first')
-				// 	t.barriorsAtts = '';
-				// 	t.habitatAtts = '';
-
-				// 	var centerPoint = new esri.geometry.Point(t.obj.pnt.x,t.obj.pnt.y,t.obj.pnt.spatialReference);
-				// 	var mapWidth = t.map.extent.getWidth();
-				// 	var mapWidthPixels = t.map.width;
-				// 	var pixelWidth = mapWidth/mapWidthPixels;
-				// 	// change the tolerence below to adjust how many pixels will be grabbed when clicking on a point or line
-				// 	var tolerance = 10 * pixelWidth;
-				// 	var pnt = t.obj.pnt;
-				// 	var ext = new esri.geometry.Extent(1,1, tolerance, tolerance, t.obj.pnt.spatialReference);
-
-				// 	// 
-				// 	t.q = new Query();
-				// 	t.qt = new QueryTask(t.url + "/" + 3);
-				// 	t.q.geometry = ext.centerAt(centerPoint);
-				// 	// t.q.returnGeometry = true;
-				// 	t.q.outFields = ["*"];
-				// 	let index = t.obj.visibleLayers.indexOf(7);
-				// 	if (index > -1) {
-				// 		console.time('testTimer');
-				// 		t.qt.execute(t.q);
-				// 	}
-					
-				// 	t.qt.on('complete', function(evt){
-				// 		console.timeEnd('testTimer');
-				// 		if(evt.featureSet.features.length > 0){
-				// 			// console.log('fish')
-				// 			t.barriorsAtts = evt;
-				// 		}
-						
-				// 	})
-					
-				// }
-
 
 				function barriorQuery(){
 					var centerPoint = new esri.geometry.Point(t.obj.pnt.x,t.obj.pnt.y,t.obj.pnt.spatialReference);
