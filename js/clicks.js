@@ -118,71 +118,228 @@ function ( declare, Query, QueryTask ) {
 			},
 			// map click query function /////////////////////////////////////////////////////////////////////
 			mapClickQuery: function(t, p){
-				// console.log(t.obj.pnt);
-				// console.log(p,t.obj.pnt); 
-				console.log(t.obj.visibleLayers);
-				var centerPoint = new esri.geometry.Point(t.obj.pnt.x,t.obj.pnt.y,t.obj.pnt.spatialReference);
-				var mapWidth = t.map.extent.getWidth();
-				var mapWidthPixels = t.map.width;
-				var pixelWidth = mapWidth/mapWidthPixels;
-				// change the tolerence below to adjust how many pixels will be grabbed when clicking on a point or line
-				var tolerance = 10 * pixelWidth;
-				var pnt = t.obj.pnt;
-				var ext = new esri.geometry.Extent(1,1, tolerance, tolerance, t.obj.pnt.spatialReference);
+				t.attsArray = [];
+				// console.log(t.obj.visibleLayers);
+				// function firstFunction(){
+				// 	console.log('start of first')
+				// 	t.barriorsAtts = '';
+				// 	t.habitatAtts = '';
+
+				// 	var centerPoint = new esri.geometry.Point(t.obj.pnt.x,t.obj.pnt.y,t.obj.pnt.spatialReference);
+				// 	var mapWidth = t.map.extent.getWidth();
+				// 	var mapWidthPixels = t.map.width;
+				// 	var pixelWidth = mapWidth/mapWidthPixels;
+				// 	// change the tolerence below to adjust how many pixels will be grabbed when clicking on a point or line
+				// 	var tolerance = 10 * pixelWidth;
+				// 	var pnt = t.obj.pnt;
+				// 	var ext = new esri.geometry.Extent(1,1, tolerance, tolerance, t.obj.pnt.spatialReference);
+
+				// 	// 
+				// 	t.q = new Query();
+				// 	t.qt = new QueryTask(t.url + "/" + 3);
+				// 	t.q.geometry = ext.centerAt(centerPoint);
+				// 	// t.q.returnGeometry = true;
+				// 	t.q.outFields = ["*"];
+				// 	let index = t.obj.visibleLayers.indexOf(7);
+				// 	if (index > -1) {
+				// 		console.time('testTimer');
+				// 		t.qt.execute(t.q);
+				// 	}
+					
+				// 	t.qt.on('complete', function(evt){
+				// 		console.timeEnd('testTimer');
+				// 		if(evt.featureSet.features.length > 0){
+				// 			// console.log('fish')
+				// 			t.barriorsAtts = evt;
+				// 		}
+						
+				// 	})
+					
+				// }
 
 
-				t.q = new Query();
-				t.qt = new QueryTask(t.url + "/" + 3);
-				t.q.geometry = ext.centerAt(centerPoint);
-				// t.q.returnGeometry = true;
-				t.q.outFields = ["*"];
-				t.qt.execute(t.q);
-				t.qt.on('complete', function(evt){
-					console.log('llok here 3')
-					if(evt.featureSet.features.length > 0){
-						let index = t.obj.visibleLayers.indexOf(7);
-						console.log(index);
-						if (index > -1) {
-							console.log('barrier complete');
+				function barriorQuery(){
+					var centerPoint = new esri.geometry.Point(t.obj.pnt.x,t.obj.pnt.y,t.obj.pnt.spatialReference);
+					var mapWidth = t.map.extent.getWidth();
+					var mapWidthPixels = t.map.width;
+					var pixelWidth = mapWidth/mapWidthPixels;
+					// change the tolerence below to adjust how many pixels will be grabbed when clicking on a point or line
+					var tolerance = 10 * pixelWidth;
+					var pnt = t.obj.pnt;
+					var ext = new esri.geometry.Extent(1,1, tolerance, tolerance, t.obj.pnt.spatialReference);
+
+					// 
+					t.q = new Query();
+					t.qt = new QueryTask(t.url + "/" + 3);
+					t.q.geometry = ext.centerAt(centerPoint);
+					// t.q.returnGeometry = true;
+					t.q.outFields = ["*"];
+					let index = t.obj.visibleLayers.indexOf(7);
+					if (index > -1) {
+						// console.time('testTimer');
+						t.qt.execute(t.q);
+					}
+					
+					t.qt.on('complete', function(evt){
+						// console.timeEnd('testTimer');
+						if(evt.featureSet.features.length > 0){
+							// console.log('fish')
+							t.attsArray[0] = evt;
+						}else{
+							t.attsArray[0] = '';
 						}
 						
-					}else{
-						console.log('look here 2')
-						t.q = new Query();
-						t.qt = new QueryTask(t.url + "/" + 0);
-						t.q.geometry = p
-						// t.q.returnGeometry = true;
-						t.q.outFields = ["*"];
+					})
+				}
+				function habitatQuery(){
+					// habitat query
+					t.q = new Query();
+					t.qt = new QueryTask(t.url + "/" + 0);
+					t.q.geometry = p;
+					// t.q.returnGeometry = true;
+					t.q.outFields = ["*"];
+					let index2 = t.obj.visibleLayers.indexOf(8);
+					if (index2 > -1) {
+						console.time('testTimer 2');
 						t.qt.execute(t.q);
-						t.qt.on('complete', function(evt){
-							if(evt.featureSet.features.length >0){
-								let index = t.obj.visibleLayers.indexOf(8);
-								console.log(index)
-								if (index > -1) {
-									console.log('habitat complete');
-								}
-							}else{
-								t.q = new Query();
-								t.qt = new QueryTask(t.url + "/" + 2);
-								t.q.geometry = p
-								// t.q.returnGeometry = true;
-								t.q.outFields = ["*"];
-								t.qt.execute(t.q);
-								t.qt.on('complete', function(evt){
-									if(evt.featureSet.features.length >0){
-										let index = t.obj.visibleLayers.indexOf(10);
-										if (index > -1) {
-											console.log('wetland complete');
-										}
-									}else{
-										console.log('none selected')
-									}
-								})
-							}
-						})
 					}
-				})
+					
+					t.qt.on('complete', function(evt){
+						console.timeEnd('testTimer 2');
+						// console.log(evt)
+						if(evt.featureSet.features.length > 0){
+							console.log('look ttt')
+							t.attsArray[1] = evt;
+							console.log(t.habitatAtts);
+							wetlandQuery();
+						}else{
+							t.attsArray[1] = '';
+							wetlandQuery();
+						}
+						
+					})
+				}
 
+				function wetlandQuery(){
+					// habitat query
+					t.q = new Query();
+					t.qt = new QueryTask(t.url + "/" + 2);
+					t.q.geometry = p;
+					// t.q.returnGeometry = true;
+					t.q.outFields = ["*"];
+					let index2 = t.obj.visibleLayers.indexOf(8);
+					if (index2 > -1) {
+						// console.time('testTimer 2');
+						t.qt.execute(t.q);
+					}
+					
+					t.qt.on('complete', function(evt){
+						// console.timeEnd('testTimer 2');
+						// console.log(evt)
+						if(evt.featureSet.features.length > 0){
+							// console.log('look ttt')
+							t.attsArray[2] = evt;
+							// console.log(t.habitatAtts);
+							endofQuery();
+						}else{
+							t.attsArray[2] = '';
+							endofQuery();
+						}
+						
+					})
+				}
+
+				function endofQuery(){
+					console.log('end of query called');
+					console.log(t.wetlandAtts, t.habitatAtts)
+				}
+				habitatQuery();
+				// function test1(callback){
+				// 	console.log('start')
+				// 	// habitat query
+				// 		t.q = new Query();
+				// 		t.qt = new QueryTask(t.url + "/" + 0);
+				// 		t.q.geometry = p;
+				// 		// t.q.returnGeometry = true;
+				// 		t.q.outFields = ["*"];
+				// 		let index2 = t.obj.visibleLayers.indexOf(8);
+				// 		if (index2 > -1) {
+				// 			console.time('testTimer 2');
+				// 			t.qt.execute(t.q);
+				// 		}
+						
+				// 		t.qt.on('complete', function(evt){
+				// 			console.timeEnd('testTimer 2');
+				// 			// console.log(evt)
+				// 			if(evt.featureSet.features.length > 0){
+				// 				console.log('look ttt')
+				// 				t.habitatAtts = evt;
+				// 				console.log(t.habitatAtts);
+				// 			}
+							
+				// 		}, function(){console.log('test')})
+				// 	callback();
+				// }
+				// test1(function(){
+				// 	console.log('finished');
+				// 	console.log(t.habitatAtts);
+				// })
+
+
+
+				// function test1(){
+				// 	var deff = $.Deferred();
+				// 	console.log('inside')
+				// 	// habitat query
+				// 	t.q = new Query();
+				// 	t.qt = new QueryTask(t.url + "/" + 0);
+				// 	t.q.geometry = p;
+				// 	// t.q.returnGeometry = true;
+				// 	t.q.outFields = ["*"];
+				// 	let index2 = t.obj.visibleLayers.indexOf(8);
+				// 	if (index2 > -1) {
+				// 		console.time('testTimer 2');
+				// 		t.qt.execute(t.q);
+				// 	}
+					
+				// 	t.qt.on('complete', function(evt){
+				// 		console.timeEnd('testTimer 2');
+				// 		// console.log(evt)
+				// 		if(evt.featureSet.features.length > 0){
+				// 			console.log('look ttt')
+				// 			t.habitatAtts = evt;
+				// 			console.log(t.habitatAtts);
+				// 		}
+						
+				// 	})
+				// 	// _callback();
+				// 	return deff.promise();
+				// }
+
+				// function test2(){
+				// 	var promise = test1();
+				// 	console.log('inside 2');
+				// 	promise.then(function(result){
+				// 		console.log(result);
+				// 	})
+				// 	console.log(t.habitatAtts);
+				// 	// console.log('test 2')
+				// 	// test1(function(){
+				// 	// 	console.log('inside test 1 ')
+				// 	// })
+				// }
+				// test2();
+
+				// setTimeout(function secondFunction(){
+				// 	console.log('start of second')
+				// 	// console.log('look here')
+				// 	// firstFunction();
+				// 	// console.log('after first');
+				// 	console.log(t.habitatAtts, t.barriorsAtts);
+				// },2000)
+				// secondFunction();
+				// console.log(t.habitatAtts, t.barriorsAtts);
+				// $.when(firstFunction()).then(secondFunction())
 				// // the array controls which layers get queried 
 				// let array = [3,0,2];
 				// t.featLength = false;
