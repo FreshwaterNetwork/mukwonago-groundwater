@@ -185,8 +185,10 @@ function ( declare, Query, QueryTask ) {
 						if(evt.featureSet.features.length > 0){
 							// console.log('fish')
 							t.attsArray[0] = evt;
+							habitatQuery();
 						}else{
 							t.attsArray[0] = '';
+							habitatQuery();
 						}
 						
 					})
@@ -250,10 +252,9 @@ function ( declare, Query, QueryTask ) {
 				}
 
 				function endofQuery(){
-					console.log('end of query called');
-					console.log(t.wetlandAtts, t.habitatAtts)
+					console.log(t.attsArray);
 				}
-				habitatQuery();
+				barriorQuery();
 				// function test1(callback){
 				// 	console.log('start')
 				// 	// habitat query
