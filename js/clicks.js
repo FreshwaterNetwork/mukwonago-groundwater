@@ -118,9 +118,12 @@ function ( declare, Query, QueryTask ) {
 			},
 			// map click query function /////////////////////////////////////////////////////////////////////
 			mapClickQuery: function(t, p){
-				t.attsArray = [];
+				t.attsArray = ['','',''];
 
+				// barrior query to start the chain of click queries
 				function barriorQuery(){
+					console.log('lookj here')
+					console.time('startTime')
 					var centerPoint = new esri.geometry.Point(t.obj.pnt.x,t.obj.pnt.y,t.obj.pnt.spatialReference);
 					var mapWidth = t.map.extent.getWidth();
 					var mapWidthPixels = t.map.width;
@@ -129,8 +132,6 @@ function ( declare, Query, QueryTask ) {
 					var tolerance = 10 * pixelWidth;
 					var pnt = t.obj.pnt;
 					var ext = new esri.geometry.Extent(1,1, tolerance, tolerance, t.obj.pnt.spatialReference);
-
-					// 
 					t.q = new Query();
 					t.qt = new QueryTask(t.url + "/" + 3);
 					t.q.geometry = ext.centerAt(centerPoint);
@@ -138,25 +139,29 @@ function ( declare, Query, QueryTask ) {
 					t.q.outFields = ["*"];
 					let index = t.obj.visibleLayers.indexOf(7);
 					if (index > -1) {
-						// console.time('testTimer');
 						t.qt.execute(t.q);
+					}else{
+						habitatQuery();
 					}
 					
 					t.qt.on('complete', function(evt){
-						// console.timeEnd('testTimer');
+						console.log('1')
 						if(evt.featureSet.features.length > 0){
-							// console.log('fish')
-							t.attsArray[0] = evt;
+							t.barriorAtts = evt.featureSet.features[0];
+							// t.attsArray[0] = evt.featureSet.features[0];
 							habitatQuery();
+							console.log('2')
 						}else{
-							t.attsArray[0] = '';
+							console.log('3')
+							t.barriorAtts = '';
+							// t.attsArray[0] = '';
 							habitatQuery();
 						}
-						
 					})
 				}
+				// habitat query
 				function habitatQuery(){
-					// habitat query
+					console.log('in habitat query')
 					t.q = new Query();
 					t.qt = new QueryTask(t.url + "/" + 0);
 					t.q.geometry = p;
@@ -164,58 +169,64 @@ function ( declare, Query, QueryTask ) {
 					t.q.outFields = ["*"];
 					let index2 = t.obj.visibleLayers.indexOf(8);
 					if (index2 > -1) {
-						console.time('testTimer 2');
 						t.qt.execute(t.q);
+					}else{
+						wetlandQuery();
 					}
 					
 					t.qt.on('complete', function(evt){
-						console.timeEnd('testTimer 2');
 						// console.log(evt)
 						if(evt.featureSet.features.length > 0){
-							console.log('look ttt')
-							t.attsArray[1] = evt;
-							console.log(t.habitatAtts);
+							console.log('22222222')
+							t.habitatAtts = evt.featureSet.features[0];
+							// t.attsArray[1] = evt.featureSet.features[0];
 							wetlandQuery();
 						}else{
-							t.attsArray[1] = '';
+							console.log('3333333')
+							t.habitatAtts = '';
+							// t.attsArray[1] = '';
 							wetlandQuery();
 						}
-						
 					})
 				}
-
+				// wetland query
 				function wetlandQuery(){
-					// habitat query
+					console.log('in wetland query')
 					t.q = new Query();
 					t.qt = new QueryTask(t.url + "/" + 2);
 					t.q.geometry = p;
 					// t.q.returnGeometry = true;
 					t.q.outFields = ["*"];
-					let index2 = t.obj.visibleLayers.indexOf(8);
+					let index2 = t.obj.visibleLayers.indexOf(10);
+					console.log(index2);
 					if (index2 > -1) {
-						// console.time('testTimer 2');
+						console.log('in index')
 						t.qt.execute(t.q);
+					}else{
+						endofQuery();
 					}
 					
 					t.qt.on('complete', function(evt){
-						// console.timeEnd('testTimer 2');
-						// console.log(evt)
 						if(evt.featureSet.features.length > 0){
-							// console.log('look ttt')
-							t.attsArray[2] = evt;
-							// console.log(t.habitatAtts);
+							console.log(evt.featureSet.features[0])
+							// console.log(evt[0])
+							t.wetlandAtts = evt.featureSet.features[0];
+							// t.attsArray[2] = evt.featureSet.features[0];
 							endofQuery();
 						}else{
-							t.attsArray[2] = '';
+							t.wetlandAtts = '';
+							// t.attsArray[2] = '';
 							endofQuery();
 						}
-						
 					})
 				}
-
+				// function that takes place after all the other query functions have been executed
 				function endofQuery(){
-					console.log(t.attsArray);
+					console.log(t.wetlandAtts, t.habitatAtts, t.barriorAtts);
+					// console.log(t.attsArray);
+					// console.timeEnd('startTime');
 				}
+				// call the barrior query to start the query chain
 				barriorQuery();
 
 
