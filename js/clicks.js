@@ -54,6 +54,15 @@ function ( declare, Query, QueryTask ) {
 							}
 						})
 					}
+					// loop through the toggle buttons and only show based on what main cb's are checked
+					$.each($('#' + t.id + 'mapQueryToggleWrapper input'),function(i,y){
+						let index =  t.obj.mainCheckArray.indexOf(y.value)
+						if(index > -1){
+							$(y).next().show()
+						}else{
+							$(y).next().hide()
+						}
+					})
 				});
 				// checkboxes for selectable layers ////////////////////////////////////////////////////
 				$('#' + t.id + 'selectableLayersWrapper input').on('click',function(c){
