@@ -15,9 +15,12 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 				}
 				t.dynamicLayer.on("load", function () {
-					t.clicks.tableRowClose(t); 			
+					console.log('dynamic layer load')
+					// t.clicks.tableRowClose(t); 			
 					t.layersArray = t.dynamicLayer.layerInfos;
+					console.log(t.obj.stateSet);
 					if (t.obj.stateSet == "no"){
+						console.log(t.dynamicLayer.fullExtent);
 						t.map.setExtent(t.dynamicLayer.fullExtent.expand(1), true)
 					}
 ////////////////////////////// save and share code below ////////////////////////////////////////////////////////////

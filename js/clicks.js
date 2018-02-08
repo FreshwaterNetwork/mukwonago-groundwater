@@ -38,7 +38,33 @@ function ( declare, Query, QueryTask ) {
 					}else{ // else slide up the div
 						$('#' + t.id + 'contentBelowHeader').slideUp()
 					}
-					// if state set = yes
+					// select a tab button for map selection dynamically on 
+					// first cb click and when there is only one cb selected ///////////////////////////
+
+					// on any change of the cb's run the below
+					// console.log(c)
+					// get a count of checked cb's using is:checked code
+					let cbCount = $('#' + t.id + 'mainRadioBtns .aoc-mainCB input:checkbox:checked').length
+					// console.log(cbCount);
+					// if there are more than one do nothing
+
+					// if less than one 
+					if(cbCount === 1){
+						// console.log('check the boxes here')
+						let checkedCB = $('#' + t.id + 'mainRadioBtns .aoc-mainCB input:checkbox:checked');
+						console.log(checkedCB[0].id);
+					}
+
+						// get the id of the cb thats checked
+
+						//  use the id to find the approp tab button and check it
+
+							// force click on tab button
+
+						// if the cb was wetlands check the wetland cb.
+
+
+					// if state set = yes //////////////////////////////////////////////////////////////
 					if(t.obj.stateSet != 'yes'){
 						// create an array that has the values of each checkbox that is checked for save and share
 						t.obj.mainCheckArray = [];
@@ -170,17 +196,27 @@ function ( declare, Query, QueryTask ) {
 				// start of query ///////////////////////////////////////////////////////////////////////
 				t.q = new Query();
 				// use query tracker to create the correct url 
-				console.log(t.obj.queryTracker)
 				t.qt = new QueryTask(t.url + "/" + t.obj.queryTracker);
 				t.q.geometry = p;
 				// t.q.returnGeometry = true;
 				t.q.outFields = ["*"];
-				// execute query ///////////////////			
-				t.qt.execute(t.q);
+				// execute query ///////////////////
+				// console.log(t.obj.queryTracker)		
+				if(t.obj.queryTracker){
+					t.qt.execute(t.q);
+				}	
 				t.qt.on('complete', function(evt){
 					// attributes vars
 					let mapclickText = $('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-mapClickText');
 					let attsSection = $('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attributeSections');
+					// create a number to base selection layers off of to add and remove selected layers
+					if(t.obj.queryTracker == 8){
+						t.n = 3
+					}else if(t.obj.queryTracker == 10){
+						t.n = 4
+					}else{
+						t.n = t.obj.queryTracker
+					}
 					if(evt.featureSet.features.length > 0){
 						console.log('made it')
 						// slide up map click text
@@ -188,7 +224,8 @@ function ( declare, Query, QueryTask ) {
 						// slide down attribute section
 						attsSection.slideDown()
 						// populate attribute section
-							// maybe call another function
+						// call the attribute populate function
+						t.clicks.attributePopulate(t, 'y', t.obj.toggleTracker, evt.featureSet.features[0].attributes);
 						// create selection where clause
 						switch(t.obj.toggleTracker){
    							case 'habitat':
@@ -204,23 +241,18 @@ function ( declare, Query, QueryTask ) {
 	   							t.obj.query = "OBJECTID = " + evt.featureSet.features[0].attributes.OBJECTID;
 	   							break;
    						}
-						// add layer selection to the map'
-						if(t.obj.queryTracker == 8){
-							t.n = 3
-						}else if(t.obj.queryTracker == 10){
-							t.n = 4
-						}else{
-							t.n = t.obj.queryTracker
-						}
+						// set layer deffs
 						t.obj.layerDefinitions[t.n] = t.obj.query;
 						t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
-
+						// add layer selection to the map'
 						let index = t.obj.visibleLayers.indexOf(t.n)
 						if(index < 0){
 							t.obj.visibleLayers.push(t.n);
 						}
 						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 					}else{
+						// call the attribute populate function
+						t.clicks.attributePopulate(t, 'n', t.obj.toggleTracker);
 						// slide up the attributes section
 						attsSection.slideUp();
 						// slide down click text
@@ -235,242 +267,33 @@ function ( declare, Query, QueryTask ) {
 						t.obj.query = '';
 					}
 				})
+			},
 
-				// barrior query to start the chain of click queries
-				// function barriorQuery(){
-				// 	console.log('lookj here')
-				// 	console.time('startTime')
-				// 	var centerPoint = new esri.geometry.Point(t.obj.pnt.x,t.obj.pnt.y,t.obj.pnt.spatialReference);
-				// 	var mapWidth = t.map.extent.getWidth();
-				// 	var mapWidthPixels = t.map.width;
-				// 	var pixelWidth = mapWidth/mapWidthPixels;
-				// 	// change the tolerence below to adjust how many pixels will be grabbed when clicking on a point or line
-				// 	var tolerance = 10 * pixelWidth;
-				// 	var pnt = t.obj.pnt;
-				// 	var ext = new esri.geometry.Extent(1,1, tolerance, tolerance, t.obj.pnt.spatialReference);
-				// 	t.q = new Query();
-				// 	t.qt = new QueryTask(t.url + "/" + 3);
-				// 	t.q.geometry = ext.centerAt(centerPoint);
-				// 	// t.q.returnGeometry = true;
-				// 	t.q.outFields = ["*"];
-				// 	let index = t.obj.visibleLayers.indexOf(7);
-				// 	if (index > -1) {
-				// 		t.qt.execute(t.q);
-				// 	}else{
-				// 		habitatQuery();
-				// 	}
-					
-				// 	t.qt.on('complete', function(evt){
-				// 		console.log('1')
-				// 		if(evt.featureSet.features.length > 0){
-				// 			t.barriorAtts = evt.featureSet.features[0];
-				// 			// t.attsArray[0] = evt.featureSet.features[0];
-				// 			habitatQuery();
-				// 			console.log('2')
-				// 		}else{
-				// 			console.log('3')
-				// 			t.barriorAtts = '';
-				// 			// t.attsArray[0] = '';
-				// 			habitatQuery();
-				// 		}
-				// 	})
-				// }
-				// habitat query
-				// function habitatQuery(){
-				// 	console.log('in habitat query')
-				// 	t.q = new Query();
-				// 	t.qt = new QueryTask(t.url + "/" + 0);
-				// 	t.q.geometry = p;
-				// 	// t.q.returnGeometry = true;
-				// 	t.q.outFields = ["*"];
-				// 	let index2 = t.obj.visibleLayers.indexOf(8);
-				// 	if (index2 > -1) {
-				// 		t.qt.execute(t.q);
-				// 	}else{
-				// 		wetlandQuery();
-				// 	}
-					
-				// 	t.qt.on('complete', function(evt){
-				// 		// console.log(evt)
-				// 		if(evt.featureSet.features.length > 0){
-				// 			console.log('22222222')
-				// 			t.habitatAtts = evt.featureSet.features[0];
-				// 			// t.attsArray[1] = evt.featureSet.features[0];
-				// 			wetlandQuery();
-				// 		}else{
-				// 			console.log('3333333')
-				// 			t.habitatAtts = '';
-				// 			// t.attsArray[1] = '';
-				// 			wetlandQuery();
-				// 		}
-				// 	})
-				// }
-				// wetland query
-				// function wetlandQuery(){
-				// 	console.log('in wetland query')
-				// 	t.q = new Query();
-				// 	t.qt = new QueryTask(t.url + "/" + 2);
-				// 	t.q.geometry = p;
-				// 	// t.q.returnGeometry = true;
-				// 	t.q.outFields = ["*"];
-				// 	let index2 = t.obj.visibleLayers.indexOf(10);
-				// 	console.log(index2);
-				// 	if (index2 > -1) {
-				// 		console.log('in index')
-				// 		t.qt.execute(t.q);
-				// 	}else{
-				// 		endofQuery();
-				// 	}
-					
-				// 	t.qt.on('complete', function(evt){
-				// 		if(evt.featureSet.features.length > 0){
-				// 			console.log(evt.featureSet.features[0])
-				// 			// console.log(evt[0])
-				// 			t.wetlandAtts = evt.featureSet.features[0];
-				// 			// t.attsArray[2] = evt.featureSet.features[0];
-				// 			endofQuery();
-				// 		}else{
-				// 			t.wetlandAtts = '';
-				// 			// t.attsArray[2] = '';
-				// 			endofQuery();
-				// 		}
-				// 	})
-				// }
-				// function that takes place after all the other query functions have been executed
-				// function endofQuery(){
-				// 	console.log(t.wetlandAtts, t.habitatAtts, t.barriorAtts);
-				// 	// console.log(t.attsArray);
-				// 	// console.timeEnd('startTime');
-				// }
-				// // call the barrior query to start the query chain
-				// barriorQuery();
+			attributePopulate: function(t, suc, track, atts){
+				console.log('attributePopulate call', suc, track, atts);
+				// figure out which atts need to be created
+				switch(track){
+					case 'wetland':
+						// do somthing for wetland
+						console.log('populate attributes for wetlands')
+						break;
+					case 'sites':
 
+						break;
+					case 'habitat':
 
+						break;
+					case 'fish':
 
-				// // run the wetland query if watershed checkbox is checked
-				// if($('#' + t.id + 'watershed-option')[0].checked){
-				// 	// query for wetlands /////////////////////////////////////////////////////////////////////
-				// 	t.q = new Query();
-				// 	t.qt = new QueryTask(t.url + "/" + t.wetlandsSel);
-				// 	t.q.geometry = p
-				// 	t.q.returnGeometry = true;
-				// 	t.q.outFields = ["*"];
-				// 	// query the map on click
-				// 	t.qt.execute(t.q, function(evt){
-				// 		if(evt.features.length > 0){
-				// 			// slide down the wetland table and slide up the click on map text
-				// 			$('#' + t.id + 'wetlandTableWrapper').slideDown();
-				// 			$('#' + t.id + 'toggleButtons').slideDown();
-				// 			$('#' + t.id + 'clickOnMapText').slideUp();
-				// 			// check the appropriate tab based on what was clicked on map
+						break;
+					default:
+						console.log('none matched')
+				}
+			},
 
-				// 			// only do the below if the array is less than 5 items
-				// 			if(t.obj.wetWhereArray.length < 5){
-				// 				// set vars
-				// 				let id = evt.features[0].attributes.WETLAND_ID
-				// 				let atts = evt.features[0].attributes
-				// 				var obj  = {WETLAND_TYPE: atts.WETLAND_TYPE, ALL_RANK: atts.ALL_RANK, PR_RANK: atts.PR_RANK, SS_RANK: atts.SS_RANK, FLDP_RANK: atts.FLDP_RANK, TILE_RANK: atts.TILE_RANK, WETLAND_ID: atts.WETLAND_ID}
-				// 				t.obj.wetlandTableObject.push(obj);
-				// 				// add a new row to the table
-				// 				$('#' + t.id + 'wetlandTable').append('<tr class="aoc-tableRow"><td>' + atts.WETLAND_ID + '</td><td>' + atts.WETLAND_TYPE 
-				// 					+ '</td><td>' + atts.ALL_RANK + '</td><td>' + atts.SS_RANK + '</td><td>'
-				// 					+ atts.PR_RANK +  '</td><td>' + atts.FLDP_RANK + '</td><td>' + atts.TILE_RANK + '</td>' 
-				// 					+ '<td class="aoc-tableClose"' + '>' + '&#215;' + '</td></tr>');
-
-				// 				// check to see if the wetland selected layer has been added, only add it once
-				// 				let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
-				// 				if(index == -1){
-				// 					t.obj.visibleLayers.push(t.wetlandsSel);
-				// 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-				// 				}
-				// 				// push the id into the wet where query string
-				// 				t.obj.wetWhereArray.push(id);
-				// 				// build the wet query 
-				// 				$.each(t.obj.wetWhereArray,function(i,v){
-				// 					if(i == 0){
-				// 						t.obj.wetQuery = "WETLAND_ID = " + v;
-				// 					}else{
-				// 						 t.obj.wetQuery += " OR WETLAND_ID = " + v;
-				// 					}
-	  	// 						})
-
-	  	// 						// set dynamic layer deffs
-				// 				t.obj.layerDefinitions[t.wetlandsSel] = t.obj.wetQuery;
-				// 				t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
-				// 				// // close button for tables //////////////
-				// 				t.clicks.tableRowClose(t);
-				// 				// calculate the number of selected items based on data array
-				// 				$(".aoc-selCounter").first().html(t.obj.wetWhereArray.length);
-				// 			}
-				// 		}
-				// 	})
-				// }
+			// tableRowClose: function(t){
 				
-			},
-
-			tableRowClose: function(t){
-				// console.log('hey')
-				// // close button for tables //////////////
-				// $('.aoc-tableClose').on('click',function(c){
-				// 	console.log('hey 2')
-				// 	// clear the table data row
-				// 	$(c.currentTarget).parent().remove();
-				// 	// remove the wetland id from the wet where array
-				// 	let val = parseInt($(c.currentTarget).parent().children().first().text());
-				// 	let index = t.obj.wetWhereArray.indexOf(val);
-				// 	if(index > -1){
-				// 		t.obj.wetWhereArray.splice(index, 1);
-				// 	}
-				// 	// loop through and rebuild the wet query based on the wetland where array
-				// 	$.each(t.obj.wetWhereArray,function(i,v){
-				// 		if(i == 0){
-				// 			t.obj.wetQuery = "WETLAND_ID = " + v;
-				// 		}else{
-				// 			 t.obj.wetQuery += " OR WETLAND_ID = " + v;
-				// 		}
-				// 	})
-				// 	// if the wet where array is empty, that means the last close has been clicked and 
-				// 	// we need to remove the wetland sel layer
-				// 	if(t.obj.wetWhereArray.length < 1){
-				// 		// remove the wetlands tab if nothing is selected
-				// 		// slide up the wetland table and slide down the click on map text
-				// 		$('#' + t.id + 'wetlandTableWrapper').slideUp();
-				// 		$('#' + t.id + 'toggleButtons').slideUp();
-				// 		$('#' + t.id + 'clickOnMapText').slideDown();
-				// 		// remove the wetlands selected layer from viz layers
-				// 		let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
-				// 		if(index > -1){
-				// 			t.obj.visibleLayers.splice(index, 1);
-				// 		}
-				// 	}
-				// 	// calculate the number of selected items based on data array
-				// 	$(".aoc-selCounter").first().html(t.obj.wetWhereArray.length);
-				// 	// update visible layers and set dynamic layer deffs
-				// 	t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-				// 	t.obj.layerDefinitions[t.wetlandsSel] = t.obj.wetQuery;
-				// 	t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
-
-				// });
-				// // close button for tables //////////////
-				// $('.aoc-allClose').on('click',function(c){
-				// 	// remove wetland selecetd layer from viz layers
-				// 	let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
-				// 	if(index > -1){
-				// 		t.obj.visibleLayers.splice(index, 1);
-				// 	}
-				// 	t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-				// 	// empty table rows
-				// 	$('#' + t.id + 'wetlandTable').find('td').parent().empty();
-				// 	// slide up table and toggle buttons
-				// 	$('#' + t.id + 'wetlandTableWrapper').slideUp();
-				// 	$('#' + t.id + 'toggleButtons').slideUp();
-				// 	$('#' + t.id + 'clickOnMapText').slideDown();
-				// 	// reset the wetland arrays
-				// 	t.obj.wetWhereArray = [];
-				// 	t.obj.wetlandTableObject = [];
-
-				// })
-			},
+			// },
 
 			// main toggle button function./////////////////////////////////////////////
 			toggleFunc: function(t){
@@ -603,3 +426,129 @@ function ( declare, Query, QueryTask ) {
         });
     }
 );
+
+
+
+/// table creation code //////////////////////
+				// // run the wetland query if watershed checkbox is checked
+				// if($('#' + t.id + 'watershed-option')[0].checked){
+				// 	// query for wetlands /////////////////////////////////////////////////////////////////////
+				// 	t.q = new Query();
+				// 	t.qt = new QueryTask(t.url + "/" + t.wetlandsSel);
+				// 	t.q.geometry = p
+				// 	t.q.returnGeometry = true;
+				// 	t.q.outFields = ["*"];
+				// 	// query the map on click
+				// 	t.qt.execute(t.q, function(evt){
+				// 		if(evt.features.length > 0){
+				// 			// slide down the wetland table and slide up the click on map text
+				// 			$('#' + t.id + 'wetlandTableWrapper').slideDown();
+				// 			$('#' + t.id + 'toggleButtons').slideDown();
+				// 			$('#' + t.id + 'clickOnMapText').slideUp();
+				// 			// check the appropriate tab based on what was clicked on map
+
+				// 			// only do the below if the array is less than 5 items
+				// 			if(t.obj.wetWhereArray.length < 5){
+				// 				// set vars
+				// 				let id = evt.features[0].attributes.WETLAND_ID
+				// 				let atts = evt.features[0].attributes
+				// 				var obj  = {WETLAND_TYPE: atts.WETLAND_TYPE, ALL_RANK: atts.ALL_RANK, PR_RANK: atts.PR_RANK, SS_RANK: atts.SS_RANK, FLDP_RANK: atts.FLDP_RANK, TILE_RANK: atts.TILE_RANK, WETLAND_ID: atts.WETLAND_ID}
+				// 				t.obj.wetlandTableObject.push(obj);
+				// 				// add a new row to the table
+				// 				$('#' + t.id + 'wetlandTable').append('<tr class="aoc-tableRow"><td>' + atts.WETLAND_ID + '</td><td>' + atts.WETLAND_TYPE 
+				// 					+ '</td><td>' + atts.ALL_RANK + '</td><td>' + atts.SS_RANK + '</td><td>'
+				// 					+ atts.PR_RANK +  '</td><td>' + atts.FLDP_RANK + '</td><td>' + atts.TILE_RANK + '</td>' 
+				// 					+ '<td class="aoc-tableClose"' + '>' + '&#215;' + '</td></tr>');
+
+				// 				// check to see if the wetland selected layer has been added, only add it once
+				// 				let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
+				// 				if(index == -1){
+				// 					t.obj.visibleLayers.push(t.wetlandsSel);
+				// 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+				// 				}
+				// 				// push the id into the wet where query string
+				// 				t.obj.wetWhereArray.push(id);
+				// 				// build the wet query 
+				// 				$.each(t.obj.wetWhereArray,function(i,v){
+				// 					if(i == 0){
+				// 						t.obj.wetQuery = "WETLAND_ID = " + v;
+				// 					}else{
+				// 						 t.obj.wetQuery += " OR WETLAND_ID = " + v;
+				// 					}
+	  	// 						})
+
+	  	// 						// set dynamic layer deffs
+				// 				t.obj.layerDefinitions[t.wetlandsSel] = t.obj.wetQuery;
+				// 				t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
+				// 				// // close button for tables //////////////
+				// 				t.clicks.tableRowClose(t);
+				// 				// calculate the number of selected items based on data array
+				// 				$(".aoc-selCounter").first().html(t.obj.wetWhereArray.length);
+				// 			}
+				// 		}
+				// 	})
+				// }
+
+
+// table row close code /////////////////
+// console.log('hey')
+				// // close button for tables //////////////
+				// $('.aoc-tableClose').on('click',function(c){
+				// 	console.log('hey 2')
+				// 	// clear the table data row
+				// 	$(c.currentTarget).parent().remove();
+				// 	// remove the wetland id from the wet where array
+				// 	let val = parseInt($(c.currentTarget).parent().children().first().text());
+				// 	let index = t.obj.wetWhereArray.indexOf(val);
+				// 	if(index > -1){
+				// 		t.obj.wetWhereArray.splice(index, 1);
+				// 	}
+				// 	// loop through and rebuild the wet query based on the wetland where array
+				// 	$.each(t.obj.wetWhereArray,function(i,v){
+				// 		if(i == 0){
+				// 			t.obj.wetQuery = "WETLAND_ID = " + v;
+				// 		}else{
+				// 			 t.obj.wetQuery += " OR WETLAND_ID = " + v;
+				// 		}
+				// 	})
+				// 	// if the wet where array is empty, that means the last close has been clicked and 
+				// 	// we need to remove the wetland sel layer
+				// 	if(t.obj.wetWhereArray.length < 1){
+				// 		// remove the wetlands tab if nothing is selected
+				// 		// slide up the wetland table and slide down the click on map text
+				// 		$('#' + t.id + 'wetlandTableWrapper').slideUp();
+				// 		$('#' + t.id + 'toggleButtons').slideUp();
+				// 		$('#' + t.id + 'clickOnMapText').slideDown();
+				// 		// remove the wetlands selected layer from viz layers
+				// 		let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
+				// 		if(index > -1){
+				// 			t.obj.visibleLayers.splice(index, 1);
+				// 		}
+				// 	}
+				// 	// calculate the number of selected items based on data array
+				// 	$(".aoc-selCounter").first().html(t.obj.wetWhereArray.length);
+				// 	// update visible layers and set dynamic layer deffs
+				// 	t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+				// 	t.obj.layerDefinitions[t.wetlandsSel] = t.obj.wetQuery;
+				// 	t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
+
+				// });
+				// // close button for tables //////////////
+				// $('.aoc-allClose').on('click',function(c){
+				// 	// remove wetland selecetd layer from viz layers
+				// 	let index = t.obj.visibleLayers.indexOf(t.wetlandsSel);
+				// 	if(index > -1){
+				// 		t.obj.visibleLayers.splice(index, 1);
+				// 	}
+				// 	t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+				// 	// empty table rows
+				// 	$('#' + t.id + 'wetlandTable').find('td').parent().empty();
+				// 	// slide up table and toggle buttons
+				// 	$('#' + t.id + 'wetlandTableWrapper').slideUp();
+				// 	$('#' + t.id + 'toggleButtons').slideUp();
+				// 	$('#' + t.id + 'clickOnMapText').slideDown();
+				// 	// reset the wetland arrays
+				// 	t.obj.wetWhereArray = [];
+				// 	t.obj.wetlandTableObject = [];
+
+				// })
