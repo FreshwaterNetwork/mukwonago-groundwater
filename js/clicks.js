@@ -71,13 +71,15 @@ function ( declare, Query, QueryTask ) {
 							}
 						})
 					}
-					// loop through the toggle buttons and only show based on what main cb's are checked
+					//loop through the toggle buttons and only show based on what main cb's are checked
 					$.each($('#' + t.id + 'mapQueryToggleWrapper input'),function(i,y){
 						let index =  t.obj.mainCheckArray.indexOf(y.value)
 						if(index > -1){
-							$(y).next().show()
+							$(y).next().removeClass("aoc-opacity")
+							$(y).prop('disabled', false);
 						}else{
-							$(y).next().hide()
+							$(y).next().addClass("aoc-opacity")
+							$(y).prop('disabled', true);
 						}
 					})
 				});
@@ -151,10 +153,11 @@ function ( declare, Query, QueryTask ) {
 			},
 			// map click query function /////////////////////////////////////////////////////////////////////
 			mapClickQuery: function(t, p){
-				t.attsArray = ['','',''];
-				console.log(t.obj.queryTracker);
+				// t.attsArray = ['','',''];
+				// console.log(t.obj.queryTracker);
+
 				// if trying to click on a point change the click tolerance
-				if(t.obj.queryTracker == 9){
+				if(t.obj.queryTracker == 9 || t.obj.queryTracker == 7){
 					var centerPoint = new esri.geometry.Point(t.obj.pnt.x,t.obj.pnt.y,t.obj.pnt.spatialReference);
 					var mapWidth = t.map.extent.getWidth();
 					var mapWidthPixels = t.map.width;
@@ -189,6 +192,7 @@ function ( declare, Query, QueryTask ) {
 						// create selection where clause
 
 						// add layer selection to the map
+
 					}else{
 						// slide up the attributes section
 						attsSection.slideUp();
@@ -200,7 +204,6 @@ function ( declare, Query, QueryTask ) {
 
 					}
 				})
-
 
 				// barrior query to start the chain of click queries
 				// function barriorQuery(){
@@ -456,18 +459,21 @@ function ( declare, Query, QueryTask ) {
 							t.obj.visibleLayers = t.obj.visibleLayers.concat(aocHabitat)
 							$.each($('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper input'),function(i,v){
 								$(v).prop('disabled', false)
+								$(v).prop('checked', true)
 							})
 							break;
 						case 'wetland':
 							t.obj.visibleLayers = t.obj.visibleLayers.concat(t.watershedContr)
 							$.each($('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper input'),function(i,v){
 								$(v).prop('disabled', false)
+								$(v).prop('checked', true)
 							})
 							break;
 						case 'fish':
 							t.obj.visibleLayers = t.obj.visibleLayers.concat(fishPassage)
 							$.each($('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper input'),function(i,v){
 								$(v).prop('disabled', false)
+								$(v).prop('checked', true)
 							})
 							break;
 						default:
@@ -481,6 +487,7 @@ function ( declare, Query, QueryTask ) {
 							})
 							$.each($('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper input'),function(i,v){
 								$(v).prop('disabled', true)
+								$(v).prop('checked', false)
 							})
 							break;
 						case 'wetland':
@@ -493,6 +500,7 @@ function ( declare, Query, QueryTask ) {
 							}
 							$.each($('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper input'),function(i,v){
 								$(v).prop('disabled', true)
+								$(v).prop('checked', false)
 							})
 							break;
 						case 'fish':
@@ -507,6 +515,7 @@ function ( declare, Query, QueryTask ) {
 							}
 							$.each($('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper input'),function(i,v){
 								$(v).prop('disabled', true)
+								$(v).prop('checked', false)
 							})
 							break;
 						default:

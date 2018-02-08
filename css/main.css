@@ -52,7 +52,7 @@ hr{
 
 /* Sup data styling //////////////////////////////////////////////////////////////////////////////////////*/
 .aoc-supDataWrapper{
-	padding-left: 7px;
+	padding-left: 0px;
 }
 .aoc-supData{
 	display: flex; margin-left: 5px;
@@ -103,6 +103,6 @@ hr{
 .aoc-opacity{
 	opacity: .2;
 }
-/*.aoc-opacity:hover{
+.aoc-opacity:hover{
 	cursor:not-allowed !important;
-}*/
+}
