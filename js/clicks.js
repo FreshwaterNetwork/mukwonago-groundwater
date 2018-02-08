@@ -125,11 +125,12 @@ function ( declare, Query, QueryTask ) {
 				});
 				// map query toggle button function ////////////////////////////
 				$('#' + t.id + 'mapQueryToggleWrapper input').on('click',function(c){
-					$.each($('#' + t.id + 'mainAttWrapper div'),function(c,v){
+					$.each($('#' + t.id + 'mainAttWrapper .aoc-attributeWrapper'),function(c,v){
 						$(v).slideUp();
 					})
 					$('#' + t.id + c.currentTarget.value + 'Wrapper').slideDown();
 					t.obj.queryTracker = c.currentTarget.id.split("-")[1];
+					t.obj.toggleTracker =  c.currentTarget.value;
 				})
 
 				// // table row click function////////////////////////////
@@ -152,6 +153,55 @@ function ( declare, Query, QueryTask ) {
 			mapClickQuery: function(t, p){
 				t.attsArray = ['','',''];
 				console.log(t.obj.queryTracker);
+				// if trying to click on a point change the click tolerance
+				if(t.obj.queryTracker == 9){
+					var centerPoint = new esri.geometry.Point(t.obj.pnt.x,t.obj.pnt.y,t.obj.pnt.spatialReference);
+					var mapWidth = t.map.extent.getWidth();
+					var mapWidthPixels = t.map.width;
+					var pixelWidth = mapWidth/mapWidthPixels;
+					var tolerance = 10 * pixelWidth;
+					var pnt = t.obj.pnt;
+					var ext = new esri.geometry.Extent(1,1, tolerance, tolerance, t.obj.pnt.spatialReference);
+					p = ext.centerAt(centerPoint);
+				}
+				
+				// start of query ///////////////////////////////////////////////////////////////////////
+				t.q = new Query();
+				// use query tracker to create the correct url 
+				t.qt = new QueryTask(t.url + "/" + t.obj.queryTracker);
+				t.q.geometry = p;
+				// t.q.returnGeometry = true;
+				t.q.outFields = ["*"];
+				// execute query ///////////////////			
+				t.qt.execute(t.q);
+				t.qt.on('complete', function(evt){
+					// attributes vars
+					let mapclickText = $('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-mapClickText');
+					let attsSection = $('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attributeSections');
+					if(evt.featureSet.features.length > 0){
+						console.log('made it')
+						// slide up map click text
+						mapclickText.slideUp()
+						// slide down attribute section
+						attsSection.slideDown()
+						// populate attribute section
+							// maybe call another function
+						// create selection where clause
+
+						// add layer selection to the map
+					}else{
+						// slide up the attributes section
+						attsSection.slideUp();
+						// slide down click text
+						mapclickText.slideDown();
+						// remove the layer selection from the map
+
+						// reset the layer where query
+
+					}
+				})
+
+
 				// barrior query to start the chain of click queries
 				// function barriorQuery(){
 				// 	console.log('lookj here')
