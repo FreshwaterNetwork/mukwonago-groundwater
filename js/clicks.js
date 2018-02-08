@@ -154,10 +154,9 @@ function ( declare, Query, QueryTask ) {
 			// map click query function /////////////////////////////////////////////////////////////////////
 			mapClickQuery: function(t, p){
 				// t.attsArray = ['','',''];
-				// console.log(t.obj.queryTracker);
 
 				// if trying to click on a point change the click tolerance
-				if(t.obj.queryTracker == 9 || t.obj.queryTracker == 7){
+				if(t.obj.queryTracker == 10 || t.obj.queryTracker == 8){
 					var centerPoint = new esri.geometry.Point(t.obj.pnt.x,t.obj.pnt.y,t.obj.pnt.spatialReference);
 					var mapWidth = t.map.extent.getWidth();
 					var mapWidthPixels = t.map.width;
@@ -171,6 +170,7 @@ function ( declare, Query, QueryTask ) {
 				// start of query ///////////////////////////////////////////////////////////////////////
 				t.q = new Query();
 				// use query tracker to create the correct url 
+				console.log(t.obj.queryTracker)
 				t.qt = new QueryTask(t.url + "/" + t.obj.queryTracker);
 				t.q.geometry = p;
 				// t.q.returnGeometry = true;
@@ -190,18 +190,50 @@ function ( declare, Query, QueryTask ) {
 						// populate attribute section
 							// maybe call another function
 						// create selection where clause
+						switch(t.obj.toggleTracker){
+   							case 'habitat':
+	   							t.obj.query = "OBJECTID_1 = " + evt.featureSet.features[0].attributes.OBJECTID_1;
+	   							break;
+	   						case 'wetland':
+	   							t.obj.query = "WETLAND_ID = " + evt.featureSet.features[0].attributes.WETLAND_ID;
+	   							break;
+	   						case 'sites':
+	   							t.obj.query = "OBJECTID_1 = " + evt.featureSet.features[0].attributes.OBJECTID_1;
+	   							break;
+	   						case 'fish':
+	   							t.obj.query = "OBJECTID = " + evt.featureSet.features[0].attributes.OBJECTID;
+	   							break;
+   						}
+   						console.log(t.obj.query)
+						// add layer selection to the map'
+						if(t.obj.queryTracker == 8){
+							t.n = 3
+						}else if(t.obj.queryTracker == 10){
+							t.n = 4
+						}else{
+							t.n = t.obj.queryTracker
+						}
+						t.obj.layerDefinitions[t.n] = t.obj.query;
+						t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
 
-						// add layer selection to the map
-
+						let index = t.obj.visibleLayers.indexOf(t.n)
+						if(index < 0){
+							t.obj.visibleLayers.push(t.n);
+						}
+						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 					}else{
 						// slide up the attributes section
 						attsSection.slideUp();
 						// slide down click text
 						mapclickText.slideDown();
 						// remove the layer selection from the map
-
+						let index = t.obj.visibleLayers.indexOf(t.n);
+						if (index > -1) {
+							t.obj.visibleLayers.splice(index,1);
+						}
+						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 						// reset the layer where query
-
+						t.obj.query = '';
 					}
 				})
 
@@ -527,24 +559,25 @@ function ( declare, Query, QueryTask ) {
 				t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 			},
 			makeVariables: function(t){
-				t.aoc = 4;
-				t.lowerFoxBound = 5;
-				t.countyBounds = 6;
-				t.surveyRank = 7;
-				t.habitatSites = 8;
-				t.siteVisits = 9;
-				t.wetlands = 10;
-				t.prwWetlands = 11;
-				t.wetlandsBord = 12;
-				t.prwWetlandsBord = 13;
-				t.wetlandsFAH = 14;
-				t.prwFAH = 15;
+				t.aoc = 5;
+				t.lowerFoxBound = 6;
+				t.countyBounds = 7;
+				t.surveyRank = 8;
+				t.habitatSites = 9;
+				t.siteVisits = 10;
+				t.wetlands = 11;
+				t.prwWetlands = 12;
+				t.wetlandsBord = 13;
+				t.prwWetlandsBord = 14;
+				t.wetlandsFAH = 15;
+				t.prwFAH = 16;
 				// sup data
-				t.AOCPriorityAreas = 16;
-				t.huc12Bounds = 17;
-				t.oneidaBound = 18;
-				t.kepBound = 19;
+				t.AOCPriorityAreas = 17;
+				t.huc12Bounds = 18;
+				t.oneidaBound = 19;
+				t.kepBound = 20;
 				// sel data
+				t.siteVisitSel = 4;
 				t.surveyRankSel = 3;
 				t.wetlandsSel= 2;
 				t.wetlandsSubSel = 1;

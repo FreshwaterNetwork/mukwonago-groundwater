@@ -1,11 +1,12 @@
 {
-	"visibleLayers": [4,5],
+	"visibleLayers": [5,6],
 	"toggleSel": "",
 	"extent": "",
 	"stateSet": "no",
 	"wetWhereArray": [],
 	"queryTracker": "",
 	"toggleTracker": "",
+	"query": "",
 
 
 	"hucLayer": "0",
