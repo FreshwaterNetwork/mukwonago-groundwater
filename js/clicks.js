@@ -204,7 +204,6 @@ function ( declare, Query, QueryTask ) {
 	   							t.obj.query = "OBJECTID = " + evt.featureSet.features[0].attributes.OBJECTID;
 	   							break;
    						}
-   						console.log(t.obj.query)
 						// add layer selection to the map'
 						if(t.obj.queryTracker == 8){
 							t.n = 3
