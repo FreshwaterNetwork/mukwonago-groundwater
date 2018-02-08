@@ -126,9 +126,9 @@ function ( declare, Query, QueryTask ) {
 				// map query toggle button function ////////////////////////////
 				$('#' + t.id + 'mapQueryToggleWrapper input').on('click',function(c){
 					$.each($('#' + t.id + 'mainAttWrapper .aoc-attributeWrapper'),function(c,v){
-						$(v).slideUp();
+						$(v).hide();
 					})
-					$('#' + t.id + c.currentTarget.value + 'Wrapper').slideDown();
+					$('#' + t.id + c.currentTarget.value + 'Wrapper').show();
 					t.obj.queryTracker = c.currentTarget.id.split("-")[1];
 					t.obj.toggleTracker =  c.currentTarget.value;
 				})
