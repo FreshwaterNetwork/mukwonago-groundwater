@@ -304,6 +304,7 @@ function ( declare, Query, QueryTask ) {
 					t.watershedContr = [t.wetlands, t.prwWetlands, t.siteVisits];
 				}
 				// check to see if the checkbox is checked
+				console.log(t.currentCheckVal)
 				if(t.currentCheckVal.checked){
 					switch(t.currentCheckVal.value){
 						case 'habitat':
