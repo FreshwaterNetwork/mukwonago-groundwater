@@ -198,7 +198,6 @@ function ( declare, Query, QueryTask ) {
 				// t.q.returnGeometry = true;
 				t.q.outFields = ["*"];
 				// execute query ///////////////////
-				// console.log(t.obj.queryTracker)		
 				if(t.obj.queryTracker){
 					t.qt.execute(t.q);
 				}	
@@ -239,6 +238,7 @@ function ( declare, Query, QueryTask ) {
 	   							break;
    						}
 						// set layer deffs
+						t.n = parseInt(t.n); // convert to int
 						t.obj.layerDefinitions[t.n] = t.obj.query;
 						t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
 						// add layer selection to the map'
@@ -343,11 +343,18 @@ function ( declare, Query, QueryTask ) {
 							break;
 						case 'wetland':
 							t.obj.visibleLayers = t.obj.visibleLayers.filter(function(x){
+								console.log(t.obj.visibleLayers)
 								return t.watershedContr.indexOf(x) < 0;
 							})
 							let waterIndex = t.obj.visibleLayers.indexOf(t.wetlandsSel);
+							console.log(waterIndex);
 							if (waterIndex > -1) {
 								t.obj.visibleLayers.splice(waterIndex,1);
+							}
+							let siteIndex = t.obj.visibleLayers.indexOf(t.siteVisitSel);
+							console.log(siteIndex);
+							if (siteIndex > -1) {
+								t.obj.visibleLayers.splice(siteIndex,1);
 							}
 							$.each($('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper input'),function(i,v){
 								$(v).prop('disabled', true)
