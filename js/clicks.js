@@ -48,7 +48,6 @@ function ( declare, Query, QueryTask ) {
 						let checkedCB = $('#' + t.id + 'mainRadioBtns .aoc-mainCB input:checkbox:checked');
 						// get the id of the cb thats checked
 						let id  = checkedCB[0].id;
-						console.log(id);
 						//  use the id to find the approp tab button and check it
 						if(id == t.id + 'fish-option'){
 							// force click on tab button
