@@ -51,11 +51,11 @@ function ( declare, Query, QueryTask ) {
 						//  use the id to find the approp tab button and check it
 						if(id == t.id + 'fish-option'){
 							// force click on tab button
-							$('#dijit_layout_ContentPane_0num-8').trigger('click');
+							$('#' + t.id+'num-8').trigger('click');
 						}else if(id == t.id + 'watershed-option'){
-							$('#dijit_layout_ContentPane_0num-2').trigger('click');
+							$('#' + t.id+'num-2').trigger('click');
 						}else{
-							$('#dijit_layout_ContentPane_0num-0').trigger('click');
+							$('#' + t.id+ 'num-0').trigger('click');
 						}
 					}
 
