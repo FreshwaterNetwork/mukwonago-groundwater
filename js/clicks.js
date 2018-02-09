@@ -40,29 +40,24 @@ function ( declare, Query, QueryTask ) {
 					}
 					// select a tab button for map selection dynamically on 
 					// first cb click and when there is only one cb selected ///////////////////////////
-
 					// on any change of the cb's run the below
-					// console.log(c)
 					// get a count of checked cb's using is:checked code
 					let cbCount = $('#' + t.id + 'mainRadioBtns .aoc-mainCB input:checkbox:checked').length
-					// console.log(cbCount);
-					// if there are more than one do nothing
-
-					// if less than one 
+					// cbCount if less than one 
 					if(cbCount === 1){
-						// console.log('check the boxes here')
 						let checkedCB = $('#' + t.id + 'mainRadioBtns .aoc-mainCB input:checkbox:checked');
-						console.log(checkedCB[0].id);
-					}
-
 						// get the id of the cb thats checked
-
+						let id  = checkedCB[0].id;
 						//  use the id to find the approp tab button and check it
-
+						if(id == t.id + 'fish-option'){
 							// force click on tab button
-
-						// if the cb was wetlands check the wetland cb.
-
+							$('#dijit_layout_ContentPane_0num-8').trigger('click');
+						}else if(id == t.id + 'watershed-option'){
+							$('#dijit_layout_ContentPane_0num-2').trigger('click');
+						}else{
+							$('#dijit_layout_ContentPane_0num-0').trigger('click');
+						}
+					}
 
 					// if state set = yes //////////////////////////////////////////////////////////////
 					if(t.obj.stateSet != 'yes'){
@@ -99,6 +94,7 @@ function ( declare, Query, QueryTask ) {
 					}
 					//loop through the toggle buttons and only show based on what main cb's are checked
 					$.each($('#' + t.id + 'mapQueryToggleWrapper input'),function(i,y){
+						console.log(y.value)
 						let index =  t.obj.mainCheckArray.indexOf(y.value)
 						if(index > -1){
 							$(y).next().removeClass("aoc-opacity")
@@ -134,7 +130,7 @@ function ( declare, Query, QueryTask ) {
 					}
 					// set the visible layers
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-					// if not state set
+					// if not state set ////////////////////////////////////////////////////////////
 					if(t.obj.stateSet != 'yes'){
 						// create an array that has the values of each checkbox that is checked for save and share
 						t.obj.supCheckArray = [];
@@ -156,6 +152,7 @@ function ( declare, Query, QueryTask ) {
 					$.each($('#' + t.id + 'mainAttWrapper .aoc-attributeWrapper'),function(c,v){
 						$(v).hide();
 					})
+					console.log('click', c);
 					$('#' + t.id + c.currentTarget.value + 'Wrapper').show();
 					t.obj.queryTracker = c.currentTarget.id.split("-")[1];
 					t.obj.toggleTracker =  c.currentTarget.value;
