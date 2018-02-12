@@ -24,7 +24,7 @@ function ( declare, Query, QueryTask ) {
 					}else{
 						t.obj.scale = 'out'
 					}
-				})
+				}) 
 				// Main header toggle button///////////////////////////////////////////
 				$('#' + t.id + 'mainRadioBtns .aoc-mainCB input').on('click',function(c){
 					let val = c.currentTarget.value;
