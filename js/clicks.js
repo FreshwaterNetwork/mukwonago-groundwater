@@ -32,7 +32,7 @@ function ( declare, Query, QueryTask ) {
 
 
 				
-				$('.aoc-cbIndent input').on('click',function(c){
+				$('.aoc-mainCB input').on('click',function(c){
 					var layerId = c.currentTarget.value.split('-')[1];
 					if(c.currentTarget.checked){
 						t.obj.visibleLayers.push(layerId);
@@ -44,6 +44,12 @@ function ( declare, Query, QueryTask ) {
 					}
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 				})
+				$('.aoc-selRadio input').on('click',function(c){
+					console.log(c.currentTarget.value);
+					t.obj.queryTracker = c.currentTarget.id.split("-")[1];
+					t.obj.toggleTracker =  c.currentTarget.value;
+				})
+				
 
 				// // Main header toggle button///////////////////////////////////////////
 				// $('#' + t.id + 'mainRadioBtns .aoc-mainCB input').on('click',function(c){
@@ -167,16 +173,16 @@ function ( declare, Query, QueryTask ) {
 						})
 					}
 				});
-				// map query toggle button function ////////////////////////////
-				$('#' + t.id + 'mapQueryToggleWrapper input').on('click',function(c){
-					$.each($('#' + t.id + 'mainAttWrapper .aoc-attributeWrapper'),function(c,v){
-						$(v).hide();
-					})
-					console.log('click', c);
-					$('#' + t.id + c.currentTarget.value + 'Wrapper').show();
-					t.obj.queryTracker = c.currentTarget.id.split("-")[1];
-					t.obj.toggleTracker =  c.currentTarget.value;
-				})
+				// // map query toggle button function ////////////////////////////
+				// $('#' + t.id + 'mapQueryToggleWrapper input').on('click',function(c){
+				// 	$.each($('#' + t.id + 'mainAttWrapper .aoc-attributeWrapper'),function(c,v){
+				// 		$(v).hide();
+				// 	})
+				// 	console.log('click', c);
+				// 	$('#' + t.id + c.currentTarget.value + 'Wrapper').show();
+				// 	t.obj.queryTracker = c.currentTarget.id.split("-")[1];
+				// 	t.obj.toggleTracker =  c.currentTarget.value;
+				// })
 
 				// // table row click function////////////////////////////
 				// $('#' + t.id + ' .aoc-tableRow').on('click',function(c){
@@ -197,9 +203,10 @@ function ( declare, Query, QueryTask ) {
 			// map click query function /////////////////////////////////////////////////////////////////////
 			mapClickQuery: function(t, p){
 				// t.attsArray = ['','',''];
-
+				console.log(t.obj.queryTracker, 'map click');
+				console.log(t.obj.toggleTracker);
 				// if trying to click on a point change the click tolerance
-				if(t.obj.queryTracker == 10 || t.obj.queryTracker == 8){
+				if(t.obj.queryTracker == 0 || t.obj.queryTracker == 1){
 					var centerPoint = new esri.geometry.Point(t.obj.pnt.x,t.obj.pnt.y,t.obj.pnt.spatialReference);
 					var mapWidth = t.map.extent.getWidth();
 					var mapWidthPixels = t.map.width;
@@ -236,16 +243,16 @@ function ( declare, Query, QueryTask ) {
 					if(evt.featureSet.features.length > 0){
 						console.log('made it')
 						// slide up map click text
-						mapclickText.slideUp()
+						mapclickText.slideUp();
 						// slide down attribute section
-						attsSection.slideDown()
+						attsSection.slideDown();
 						// populate attribute section
 						// call the attribute populate function
 						t.clicks.attributePopulate(t, 'y', t.obj.toggleTracker, evt.featureSet.features[0].attributes);
 						// create selection where clause
 						switch(t.obj.toggleTracker){
    							case 'habitat':
-	   							t.obj.query = "OBJECTID_1 = " + evt.featureSet.features[0].attributes.OBJECTID_1;
+	   							t.obj.query = "OBJECTID = " + evt.featureSet.features[0].attributes.OBJECTID;
 	   							break;
 	   						case 'wetland':
 	   							t.obj.query = "WETLAND_ID = " + evt.featureSet.features[0].attributes.WETLAND_ID;
