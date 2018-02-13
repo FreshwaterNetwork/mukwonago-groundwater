@@ -6,9 +6,13 @@ function ( declare, Query, QueryTask ) {
 
         return declare(null, {
 			eventListeners: function(t){
-				$( function() {
-				    $("#" + t.id + "tabs" ).tabs();
-				  } );
+				// test flood tags api
+				// var url = "https://api.floodtags.com/v1/tags/fews-world/geojson?until=2018-02-11&since=2018-02-10"
+			 //    $.get( url, function( data ) {
+			 //      console.log(data)
+			 //    });
+
+		
 				// call the map click function at the start to load it
 				if(t.obj.stateSet != 'yes'){
 					t.obj.layerDefinitions = [];
@@ -25,86 +29,102 @@ function ( declare, Query, QueryTask ) {
 						t.obj.scale = 'out'
 					}
 				}) 
-				// Main header toggle button///////////////////////////////////////////
-				$('#' + t.id + 'mainRadioBtns .aoc-mainCB input').on('click',function(c){
-					let val = c.currentTarget.value;
-					t.currentCheckVal = c.currentTarget;
-					const sections = $(".aoc-contentBelowHeader .aoc-mainSection");
-					// call the toggle function
-					t.clicks.toggleFunc(t)
-					// check to see if any radio button is checked and slide down div below header
-					if($('#' + t.id + 'mainRadioBtns .aoc-mainCB input').is(":checked")){
-						$('#' + t.id + 'contentBelowHeader').slideDown()
-					}else{ // else slide up the div
-						$('#' + t.id + 'contentBelowHeader').slideUp()
-					}
-					// select a tab button for map selection dynamically on 
-					// first cb click and when there is only one cb selected ///////////////////////////
-					// on any change of the cb's run the below
-					// get a count of checked cb's using is:checked code
-					let cbCount = $('#' + t.id + 'mainRadioBtns .aoc-mainCB input:checkbox:checked').length
-					// cbCount if less than one 
-					if(cbCount === 1){
-						let checkedCB = $('#' + t.id + 'mainRadioBtns .aoc-mainCB input:checkbox:checked');
-						// get the id of the cb thats checked
-						let id  = checkedCB[0].id;
-						//  use the id to find the approp tab button and check it
-						if(id == t.id + 'fish-option'){
-							// force click on tab button
-							$('#' + t.id+'num-8').trigger('click');
-						}else if(id == t.id + 'watershed-option'){
-							$('#' + t.id+'num-2').trigger('click');
-						}else{
-							$('#' + t.id+ 'num-0').trigger('click');
-						}
-					}
 
-					// if state set = yes //////////////////////////////////////////////////////////////
-					if(t.obj.stateSet != 'yes'){
-						// create an array that has the values of each checkbox that is checked for save and share
-						t.obj.mainCheckArray = [];
-						$.each($('#' + t.id + 'mainRadioBtns .aoc-mainCB input'),function(i,v){
-							// call the map click function at the start to load it
-							if(v.checked == true){
-								if(v.value == 'wetland'){
-									t.obj.mainCheckArray.push(v.value);
-									t.obj.mainCheckArray.push('sites');
 
-								}else{
-									t.obj.mainCheckArray.push(v.value);
-								}
-							}else{
-								if(v.value == 'wetland'){
-									var index = t.obj.mainCheckArray.indexOf(v.value)
-									if(index > -1){
-										t.obj.mainCheckArray.splice(index, 1);
-									}
-									var index = t.obj.mainCheckArray.indexOf('sites')
-									if(index > -1){
-										t.obj.mainCheckArray.splice(index, 1);
-									}
-								}else{
-									var index = t.obj.mainCheckArray.indexOf(v.value)
-									if(index > -1){
-										t.obj.mainCheckArray.splice(index, 1);
-									}
-								}
-							}
-						})
-					}
-					//loop through the toggle buttons and only show based on what main cb's are checked
-					$.each($('#' + t.id + 'mapQueryToggleWrapper input'),function(i,y){
-						console.log(y.value)
-						let index =  t.obj.mainCheckArray.indexOf(y.value)
+				
+				$('.aoc-cbIndent input').on('click',function(c){
+					var layerId = c.currentTarget.value.split('-')[1];
+					if(c.currentTarget.checked){
+						t.obj.visibleLayers.push(layerId);
+					}else{
+						var index = t.obj.visibleLayers.indexOf(layerId);
 						if(index > -1){
-							$(y).next().removeClass("aoc-opacity")
-							$(y).prop('disabled', false);
-						}else{
-							$(y).next().addClass("aoc-opacity")
-							$(y).prop('disabled', true);
+							t.obj.visibleLayers.splice(index, 1);
 						}
-					})
-				});
+					}
+					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+				})
+
+				// // Main header toggle button///////////////////////////////////////////
+				// $('#' + t.id + 'mainRadioBtns .aoc-mainCB input').on('click',function(c){
+				// 	let val = c.currentTarget.value;
+				// 	t.currentCheckVal = c.currentTarget;
+				// 	const sections = $(".aoc-contentBelowHeader .aoc-mainSection");
+				// 	// call the toggle function
+				// 	t.clicks.toggleFunc(t)
+				// 	// check to see if any radio button is checked and slide down div below header
+				// 	if($('#' + t.id + 'mainRadioBtns .aoc-mainCB input').is(":checked")){
+				// 		$('#' + t.id + 'contentBelowHeader').slideDown()
+				// 	}else{ // else slide up the div
+				// 		$('#' + t.id + 'contentBelowHeader').slideUp()
+				// 	}
+				// 	// select a tab button for map selection dynamically on 
+				// 	// first cb click and when there is only one cb selected ///////////////////////////
+				// 	// on any change of the cb's run the below
+				// 	// get a count of checked cb's using is:checked code
+				// 	let cbCount = $('#' + t.id + 'mainRadioBtns .aoc-mainCB input:checkbox:checked').length
+				// 	// cbCount if less than one 
+				// 	if(cbCount === 1){
+				// 		let checkedCB = $('#' + t.id + 'mainRadioBtns .aoc-mainCB input:checkbox:checked');
+				// 		// get the id of the cb thats checked
+				// 		let id  = checkedCB[0].id;
+				// 		//  use the id to find the approp tab button and check it
+				// 		if(id == t.id + 'fish-option'){
+				// 			// force click on tab button
+				// 			$('#' + t.id+'num-8').trigger('click');
+				// 		}else if(id == t.id + 'watershed-option'){
+				// 			$('#' + t.id+'num-2').trigger('click');
+				// 		}else{
+				// 			$('#' + t.id+ 'num-0').trigger('click');
+				// 		}
+				// 	}
+
+				// 	// if state set = yes //////////////////////////////////////////////////////////////
+				// 	if(t.obj.stateSet != 'yes'){
+				// 		// create an array that has the values of each checkbox that is checked for save and share
+				// 		t.obj.mainCheckArray = [];
+				// 		$.each($('#' + t.id + 'mainRadioBtns .aoc-mainCB input'),function(i,v){
+				// 			// call the map click function at the start to load it
+				// 			if(v.checked == true){
+				// 				if(v.value == 'wetland'){
+				// 					t.obj.mainCheckArray.push(v.value);
+				// 					t.obj.mainCheckArray.push('sites');
+
+				// 				}else{
+				// 					t.obj.mainCheckArray.push(v.value);
+				// 				}
+				// 			}else{
+				// 				if(v.value == 'wetland'){
+				// 					var index = t.obj.mainCheckArray.indexOf(v.value)
+				// 					if(index > -1){
+				// 						t.obj.mainCheckArray.splice(index, 1);
+				// 					}
+				// 					var index = t.obj.mainCheckArray.indexOf('sites')
+				// 					if(index > -1){
+				// 						t.obj.mainCheckArray.splice(index, 1);
+				// 					}
+				// 				}else{
+				// 					var index = t.obj.mainCheckArray.indexOf(v.value)
+				// 					if(index > -1){
+				// 						t.obj.mainCheckArray.splice(index, 1);
+				// 					}
+				// 				}
+				// 			}
+				// 		})
+				// 	}
+				// 	//loop through the toggle buttons and only show based on what main cb's are checked
+				// 	$.each($('#' + t.id + 'mapQueryToggleWrapper input'),function(i,y){
+				// 		console.log(y.value)
+				// 		let index =  t.obj.mainCheckArray.indexOf(y.value)
+				// 		if(index > -1){
+				// 			$(y).next().removeClass("aoc-opacity")
+				// 			$(y).prop('disabled', false);
+				// 		}else{
+				// 			$(y).next().addClass("aoc-opacity")
+				// 			$(y).prop('disabled', true);
+				// 		}
+				// 	})
+				// });
 				// checkboxes for selectable layers ////////////////////////////////////////////////////
 				$('#' + t.id + 'selectableLayersWrapper input').on('click',function(c){
 					let val = parseInt(c.currentTarget.value.split('-')[1]);
