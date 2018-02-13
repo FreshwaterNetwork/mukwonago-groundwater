@@ -35,9 +35,9 @@ function ( declare, Query, QueryTask ) {
 				$('.aoc-mainCB input').on('click',function(c){
 					var layerId = c.currentTarget.value.split('-')[1];
 					if(c.currentTarget.checked){
-						t.obj.visibleLayers.push(layerId);
+						t.obj.visibleLayers.push(parseInt(layerId));
 					}else{
-						var index = t.obj.visibleLayers.indexOf(layerId);
+						var index = t.obj.visibleLayers.indexOf(parseInt(layerId));
 						if(index > -1){
 							t.obj.visibleLayers.splice(index, 1);
 						}
@@ -232,14 +232,7 @@ function ( declare, Query, QueryTask ) {
 					// attributes vars
 					let mapclickText = $('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-mapClickText');
 					let attsSection = $('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attributeSections');
-					// create a number to base selection layers off of to add and remove selected layers
-					if(t.obj.queryTracker == 8){
-						t.n = 3
-					}else if(t.obj.queryTracker == 10){
-						t.n = 4
-					}else{
-						t.n = t.obj.queryTracker
-					}
+					t.n = t.obj.queryTracker
 					if(evt.featureSet.features.length > 0){
 						console.log('made it')
 						// slide up map click text
@@ -282,7 +275,9 @@ function ( declare, Query, QueryTask ) {
 						// slide down click text
 						mapclickText.slideDown();
 						// remove the layer selection from the map
-						let index = t.obj.visibleLayers.indexOf(t.n);
+						let index = t.obj.visibleLayers.indexOf(parseInt(t.n));
+						console.log(t.obj.visibleLayers)
+						console.log(t.n, index);
 						if (index > -1) {
 							t.obj.visibleLayers.splice(index,1);
 						}
