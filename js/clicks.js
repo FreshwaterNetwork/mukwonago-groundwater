@@ -261,6 +261,14 @@ function ( declare, Query, QueryTask ) {
 						t.n = parseInt(t.n); // convert to int
 						t.obj.layerDefinitions[t.n] = t.obj.query;
 						t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
+						// remove all other layer selections when a new selection is made
+						let lyrSels = [0,1,2,3]
+						$.each(lyrSels, function(i,v){
+							let ind = t.obj.visibleLayers.indexOf(v);
+							if (ind > -1) {
+								t.obj.visibleLayers.splice(ind,1);
+							}
+						})
 						// add layer selection to the map'
 						let index = t.obj.visibleLayers.indexOf(t.n)
 						if(index < 0){
@@ -276,8 +284,6 @@ function ( declare, Query, QueryTask ) {
 						mapclickText.slideDown();
 						// remove the layer selection from the map
 						let index = t.obj.visibleLayers.indexOf(parseInt(t.n));
-						console.log(t.obj.visibleLayers)
-						console.log(t.n, index);
 						if (index > -1) {
 							t.obj.visibleLayers.splice(index,1);
 						}
