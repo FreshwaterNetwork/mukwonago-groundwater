@@ -172,6 +172,7 @@ function ( declare, Query, QueryTask ) {
 							t.obj.visibleLayers.push(t.n);
 						}
 						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+
 					}else{
 						// call the attribute populate function
 						t.clicks.attributePopulate(t, 'n', t.obj.toggleTracker);
@@ -193,20 +194,42 @@ function ( declare, Query, QueryTask ) {
 
 			attributePopulate: function(t, suc, track, atts){
 				console.log('attributePopulate call', suc, track, atts);
+				console.log($('#' + t.id + 'attributeWrapper').find('.aoc-attributeSections'))
+				$.each($('#' + t.id + 'attributeWrapper').find('.aoc-attributeSections'), function(i,v){
+					$(v).hide();
+				})
 				// figure out which atts need to be created
 				switch(track){
 					case 'wetland':
 						// do somthing for wetland
 						console.log('populate attributes for wetlands')
+						if(suc == 'y'){
+							$('#' + t.id + track + "Wrapper").slideDown();
+						}else{
+							$('#' + t.id + track + "Wrapper").slideUp();
+						}
+						
 						break;
 					case 'sites':
-
+						if(suc == 'y'){
+							$('#' + t.id + track + "Wrapper").slideDown();
+						}else{
+							$('#' + t.id + track + "Wrapper").slideUp();
+						}
 						break;
 					case 'habitat':
-
+						if(suc == 'y'){
+							$('#' + t.id + track + "Wrapper").slideDown();
+						}else{
+							$('#' + t.id + track + "Wrapper").slideUp();
+						}
 						break;
 					case 'fish':
-
+						if(suc == 'y'){
+							$('#' + t.id + track + "Wrapper").slideDown();
+						}else{
+							$('#' + t.id + track + "Wrapper").slideUp();
+						}
 						break;
 					default:
 						console.log('none matched')
