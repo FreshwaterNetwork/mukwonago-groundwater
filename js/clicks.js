@@ -38,6 +38,20 @@ function ( declare, Query, QueryTask ) {
 
 				// call the map click function at the start to load it
 				t.clicks.mapClickFunction(t);
+				// see more/less clicks
+				$("#" + t.id + "seeLess").on('click', function(c){
+					$("#" + t.id + "seeLess").parent().hide();
+					$("#" + t.id + "seeMore").parent().show();
+					// change content below header top css prop to 310px
+					console.log($("#" + t.id + "contentBelowHeader"))
+					$("#" + t.id + "contentBelowHeader").css('margin-top', '310px');
+				})	
+				$("#" + t.id + "seeMore").on('click', function(c){
+					$("#" + t.id + "seeLess").parent().show();
+					$("#" + t.id + "seeMore").parent().hide();
+					// change content below header top css prop to 403px
+					$("#" + t.id + "contentBelowHeader").css('margin-top', '403px');
+				})
 				// on zoom end turn on layer with and without borders depending on a zoom level scale of 75000 ///////////////
 				t.map.on("zoom-end", function(){
 					if(t.map.getScale() < 75001){

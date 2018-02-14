@@ -8,8 +8,10 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 	<!-- Header section wrapper -->
 	<div class="aoc-headerSectionWrapper">
 		<div class="aoc-openingWrapper">
-			<div class="blueFont" style="padding: 0 3px 0 3px;">Fish and wildlife populations and habitats in the Lower Green Bay and Fox River Area of Concern have been impaired and need help. Recovery needs to include habitat restoration in and near the AOC, watershed wetland restoration to improve water quality, and reconnecting stream networks for fish and aquatic life. <span class="aoc-helpLinkText"> See less...</span></div>
-			<div style="display: flex; margin: 10px 0 5px 0;">
+			<div class="blueFont hide" style="padding: 0 3px 0 3px;">Fish and wildlife populations.... <span id="seeMore" class="aoc-helpLinkText"> See more...</span></div>
+
+			<div class="blueFont" style="padding: 0 3px 0 3px;">Fish and wildlife populations and habitats in the Lower Green Bay and Fox River Area of Concern have been impaired and need help. Recovery needs to include habitat restoration in and near the AOC, watershed wetland restoration to improve water quality, and reconnecting stream networks for fish and aquatic life. <span id="seeLess" class="aoc-helpLinkText"> See less...</span></div>
+			<div style="display: flex; margin: -10px 0 5px 0;">
 				<h3>How would you like to help the Area of Concern?</h3>
 				<!-- Hamburger tool menu -->
 				<div class="aoc-toolWrapper">
@@ -36,7 +38,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 					<p style="text-align: center; position: absolute; right:4px; margin-top: -20px;" class="blueFont">Selectable layers</p>
 					<div class="aoc-cbIndent">
 						<label class="form-component aoc-mainCB" for="habitatSites-option">
-							<input type="checkbox" id="habitatSites-option" name="func" class="rb_cb" value="layer-7"> 
+							<input checked type="checkbox" id="habitatSites-option" name="func" class="rb_cb" value="layer-7"> 
 							<div class="check"></div>
 							<span class="form-text">East River and Duck Creek Habitat Sites</span>
 						</label>
