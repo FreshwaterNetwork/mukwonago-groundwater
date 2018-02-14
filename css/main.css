@@ -35,7 +35,7 @@ hr{
 	margin-bottom: 5px; margin-top: 5px;
 }
 .aoc-contentWrapper{
-	margin-left: 5px;
+	margin-left: 5px; margin-bottom: 7px;
 }
 .aoc-pill{
 	position: absolute !important; right: 20px; border: 1px solid #ddd; 
@@ -54,6 +54,9 @@ hr{
 }
 .aoc-attText{
 	font-size: 13px; color: #2f6384; font-weight: bold; margin-left: 8px;
+}
+.aoc-mainCB{
+	margin-bottom: 4px !important;
 }
 .aoc-wetAttWrapper{
 	margin-bottom: 10px;
