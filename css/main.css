@@ -28,6 +28,22 @@ hr{
 	display: none;
 	
 }
+.aoc-cbIndent{
+	margin-left: 10px;
+}
+.aoc-mainHeaders{
+	margin-bottom: 5px; margin-top: 5px;
+}
+.aoc-contentWrapper{
+	margin-left: 5px;
+}
+.aoc-pill{
+	position: absolute !important; right: 20px; border: 1px solid #ddd; 
+	border-radius: 1000px; background-color: #ddd;
+}
+.aoc-selRadio{
+	position: absolute !important; right: 29px;
+}
 
 /* attribute area styling//////////////////////////////////////////////////////////////////////////////////*/ 
 .aoc-attributePatch{

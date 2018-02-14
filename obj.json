@@ -1,11 +1,11 @@
 {
-	"visibleLayers": [5,6],
+	"visibleLayers": [13,14],
 	"toggleSel": "",
 	"extent": "",
 	"stateSet": "no",
 	"wetWhereArray": [],
-	"queryTracker": "",
-	"toggleTracker": "",
+	"queryTracker": "3",
+	"toggleTracker": "habitat",
 	"query": "",
 	"stateSet": "no",
 
