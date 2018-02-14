@@ -45,12 +45,13 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 							let v5 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[4]).html(t.obj.attsTracker[4])
 							let v6 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[5]).html(t.obj.attsTracker[5])
 							let v7 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[6]).html(t.obj.attsTracker[6])
-							let v8 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[6]).html(t.obj.attsTracker[7])
+							let v8 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[7]).html(t.obj.attsTracker[7])
 						}
 						// display the correct layers on the map
 						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 						// check the correct checkboxes in the sup data section ////////////////////////
 						$.each(t.obj.supCheckArray,function(i,y){
+							console.log(y);
 							$.each($('#' + t.id + 'supData input'),function(i,v){
 								if(y == v.value){
 									$(v).prop('checked', 'true');
