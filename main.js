@@ -31,8 +31,6 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 		},
 		// Called after hibernate at app startup. Calls the render function which builds the plugins elements and functions.   
 		activate: function (showHelpOnStart) {
-			
-			// console.log(showHelpOnStart)
 			if (this.rendered == false) {
 				this.rendered = true;							
 				this.render();
@@ -40,7 +38,6 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			}else{
 				this.dynamicLayer.setVisibleLayers(this.obj.visibleLayers);
 				$('#' + this.id).parent().parent().css('display', 'flex');
-				//this.clicks.updateAccord(this);
 			}	
 			this.open = "yes";
 		},
@@ -84,7 +81,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 				// $.each( $('#' + this.id + 'umr-wrap .rb_cb'),lang.hitch(this,function(i,v){
 				// 	if (v.checked == true){
 				// 		var id = "-" + v.id.split('-').pop();
-				// 		this.obj.rbCbIds.push(id)
+				// 		
 				// 	}
 				// }));	
 				//extent
