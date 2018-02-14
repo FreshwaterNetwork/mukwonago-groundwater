@@ -126,7 +126,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			var idUpdate = idUpdate0.replace(/id="/g, 'id="' + this.id);
 			$('#' + this.id).html(idUpdate);
 			// Set up variables
-			this.clicks.makeVariables(this);
+			// this.clicks.makeVariables(this);
 			// Click listeners
 			this.clicks.eventListeners(this);
 			// Create ESRI objects and event listeners	

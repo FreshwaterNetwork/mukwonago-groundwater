@@ -29,9 +29,7 @@ function ( declare, Query, QueryTask ) {
 						t.obj.scale = 'out'
 					}
 				}) 
-
-
-				
+				// on checkbox click /////////////////////////////
 				$('.aoc-mainCB input').on('click',function(c){
 					var layerId = c.currentTarget.value.split('-')[1];
 					if(c.currentTarget.checked){
@@ -44,93 +42,12 @@ function ( declare, Query, QueryTask ) {
 					}
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 				})
+				// on radio button click ////////////////////////////////////////////
 				$('.aoc-selRadio input').on('click',function(c){
-					console.log(c.currentTarget.value);
 					t.obj.queryTracker = c.currentTarget.id.split("-")[1];
 					t.obj.toggleTracker =  c.currentTarget.value;
 				})
 				
-
-				// // Main header toggle button///////////////////////////////////////////
-				// $('#' + t.id + 'mainRadioBtns .aoc-mainCB input').on('click',function(c){
-				// 	let val = c.currentTarget.value;
-				// 	t.currentCheckVal = c.currentTarget;
-				// 	const sections = $(".aoc-contentBelowHeader .aoc-mainSection");
-				// 	// call the toggle function
-				// 	t.clicks.toggleFunc(t)
-				// 	// check to see if any radio button is checked and slide down div below header
-				// 	if($('#' + t.id + 'mainRadioBtns .aoc-mainCB input').is(":checked")){
-				// 		$('#' + t.id + 'contentBelowHeader').slideDown()
-				// 	}else{ // else slide up the div
-				// 		$('#' + t.id + 'contentBelowHeader').slideUp()
-				// 	}
-				// 	// select a tab button for map selection dynamically on 
-				// 	// first cb click and when there is only one cb selected ///////////////////////////
-				// 	// on any change of the cb's run the below
-				// 	// get a count of checked cb's using is:checked code
-				// 	let cbCount = $('#' + t.id + 'mainRadioBtns .aoc-mainCB input:checkbox:checked').length
-				// 	// cbCount if less than one 
-				// 	if(cbCount === 1){
-				// 		let checkedCB = $('#' + t.id + 'mainRadioBtns .aoc-mainCB input:checkbox:checked');
-				// 		// get the id of the cb thats checked
-				// 		let id  = checkedCB[0].id;
-				// 		//  use the id to find the approp tab button and check it
-				// 		if(id == t.id + 'fish-option'){
-				// 			// force click on tab button
-				// 			$('#' + t.id+'num-8').trigger('click');
-				// 		}else if(id == t.id + 'watershed-option'){
-				// 			$('#' + t.id+'num-2').trigger('click');
-				// 		}else{
-				// 			$('#' + t.id+ 'num-0').trigger('click');
-				// 		}
-				// 	}
-
-				// 	// if state set = yes //////////////////////////////////////////////////////////////
-				// 	if(t.obj.stateSet != 'yes'){
-				// 		// create an array that has the values of each checkbox that is checked for save and share
-				// 		t.obj.mainCheckArray = [];
-				// 		$.each($('#' + t.id + 'mainRadioBtns .aoc-mainCB input'),function(i,v){
-				// 			// call the map click function at the start to load it
-				// 			if(v.checked == true){
-				// 				if(v.value == 'wetland'){
-				// 					t.obj.mainCheckArray.push(v.value);
-				// 					t.obj.mainCheckArray.push('sites');
-
-				// 				}else{
-				// 					t.obj.mainCheckArray.push(v.value);
-				// 				}
-				// 			}else{
-				// 				if(v.value == 'wetland'){
-				// 					var index = t.obj.mainCheckArray.indexOf(v.value)
-				// 					if(index > -1){
-				// 						t.obj.mainCheckArray.splice(index, 1);
-				// 					}
-				// 					var index = t.obj.mainCheckArray.indexOf('sites')
-				// 					if(index > -1){
-				// 						t.obj.mainCheckArray.splice(index, 1);
-				// 					}
-				// 				}else{
-				// 					var index = t.obj.mainCheckArray.indexOf(v.value)
-				// 					if(index > -1){
-				// 						t.obj.mainCheckArray.splice(index, 1);
-				// 					}
-				// 				}
-				// 			}
-				// 		})
-				// 	}
-				// 	//loop through the toggle buttons and only show based on what main cb's are checked
-				// 	$.each($('#' + t.id + 'mapQueryToggleWrapper input'),function(i,y){
-				// 		console.log(y.value)
-				// 		let index =  t.obj.mainCheckArray.indexOf(y.value)
-				// 		if(index > -1){
-				// 			$(y).next().removeClass("aoc-opacity")
-				// 			$(y).prop('disabled', false);
-				// 		}else{
-				// 			$(y).next().addClass("aoc-opacity")
-				// 			$(y).prop('disabled', true);
-				// 		}
-				// 	})
-				// });
 				// checkboxes for selectable layers ////////////////////////////////////////////////////
 				$('#' + t.id + 'selectableLayersWrapper input').on('click',function(c){
 					let val = parseInt(c.currentTarget.value.split('-')[1]);
@@ -145,7 +62,6 @@ function ( declare, Query, QueryTask ) {
 				})
 				// checkboxes for suplementary data ///////////////////////////////////////////////////
 				$('#' + t.id + 'supData input').on('click',function(c){
-					console.log(c,'c');
 					let val = parseInt(c.currentTarget.value.split('-')[1]);
 					if(c.currentTarget.checked){
 						t.obj.visibleLayers.push(val)
@@ -173,21 +89,6 @@ function ( declare, Query, QueryTask ) {
 						})
 					}
 				});
-				// // map query toggle button function ////////////////////////////
-				// $('#' + t.id + 'mapQueryToggleWrapper input').on('click',function(c){
-				// 	$.each($('#' + t.id + 'mainAttWrapper .aoc-attributeWrapper'),function(c,v){
-				// 		$(v).hide();
-				// 	})
-				// 	console.log('click', c);
-				// 	$('#' + t.id + c.currentTarget.value + 'Wrapper').show();
-				// 	t.obj.queryTracker = c.currentTarget.id.split("-")[1];
-				// 	t.obj.toggleTracker =  c.currentTarget.value;
-				// })
-
-				// // table row click function////////////////////////////
-				// $('#' + t.id + ' .aoc-tableRow').on('click',function(c){
-				// 	console.log('look here', c);
-				// })
 			}, 
 
 			// map click functionality call the map click query function //////////////////////////////////////////////////
@@ -202,9 +103,6 @@ function ( declare, Query, QueryTask ) {
 			},
 			// map click query function /////////////////////////////////////////////////////////////////////
 			mapClickQuery: function(t, p){
-				// t.attsArray = ['','',''];
-				console.log(t.obj.queryTracker, 'map click');
-				console.log(t.obj.toggleTracker);
 				// if trying to click on a point change the click tolerance
 				if(t.obj.queryTracker == 0 || t.obj.queryTracker == 1){
 					var centerPoint = new esri.geometry.Point(t.obj.pnt.x,t.obj.pnt.y,t.obj.pnt.spatialReference);
@@ -234,7 +132,6 @@ function ( declare, Query, QueryTask ) {
 					let attsSection = $('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attributeSections');
 					t.n = t.obj.queryTracker
 					if(evt.featureSet.features.length > 0){
-						console.log('made it')
 						// slide up map click text
 						mapclickText.slideUp();
 						// slide down attribute section
@@ -315,150 +212,247 @@ function ( declare, Query, QueryTask ) {
 						console.log('none matched')
 				}
 			},
-
-			// tableRowClose: function(t){
-				
+			// makeVariables: function(t){
+			// 	t.aoc = 5;
+			// 	t.lowerFoxBound = 6;
+			// 	t.countyBounds = 7;
+			// 	t.surveyRank = 8;
+			// 	t.habitatSites = 9;
+			// 	t.siteVisits = 10;
+			// 	t.wetlands = 11;
+			// 	t.prwWetlands = 12;
+			// 	t.wetlandsBord = 13;
+			// 	t.prwWetlandsBord = 14;
+			// 	t.wetlandsFAH = 15;
+			// 	t.prwFAH = 16;
+			// 	// sup data
+			// 	t.AOCPriorityAreas = 17;
+			// 	t.huc12Bounds = 18;
+			// 	t.oneidaBound = 19;
+			// 	t.kepBound = 20;
+			// 	// sel data
+			// 	t.siteVisitSel = 4;
+			// 	t.surveyRankSel = 3;
+			// 	t.wetlandsSel= 2;
+			// 	t.wetlandsSubSel = 1;
+			// 	t.habitatSel = 0;
 			// },
-
-			// main toggle button function./////////////////////////////////////////////
-			toggleFunc: function(t){
-				// declare layers for each section
-				const aocHabitat = [t.habitatSites];
-				const fishPassage = [t.surveyRank,t.wetlandsFAH , t.prwFAH];
-				// show the wetalnd selected layer based on array length
-				if(t.obj.wetWhereArray.length > 0){
-					t.watershedContr = [t.wetlands, t.prwWetlands, t.siteVisits, t.wetlandsSel];
-				}else{
-					t.watershedContr = [t.wetlands, t.prwWetlands, t.siteVisits];
-				}
-				// check to see if the checkbox is checked
-				console.log(t.currentCheckVal)
-				if(t.currentCheckVal.checked){
-					switch(t.currentCheckVal.value){
-						case 'habitat':
-							t.obj.visibleLayers = t.obj.visibleLayers.concat(aocHabitat)
-							$.each($('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper input'),function(i,v){
-								$(v).prop('disabled', false)
-								$(v).prop('checked', true)
-							})
-							break;
-						case 'wetland':
-							t.obj.visibleLayers = t.obj.visibleLayers.concat(t.watershedContr)
-							$.each($('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper input'),function(i,v){
-								$(v).prop('disabled', false)
-								$(v).prop('checked', true)
-							})
-							break;
-						case 'fish':
-							t.obj.visibleLayers = t.obj.visibleLayers.concat(fishPassage)
-							$.each($('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper input'),function(i,v){
-								$(v).prop('disabled', false)
-								$(v).prop('checked', true)
-							})
-							break;
-						default:
-							console.log('none of the cases matched');
-					}
-				}else{
-					switch(t.currentCheckVal.value){
-						case 'habitat':
-							t.obj.visibleLayers = t.obj.visibleLayers.filter(function(x){
-								return aocHabitat.indexOf(x) < 0;
-							})
-							$.each($('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper input'),function(i,v){
-								$(v).prop('disabled', true)
-								$(v).prop('checked', false)
-							})
-							break;
-						case 'wetland':
-							t.obj.visibleLayers = t.obj.visibleLayers.filter(function(x){
-								console.log(t.obj.visibleLayers)
-								return t.watershedContr.indexOf(x) < 0;
-							})
-							let waterIndex = t.obj.visibleLayers.indexOf(t.wetlandsSel);
-							console.log(waterIndex);
-							if (waterIndex > -1) {
-								t.obj.visibleLayers.splice(waterIndex,1);
-							}
-							let siteIndex = t.obj.visibleLayers.indexOf(t.siteVisitSel);
-							console.log(siteIndex);
-							if (siteIndex > -1) {
-								t.obj.visibleLayers.splice(siteIndex,1);
-							}
-							$.each($('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper input'),function(i,v){
-								$(v).prop('disabled', true)
-								$(v).prop('checked', false)
-							})
-							break;
-						case 'fish':
-							// remove the fish passage layers if checkboxes is unchecked
-							t.obj.visibleLayers = t.obj.visibleLayers.filter(function(x){
-								return fishPassage.indexOf(x) < 0;
-							})
-							// remove the selected layer if its there
-							let index = t.obj.visibleLayers.indexOf(t.surveyRankSel);
-							if (index > -1) {
-								t.obj.visibleLayers.splice(index,1);
-							}
-							$.each($('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper input'),function(i,v){
-								$(v).prop('disabled', true)
-								$(v).prop('checked', false)
-							})
-							break;
-						default:
-							console.log('none of the cases matched');
-					}
-				}
-				// slide down the correct 
-				// set the visible layers
-				t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-			},
-			makeVariables: function(t){
-				t.aoc = 5;
-				t.lowerFoxBound = 6;
-				t.countyBounds = 7;
-				t.surveyRank = 8;
-				t.habitatSites = 9;
-				t.siteVisits = 10;
-				t.wetlands = 11;
-				t.prwWetlands = 12;
-				t.wetlandsBord = 13;
-				t.prwWetlandsBord = 14;
-				t.wetlandsFAH = 15;
-				t.prwFAH = 16;
-				// sup data
-				t.AOCPriorityAreas = 17;
-				t.huc12Bounds = 18;
-				t.oneidaBound = 19;
-				t.kepBound = 20;
-				// sel data
-				t.siteVisitSel = 4;
-				t.surveyRankSel = 3;
-				t.wetlandsSel= 2;
-				t.wetlandsSubSel = 1;
-				t.habitatSel = 0;
-			},
-			commaSeparateNumber: function(val){
-				while (/(\d+)(\d{3})/.test(val.toString())){
-					val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
-				}
-				return val;
-			},
-			abbreviateNumber: function(num) {
-			    if (num >= 1000000000) {
-			        return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'B';
-			     }
-			     if (num >= 1000000) {
-			        return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
-			     }
-			     if (num >= 1000) {
-			        return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
-			     }
-			     return num;
-			}
+			// commaSeparateNumber: function(val){
+			// 	while (/(\d+)(\d{3})/.test(val.toString())){
+			// 		val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
+			// 	}
+			// 	return val;
+			// },
+			// abbreviateNumber: function(num) {
+			//     if (num >= 1000000000) {
+			//         return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'B';
+			//      }
+			//      if (num >= 1000000) {
+			//         return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+			//      }
+			//      if (num >= 1000) {
+			//         return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+			//      }
+			//      return num;
+			// }
         });
     }
 );
+
+// extra and old code ///////////////////////////////////
+
+
+
+				// // Main header toggle button///////////////////////////////////////////
+				// $('#' + t.id + 'mainRadioBtns .aoc-mainCB input').on('click',function(c){
+				// 	let val = c.currentTarget.value;
+				// 	t.currentCheckVal = c.currentTarget;
+				// 	const sections = $(".aoc-contentBelowHeader .aoc-mainSection");
+				// 	// call the toggle function
+				// 	t.clicks.toggleFunc(t)
+				// 	// check to see if any radio button is checked and slide down div below header
+				// 	if($('#' + t.id + 'mainRadioBtns .aoc-mainCB input').is(":checked")){
+				// 		$('#' + t.id + 'contentBelowHeader').slideDown()
+				// 	}else{ // else slide up the div
+				// 		$('#' + t.id + 'contentBelowHeader').slideUp()
+				// 	}
+				// 	// select a tab button for map selection dynamically on 
+				// 	// first cb click and when there is only one cb selected ///////////////////////////
+				// 	// on any change of the cb's run the below
+				// 	// get a count of checked cb's using is:checked code
+				// 	let cbCount = $('#' + t.id + 'mainRadioBtns .aoc-mainCB input:checkbox:checked').length
+				// 	// cbCount if less than one 
+				// 	if(cbCount === 1){
+				// 		let checkedCB = $('#' + t.id + 'mainRadioBtns .aoc-mainCB input:checkbox:checked');
+				// 		// get the id of the cb thats checked
+				// 		let id  = checkedCB[0].id;
+				// 		//  use the id to find the approp tab button and check it
+				// 		if(id == t.id + 'fish-option'){
+				// 			// force click on tab button
+				// 			$('#' + t.id+'num-8').trigger('click');
+				// 		}else if(id == t.id + 'watershed-option'){
+				// 			$('#' + t.id+'num-2').trigger('click');
+				// 		}else{
+				// 			$('#' + t.id+ 'num-0').trigger('click');
+				// 		}
+				// 	}
+
+				// 	// if state set = yes //////////////////////////////////////////////////////////////
+				// 	if(t.obj.stateSet != 'yes'){
+				// 		// create an array that has the values of each checkbox that is checked for save and share
+				// 		t.obj.mainCheckArray = [];
+				// 		$.each($('#' + t.id + 'mainRadioBtns .aoc-mainCB input'),function(i,v){
+				// 			// call the map click function at the start to load it
+				// 			if(v.checked == true){
+				// 				if(v.value == 'wetland'){
+				// 					t.obj.mainCheckArray.push(v.value);
+				// 					t.obj.mainCheckArray.push('sites');
+
+				// 				}else{
+				// 					t.obj.mainCheckArray.push(v.value);
+				// 				}
+				// 			}else{
+				// 				if(v.value == 'wetland'){
+				// 					var index = t.obj.mainCheckArray.indexOf(v.value)
+				// 					if(index > -1){
+				// 						t.obj.mainCheckArray.splice(index, 1);
+				// 					}
+				// 					var index = t.obj.mainCheckArray.indexOf('sites')
+				// 					if(index > -1){
+				// 						t.obj.mainCheckArray.splice(index, 1);
+				// 					}
+				// 				}else{
+				// 					var index = t.obj.mainCheckArray.indexOf(v.value)
+				// 					if(index > -1){
+				// 						t.obj.mainCheckArray.splice(index, 1);
+				// 					}
+				// 				}
+				// 			}
+				// 		})
+				// 	}
+				// 	//loop through the toggle buttons and only show based on what main cb's are checked
+				// 	$.each($('#' + t.id + 'mapQueryToggleWrapper input'),function(i,y){
+				// 		let index =  t.obj.mainCheckArray.indexOf(y.value)
+				// 		if(index > -1){
+				// 			$(y).next().removeClass("aoc-opacity")
+				// 			$(y).prop('disabled', false);
+				// 		}else{
+				// 			$(y).next().addClass("aoc-opacity")
+				// 			$(y).prop('disabled', true);
+				// 		}
+				// 	})
+				// });
+
+
+	// // map query toggle button function ////////////////////////////
+				// $('#' + t.id + 'mapQueryToggleWrapper input').on('click',function(c){
+				// 	$.each($('#' + t.id + 'mainAttWrapper .aoc-attributeWrapper'),function(c,v){
+				// 		$(v).hide();
+				// 	})
+				// 	$('#' + t.id + c.currentTarget.value + 'Wrapper').show();
+				// 	t.obj.queryTracker = c.currentTarget.id.split("-")[1];
+				// 	t.obj.toggleTracker =  c.currentTarget.value;
+				// })
+
+				// // table row click function////////////////////////////
+				// $('#' + t.id + ' .aoc-tableRow').on('click',function(c){
+				// })
+
+
+// main toggle button function./////////////////////////////////////////////
+			// toggleFunc: function(t){
+			// 	// declare layers for each section
+			// 	const aocHabitat = [t.habitatSites];
+			// 	const fishPassage = [t.surveyRank,t.wetlandsFAH , t.prwFAH];
+			// 	// show the wetalnd selected layer based on array length
+			// 	if(t.obj.wetWhereArray.length > 0){
+			// 		t.watershedContr = [t.wetlands, t.prwWetlands, t.siteVisits, t.wetlandsSel];
+			// 	}else{
+			// 		t.watershedContr = [t.wetlands, t.prwWetlands, t.siteVisits];
+			// 	}
+			// 	// check to see if the checkbox is checked
+			// 	if(t.currentCheckVal.checked){
+			// 		switch(t.currentCheckVal.value){
+			// 			case 'habitat':
+			// 				t.obj.visibleLayers = t.obj.visibleLayers.concat(aocHabitat)
+			// 				$.each($('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper input'),function(i,v){
+			// 					$(v).prop('disabled', false)
+			// 					$(v).prop('checked', true)
+			// 				})
+			// 				break;
+			// 			case 'wetland':
+			// 				t.obj.visibleLayers = t.obj.visibleLayers.concat(t.watershedContr)
+			// 				$.each($('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper input'),function(i,v){
+			// 					$(v).prop('disabled', false)
+			// 					$(v).prop('checked', true)
+			// 				})
+			// 				break;
+			// 			case 'fish':
+			// 				t.obj.visibleLayers = t.obj.visibleLayers.concat(fishPassage)
+			// 				$.each($('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper input'),function(i,v){
+			// 					$(v).prop('disabled', false)
+			// 					$(v).prop('checked', true)
+			// 				})
+			// 				break;
+			// 			default:
+			// 				console.log('none of the cases matched');
+			// 		}
+			// 	}else{
+			// 		switch(t.currentCheckVal.value){
+			// 			case 'habitat':
+			// 				t.obj.visibleLayers = t.obj.visibleLayers.filter(function(x){
+			// 					return aocHabitat.indexOf(x) < 0;
+			// 				})
+			// 				$.each($('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper input'),function(i,v){
+			// 					$(v).prop('disabled', true)
+			// 					$(v).prop('checked', false)
+			// 				})
+			// 				break;
+			// 			case 'wetland':
+			// 				t.obj.visibleLayers = t.obj.visibleLayers.filter(function(x){
+			// 					console.log(t.obj.visibleLayers)
+			// 					return t.watershedContr.indexOf(x) < 0;
+			// 				})
+			// 				let waterIndex = t.obj.visibleLayers.indexOf(t.wetlandsSel);
+			// 				console.log(waterIndex);
+			// 				if (waterIndex > -1) {
+			// 					t.obj.visibleLayers.splice(waterIndex,1);
+			// 				}
+			// 				let siteIndex = t.obj.visibleLayers.indexOf(t.siteVisitSel);
+			// 				console.log(siteIndex);
+			// 				if (siteIndex > -1) {
+			// 					t.obj.visibleLayers.splice(siteIndex,1);
+			// 				}
+			// 				$.each($('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper input'),function(i,v){
+			// 					$(v).prop('disabled', true)
+			// 					$(v).prop('checked', false)
+			// 				})
+			// 				break;
+			// 			case 'fish':
+			// 				// remove the fish passage layers if checkboxes is unchecked
+			// 				t.obj.visibleLayers = t.obj.visibleLayers.filter(function(x){
+			// 					return fishPassage.indexOf(x) < 0;
+			// 				})
+			// 				// remove the selected layer if its there
+			// 				let index = t.obj.visibleLayers.indexOf(t.surveyRankSel);
+			// 				if (index > -1) {
+			// 					t.obj.visibleLayers.splice(index,1);
+			// 				}
+			// 				$.each($('#' + t.id + t.currentCheckVal.value + 'SelectLayersWrapper input'),function(i,v){
+			// 					$(v).prop('disabled', true)
+			// 					$(v).prop('checked', false)
+			// 				})
+			// 				break;
+			// 			default:
+			// 				console.log('none of the cases matched');
+			// 		}
+			// 	}
+			// 	// slide down the correct 
+			// 	// set the visible layers
+			// 	t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+			// },
+
+
 
 
 
