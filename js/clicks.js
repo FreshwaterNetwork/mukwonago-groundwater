@@ -11,21 +11,21 @@ function ( declare, Query, QueryTask ) {
 			 //    $.get( url, function( data ) {
 			 //      console.log(data)
 			 //    });
-			 
+
 			 	// code for my own toolbox clicks //////////////////////////////////////////////////
 				// save and share code outside the toolbox
-				$('.wfa-saveAndShare').on('click',  function(){
+				$('.aoc-saveAndShare').on('click',  function(){
 					let ss = $('#map-utils-control').find('.i18n')[3];
 					ss.click();
 					// t.printMap.testMap(t);
 				});
 				// create pdf map code
-				$('.wfa-mapCreate').on('click',  function(){
+				$('.aoc-mapCreate').on('click',  function(){
 					let ss = $('#map-utils-control').find('.i18n')[2];
 					ss.click();
 				});
 				// measure tool code
-				$('.wfa-measure').on('click',  function(){
+				$('.aoc-measure').on('click',  function(){
 					let ss = $('#map-utils-control').find('.i18n')[0];
 					ss.click();
 				});
