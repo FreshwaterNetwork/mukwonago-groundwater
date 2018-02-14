@@ -11,8 +11,25 @@ function ( declare, Query, QueryTask ) {
 			 //    $.get( url, function( data ) {
 			 //      console.log(data)
 			 //    });
+			 
+			 	// code for my own toolbox clicks //////////////////////////////////////////////////
+				// save and share code outside the toolbox
+				$('.wfa-saveAndShare').on('click',  function(){
+					let ss = $('#map-utils-control').find('.i18n')[3];
+					ss.click();
+					// t.printMap.testMap(t);
+				});
+				// create pdf map code
+				$('.wfa-mapCreate').on('click',  function(){
+					let ss = $('#map-utils-control').find('.i18n')[2];
+					ss.click();
+				});
+				// measure tool code
+				$('.wfa-measure').on('click',  function(){
+					let ss = $('#map-utils-control').find('.i18n')[0];
+					ss.click();
+				});
 
-		
 				// call the map click function at the start to load it
 				if(t.obj.stateSet != 'yes'){
 					t.obj.layerDefinitions = [];
@@ -203,33 +220,53 @@ function ( declare, Query, QueryTask ) {
 					case 'wetland':
 						// do somthing for wetland
 						console.log('populate attributes for wetlands')
-						
+						console.log($('#' + t.id + track + "Wrapper").find('.aoc-AttText'));
+
 						if(suc == 'y'){
-							$('#' + t.id + track + "Wrapper").slideDown();
+							let v1 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[0]).html(atts.WETLAND_TYPE);
+							let v2 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[1]).html(atts.ALL_RANK)
+							let v3 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[2]).html(atts.PR_RANK)
+							let v4 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[3]).html(atts.SS_RANK)
+							let v5 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[4]).html(atts.FLDP_RANK)
+							let v6 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[5]).html(atts.TILE_RANK)
+							let v7 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[6]).html(atts.WETLAND_ID)
+							$('#' + t.id + track + "Wrapper").show();
 						}else{
-							$('#' + t.id + track + "Wrapper").slideUp();
+							$('#' + t.id + track + "Wrapper").hide();
 						}
-						
 						break;
 					case 'sites':
 						if(suc == 'y'){
-							$('#' + t.id + track + "Wrapper").slideDown();
+							let v1 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[0]).html(atts.Site_Resto);
+							let v2 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[1]).html(atts.Site_ID)
+							
+							$('#' + t.id + track + "Wrapper").show();
 						}else{
 							$('#' + t.id + track + "Wrapper").slideUp();
 						}
 						break;
 					case 'habitat':
 						if(suc == 'y'){
-							$('#' + t.id + track + "Wrapper").slideDown();
+							let v1 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[0]).html(atts.Name);
+							let v2 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[1]).html(atts.Watershed)
+							$('#' + t.id + track + "Wrapper").show();
 						}else{
-							$('#' + t.id + track + "Wrapper").slideUp();
+							$('#' + t.id + track + "Wrapper").hide();
 						}
 						break;
 					case 'fish':
 						if(suc == 'y'){
-							$('#' + t.id + track + "Wrapper").slideDown();
+							let v1 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[0]).html(atts.RANK);
+							let v2 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[1]).html(atts.ROAD)
+							let v3 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[2]).html(atts.OWNER)
+							let v4 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[3]).html(atts.STREAM)
+							let v5 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[4]).html(atts.PASS)
+							let v6 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[5]).html(atts.PASS_METHD)
+							let v7 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[6]).html(atts.ROAD_SURF)
+							let v8 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[7]).html(atts.ROAD_WIDTH)
+							$('#' + t.id + track + "Wrapper").show();
 						}else{
-							$('#' + t.id + track + "Wrapper").slideUp();
+							$('#' + t.id + track + "Wrapper").hide();
 						}
 						break;
 					default:
