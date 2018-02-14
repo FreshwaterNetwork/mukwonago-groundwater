@@ -203,6 +203,7 @@ function ( declare, Query, QueryTask ) {
 					case 'wetland':
 						// do somthing for wetland
 						console.log('populate attributes for wetlands')
+						
 						if(suc == 'y'){
 							$('#' + t.id + track + "Wrapper").slideDown();
 						}else{
