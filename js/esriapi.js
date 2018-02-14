@@ -16,16 +16,16 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 				}
 				t.dynamicLayer.on("load", function () {
 					console.log('dynamic layer load')
-					// t.clicks.tableRowClose(t); 			
+					// t.clicks.tableRowClose(t); 	
+					// hide the framework toolbox	
+					$('#map-utils-control').hide();	
+					// create layers array
 					t.layersArray = t.dynamicLayer.layerInfos;
-					console.log(t.obj.stateSet);
 					if (t.obj.stateSet == "no"){
-						console.log(t.dynamicLayer.fullExtent);
 						t.map.setExtent(t.dynamicLayer.fullExtent.expand(1), true)
 					}
 ////////////////////////////// save and share code below ////////////////////////////////////////////////////////////
 					if(t.obj.stateSet == 'yes'){
-						console.log(t.obj.wetWhereArray);
 						// update the layer deffs for viz layers using data object
 						t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
 						// display the correct layers on the map
@@ -52,7 +52,6 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 						}
 						// build the table on the app pane /////////////////////////////////////////
 						// 
-						console.log(t.obj.wetlandTableObject);
 						// loop through the object and append table rows
 						$.each(t.obj.wetlandTableObject,function(i,atts){
 							// slide down table

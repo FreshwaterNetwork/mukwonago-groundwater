@@ -12,7 +12,24 @@ function ( declare, Query, QueryTask ) {
 			 //      console.log(data)
 			 //    });
 
-		
+			 	// code for my own toolbox clicks //////////////////////////////////////////////////
+				// save and share code outside the toolbox
+				$('.aoc-saveAndShare').on('click',  function(){
+					let ss = $('#map-utils-control').find('.i18n')[3];
+					ss.click();
+					// t.printMap.testMap(t);
+				});
+				// create pdf map code
+				$('.aoc-mapCreate').on('click',  function(){
+					let ss = $('#map-utils-control').find('.i18n')[2];
+					ss.click();
+				});
+				// measure tool code
+				$('.aoc-measure').on('click',  function(){
+					let ss = $('#map-utils-control').find('.i18n')[0];
+					ss.click();
+				});
+
 				// call the map click function at the start to load it
 				if(t.obj.stateSet != 'yes'){
 					t.obj.layerDefinitions = [];
@@ -172,6 +189,7 @@ function ( declare, Query, QueryTask ) {
 							t.obj.visibleLayers.push(t.n);
 						}
 						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+
 					}else{
 						// call the attribute populate function
 						t.clicks.attributePopulate(t, 'n', t.obj.toggleTracker);
@@ -193,20 +211,63 @@ function ( declare, Query, QueryTask ) {
 
 			attributePopulate: function(t, suc, track, atts){
 				console.log('attributePopulate call', suc, track, atts);
+				console.log($('#' + t.id + 'attributeWrapper').find('.aoc-attributeSections'))
+				$.each($('#' + t.id + 'attributeWrapper').find('.aoc-attributeSections'), function(i,v){
+					$(v).hide();
+				})
 				// figure out which atts need to be created
 				switch(track){
 					case 'wetland':
 						// do somthing for wetland
 						console.log('populate attributes for wetlands')
+						console.log($('#' + t.id + track + "Wrapper").find('.aoc-AttText'));
+
+						if(suc == 'y'){
+							let v1 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[0]).html(atts.WETLAND_TYPE);
+							let v2 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[1]).html(atts.ALL_RANK)
+							let v3 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[2]).html(atts.PR_RANK)
+							let v4 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[3]).html(atts.SS_RANK)
+							let v5 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[4]).html(atts.FLDP_RANK)
+							let v6 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[5]).html(atts.TILE_RANK)
+							let v7 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[6]).html(atts.WETLAND_ID)
+							$('#' + t.id + track + "Wrapper").show();
+						}else{
+							$('#' + t.id + track + "Wrapper").hide();
+						}
 						break;
 					case 'sites':
-
+						if(suc == 'y'){
+							let v1 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[0]).html(atts.Site_Resto);
+							let v2 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[1]).html(atts.Site_ID)
+							
+							$('#' + t.id + track + "Wrapper").show();
+						}else{
+							$('#' + t.id + track + "Wrapper").slideUp();
+						}
 						break;
 					case 'habitat':
-
+						if(suc == 'y'){
+							let v1 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[0]).html(atts.Name);
+							let v2 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[1]).html(atts.Watershed)
+							$('#' + t.id + track + "Wrapper").show();
+						}else{
+							$('#' + t.id + track + "Wrapper").hide();
+						}
 						break;
 					case 'fish':
-
+						if(suc == 'y'){
+							let v1 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[0]).html(atts.RANK);
+							let v2 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[1]).html(atts.ROAD)
+							let v3 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[2]).html(atts.OWNER)
+							let v4 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[3]).html(atts.STREAM)
+							let v5 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[4]).html(atts.PASS)
+							let v6 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[5]).html(atts.PASS_METHD)
+							let v7 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[6]).html(atts.ROAD_SURF)
+							let v8 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[7]).html(atts.ROAD_WIDTH)
+							$('#' + t.id + track + "Wrapper").show();
+						}else{
+							$('#' + t.id + track + "Wrapper").hide();
+						}
 						break;
 					default:
 						console.log('none matched')
