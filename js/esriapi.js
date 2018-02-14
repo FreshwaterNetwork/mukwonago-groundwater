@@ -32,6 +32,11 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 						})
 						// put the radio button in the right place
 						$('#' + t.obj.radButtonTracker).prop('checked', true);
+						// remove all blueFont classes first before adding it back to current target
+						$.each($('#' + t.id + 'contentWrapper').find('.aoc-mainCB'), function(i,v){
+							$(v).removeClass('blueFont');
+						})
+						$('#' + t.obj.radButtonTracker).parent().prev().addClass('blueFont')
 						// if there is a selected layer set layer defs and add layer to map
 						t.obj.layerDefinitions[t.obj.queryTracker] = t.obj.query;
 						t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);

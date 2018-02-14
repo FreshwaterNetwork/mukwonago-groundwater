@@ -43,7 +43,6 @@ function ( declare, Query, QueryTask ) {
 					$("#" + t.id + "seeLess").parent().hide();
 					$("#" + t.id + "seeMore").parent().show();
 					// change content below header top css prop to 310px
-					console.log($("#" + t.id + "contentBelowHeader"))
 					$("#" + t.id + "contentBelowHeader").css('margin-top', '310px');
 				})	
 				$("#" + t.id + "seeMore").on('click', function(c){
@@ -79,6 +78,11 @@ function ( declare, Query, QueryTask ) {
 					t.obj.queryTracker = c.currentTarget.id.split("-")[1];
 					t.obj.toggleTracker =  c.currentTarget.value;
 					t.obj.radButtonTracker = c.currentTarget.id
+					// remove all blueFont classes first before adding it back to current target
+					$.each($('#' + t.id + 'contentWrapper').find('.aoc-mainCB'), function(i,v){
+						$(v).removeClass('blueFont');
+					})
+					$('#' + c.currentTarget.id).parent().prev().addClass('blueFont')
 				})
 				
 				// checkboxes for selectable layers ////////////////////////////////////////////////////
