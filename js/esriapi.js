@@ -15,8 +15,6 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 				}
 				t.dynamicLayer.on("load", function () {
-					console.log('dynamic layer load')
-					// t.clicks.tableRowClose(t); 	
 					// hide the framework toolbox	
 					$('#map-utils-control').hide();	
 					// create layers array
@@ -38,12 +36,17 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 						t.obj.layerDefinitions[t.obj.queryTracker] = t.obj.query;
 						t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
 						// if something has been selected slide down the correct att box and populate
-						console.log(t.obj.query);
 						if(t.obj.query){
-							console.log('something has been selected')
+							$('#' + t.id + t.obj.toggleTracker + "Wrapper").slideDown();
+							let v1 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[0]).html(t.obj.attsTracker[0]);
+							let v2 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[1]).html(t.obj.attsTracker[1])
+							let v3 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[2]).html(t.obj.attsTracker[2])
+							let v4 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[3]).html(t.obj.attsTracker[3])
+							let v5 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[4]).html(t.obj.attsTracker[4])
+							let v6 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[5]).html(t.obj.attsTracker[5])
+							let v7 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[6]).html(t.obj.attsTracker[6])
+							let v8 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[6]).html(t.obj.attsTracker[7])
 						}
-						// 
-
 						// display the correct layers on the map
 						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 						// check the correct checkboxes in the sup data section ////////////////////////
@@ -56,46 +59,6 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 						})
 						// zoom to the correct area of the map
 						t.map.setExtent(t.obj.extent, true);
-
-
-						// update the layer deffs for viz layers using data object
-						// t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
-						
-						// check the correct checkboxes on the main section ////////////////////////
-						// $.each(t.obj.mainCheckArray,function(i,y){
-						// 	$.each($('#' + t.id + 'mainRadioBtns .aoc-mainCB input'),function(i,v){
-						// 		if(y == v.value){
-						// 			$(v).prop('checked', 'true');
-						// 		}
-						// 	})
-						// })
-						
-						// // slide down the correct html elems /////////////////////////////////////
-						// if($('#' + t.id + 'mainRadioBtns .aoc-mainCB input').is(":checked")){
-						// 	$('#' + t.id + 'contentBelowHeader').slideDown();
-						// }
-						// build the table on the app pane /////////////////////////////////////////
-						// 
-						// loop through the object and append table rows
-						// $.each(t.obj.wetlandTableObject,function(i,atts){
-						// 	// slide down table
-						// 	$('#' + t.id + 'wetlandTableWrapper').slideDown();
-						// 	// slide toogle buttons down
-						// 	$('#' + t.id + 'toggleButtons').slideDown();
-						// 	// slide up click on map text
-						// 	$('#' + t.id + 'clickOnMapText').slideUp();
-						// 	// append rows to table
-						// 	$('#' + t.id + 'wetlandTable').append('<tr><td>' + atts['WETLAND_ID'] + '</td><td>' + atts['WETLAND_TYPE'] 
-						// 		+ '</td><td>' + atts['ALL_RANK'] + '</td><td>' + atts['SS_RANK'] + '</td><td>'
-						// 		+ atts['PR_RANK'] +  '</td><td>' + atts['FLDP_RANK'] + '</td><td>' + atts['TILE_RANK'] + '</td>' 
-						// 		+ '<td class="aoc-tableClose"' + '>' + '&#215;' + '</td></tr>');
-						// 	// call the table close function
-						// 	t.clicks.tableRowClose(t);
-							
-						// })
-						// // calculate the number of selected items based on data array
-						// $(".aoc-selCounter").first().html(t.obj.wetWhereArray.length);
-						
 					}
 				});					
 			}

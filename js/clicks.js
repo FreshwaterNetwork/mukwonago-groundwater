@@ -58,7 +58,6 @@ function ( declare, Query, QueryTask ) {
 							t.obj.visibleLayers.splice(index, 1);
 						}
 					}
-					console.log(t.obj.cbTracker);
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 				})
 				// on radio button click ////////////////////////////////////////////
@@ -213,19 +212,16 @@ function ( declare, Query, QueryTask ) {
 			},
 
 			attributePopulate: function(t, suc, track, atts){
-				console.log('attributePopulate call', suc, track, atts);
-				console.log($('#' + t.id + 'attributeWrapper').find('.aoc-attributeSections'))
 				$.each($('#' + t.id + 'attributeWrapper').find('.aoc-attributeSections'), function(i,v){
 					$(v).hide();
 				})
+				t.obj.attsTracker = [];
 				// figure out which atts need to be created
 				switch(track){
 					case 'wetland':
 						// do somthing for wetland
-						console.log('populate attributes for wetlands')
-						console.log($('#' + t.id + track + "Wrapper").find('.aoc-AttText'));
-
 						if(suc == 'y'){
+							t.obj.attsTracker = [atts.WETLAND_TYPE, atts.ALL_RANK, atts.PR_RANK,atts.SS_RANK, atts.FLDP_RANK, atts.TILE_RANK, atts.WETLAND_ID]
 							let v1 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[0]).html(atts.WETLAND_TYPE);
 							let v2 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[1]).html(atts.ALL_RANK)
 							let v3 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[2]).html(atts.PR_RANK)
@@ -242,6 +238,7 @@ function ( declare, Query, QueryTask ) {
 						break;
 					case 'sites':
 						if(suc == 'y'){
+							t.obj.attsTracker = [atts.Site_Resto, atts.Site_ID]
 							let v1 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[0]).html(atts.Site_Resto);
 							let v2 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[1]).html(atts.Site_ID)
 							
@@ -254,6 +251,7 @@ function ( declare, Query, QueryTask ) {
 						break;
 					case 'habitat':
 						if(suc == 'y'){
+							t.obj.attsTracker = [atts.Name, atts.Watershed];
 							let v1 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[0]).html(atts.Name);
 							let v2 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[1]).html(atts.Watershed)
 							$('#' + t.id + track + "Wrapper").show();
@@ -265,6 +263,7 @@ function ( declare, Query, QueryTask ) {
 						break;
 					case 'fish':
 						if(suc == 'y'){
+							t.obj.attsTracker = [atts.RANK, atts.ROAD, atts.OWNER, atts.STREAM, atts.PASS, atts.PASS_METHD, atts.ROAD_SURF, atts.ROAD_WIDTH]
 							let v1 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[0]).html(atts.RANK);
 							let v2 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[1]).html(atts.ROAD)
 							let v3 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[2]).html(atts.OWNER)
@@ -482,16 +481,13 @@ function ( declare, Query, QueryTask ) {
 			// 				break;
 			// 			case 'wetland':
 			// 				t.obj.visibleLayers = t.obj.visibleLayers.filter(function(x){
-			// 					console.log(t.obj.visibleLayers)
 			// 					return t.watershedContr.indexOf(x) < 0;
 			// 				})
 			// 				let waterIndex = t.obj.visibleLayers.indexOf(t.wetlandsSel);
-			// 				console.log(waterIndex);
 			// 				if (waterIndex > -1) {
 			// 					t.obj.visibleLayers.splice(waterIndex,1);
 			// 				}
 			// 				let siteIndex = t.obj.visibleLayers.indexOf(t.siteVisitSel);
-			// 				console.log(siteIndex);
 			// 				if (siteIndex > -1) {
 			// 					t.obj.visibleLayers.splice(siteIndex,1);
 			// 				}
@@ -590,10 +586,8 @@ function ( declare, Query, QueryTask ) {
 
 
 // table row close code /////////////////
-// console.log('hey')
 				// // close button for tables //////////////
 				// $('.aoc-tableClose').on('click',function(c){
-				// 	console.log('hey 2')
 				// 	// clear the table data row
 				// 	$(c.currentTarget).parent().remove();
 				// 	// remove the wetland id from the wet where array
