@@ -44,13 +44,18 @@ hr{
 .aoc-selRadio{
 	position: absolute !important; right: 29px;
 }
-
+.aoc-helpLinkText{
+	color: blue;
+}
+.aoc-helpLinkText:hover{
+	color: #2795b6; cursor: pointer;
+}
 /* attribute area styling//////////////////////////////////////////////////////////////////////////////////*/ 
 .aoc-attributePatch{
    	height: 18px; width: 18px; background-color: red; margin-right: 5px; border: 1pt solid #cdd5d5;
  }
 .aoc-sum-wrap {
-    width: 350px; margin: 3px; border: 1pt solid #cdd5d5; padding: 5px; box-shadow: 0 1px 1px rgba(16,22,26,.2); position: relative; display: flex;
+    width: 350px; margin: 3px; border: 1pt solid #cdd5d5; padding: 3px; box-shadow: 0 1px 1px rgba(16,22,26,.2); position: relative; display: flex;
 }
 .aoc-attText{
 	font-size: 13px; color: #2f6384; font-weight: bold; margin-left: 8px;

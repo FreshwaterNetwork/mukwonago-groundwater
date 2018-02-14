@@ -230,9 +230,11 @@ function ( declare, Query, QueryTask ) {
 							let v6 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[5]).html(atts.TILE_RANK)
 							let v7 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[6]).html(atts.WETLAND_ID)
 							$('#' + t.id + track + "Wrapper").show();
+							$('#' + t.id + "selectedAttributes").show();
 							$('#' + t.id + 'clickOnMapText').slideUp();
 						}else{
 							$('#' + t.id + track + "Wrapper").hide();
+							$('#' + t.id + "selectedAttributes").hide();
 							$('#' + t.id + 'clickOnMapText').slideDown();
 						}
 						break;
@@ -243,9 +245,11 @@ function ( declare, Query, QueryTask ) {
 							let v2 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[1]).html(atts.Site_ID)
 							
 							$('#' + t.id + track + "Wrapper").show();
+							$('#' + t.id + "selectedAttributes").show();
 							$('#' + t.id + 'clickOnMapText').slideUp();
 						}else{
 							$('#' + t.id + track + "Wrapper").hide();
+							$('#' + t.id + "selectedAttributes").hide();
 							$('#' + t.id + 'clickOnMapText').slideDown();
 						}
 						break;
@@ -255,9 +259,13 @@ function ( declare, Query, QueryTask ) {
 							let v1 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[0]).html(atts.Name);
 							let v2 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[1]).html(atts.Watershed)
 							$('#' + t.id + track + "Wrapper").show();
+							$('#' + t.id + "selectedAttributes").show();
 							$('#' + t.id + 'clickOnMapText').slideUp();
+							
+					
 						}else{
 							$('#' + t.id + track + "Wrapper").hide();
+							$('#' + t.id + "selectedAttributes").hide();
 							$('#' + t.id + 'clickOnMapText').slideDown();
 						}
 						break;
@@ -273,9 +281,11 @@ function ( declare, Query, QueryTask ) {
 							let v7 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[6]).html(atts.ROAD_SURF)
 							let v8 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[7]).html(atts.ROAD_WIDTH)
 							$('#' + t.id + track + "Wrapper").show();
+							$('#' + t.id + "selectedAttributes").show();
 							$('#' + t.id + 'clickOnMapText').slideUp();
 						}else{
 							$('#' + t.id + track + "Wrapper").hide();
+							$('#' + t.id + "selectedAttributes").hide();
 							$('#' + t.id + 'clickOnMapText').slideDown();
 						}
 						break;
