@@ -30,13 +30,13 @@ function ( declare, Query, QueryTask ) {
 					ss.click();
 				});
 
-				// call the map click function at the start to load it
+				// if not state set
 				if(t.obj.stateSet != 'yes'){
 					t.obj.layerDefinitions = [];
-					t.obj.mainCheckArray = [];
 					t.obj.supCheckArray = [];
-					t.obj.wetlandTableObject = [];
 				}
+
+				// call the map click function at the start to load it
 				t.clicks.mapClickFunction(t);
 				// on zoom end turn on layer with and without borders depending on a zoom level scale of 75000 ///////////////
 				t.map.on("zoom-end", function(){
@@ -51,18 +51,21 @@ function ( declare, Query, QueryTask ) {
 					var layerId = c.currentTarget.value.split('-')[1];
 					if(c.currentTarget.checked){
 						t.obj.visibleLayers.push(parseInt(layerId));
+						t.obj.cbTracker.push(c.currentTarget.id);
 					}else{
 						var index = t.obj.visibleLayers.indexOf(parseInt(layerId));
 						if(index > -1){
 							t.obj.visibleLayers.splice(index, 1);
 						}
 					}
+					console.log(t.obj.cbTracker);
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 				})
 				// on radio button click ////////////////////////////////////////////
 				$('.aoc-selRadio input').on('click',function(c){
 					t.obj.queryTracker = c.currentTarget.id.split("-")[1];
 					t.obj.toggleTracker =  c.currentTarget.value;
+					t.obj.radButtonTracker = c.currentTarget.id
 				})
 				
 				// checkboxes for selectable layers ////////////////////////////////////////////////////

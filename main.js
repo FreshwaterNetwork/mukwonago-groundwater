@@ -84,7 +84,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 				// $.each( $('#' + this.id + 'umr-wrap .rb_cb'),lang.hitch(this,function(i,v){
 				// 	if (v.checked == true){
 				// 		var id = "-" + v.id.split('-').pop();
-				// 		this.obj.rbCbIds.push(id)
+				// 		
 				// 	}
 				// }));	
 				//extent
