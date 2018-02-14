@@ -38,6 +38,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 						// if something has been selected slide down the correct att box and populate
 						if(t.obj.query){
 							$('#' + t.id + t.obj.toggleTracker + "Wrapper").slideDown();
+							$('#' + t.id + "selectedAttributes").show();
 							let v1 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[0]).html(t.obj.attsTracker[0]);
 							let v2 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[1]).html(t.obj.attsTracker[1])
 							let v3 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[2]).html(t.obj.attsTracker[2])

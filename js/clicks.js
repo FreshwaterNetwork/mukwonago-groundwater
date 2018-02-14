@@ -38,6 +38,20 @@ function ( declare, Query, QueryTask ) {
 
 				// call the map click function at the start to load it
 				t.clicks.mapClickFunction(t);
+				// see more/less clicks
+				$("#" + t.id + "seeLess").on('click', function(c){
+					$("#" + t.id + "seeLess").parent().hide();
+					$("#" + t.id + "seeMore").parent().show();
+					// change content below header top css prop to 310px
+					console.log($("#" + t.id + "contentBelowHeader"))
+					$("#" + t.id + "contentBelowHeader").css('margin-top', '310px');
+				})	
+				$("#" + t.id + "seeMore").on('click', function(c){
+					$("#" + t.id + "seeLess").parent().show();
+					$("#" + t.id + "seeMore").parent().hide();
+					// change content below header top css prop to 403px
+					$("#" + t.id + "contentBelowHeader").css('margin-top', '403px');
+				})
 				// on zoom end turn on layer with and without borders depending on a zoom level scale of 75000 ///////////////
 				t.map.on("zoom-end", function(){
 					if(t.map.getScale() < 75001){
@@ -230,9 +244,11 @@ function ( declare, Query, QueryTask ) {
 							let v6 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[5]).html(atts.TILE_RANK)
 							let v7 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[6]).html(atts.WETLAND_ID)
 							$('#' + t.id + track + "Wrapper").show();
+							$('#' + t.id + "selectedAttributes").show();
 							$('#' + t.id + 'clickOnMapText').slideUp();
 						}else{
 							$('#' + t.id + track + "Wrapper").hide();
+							$('#' + t.id + "selectedAttributes").hide();
 							$('#' + t.id + 'clickOnMapText').slideDown();
 						}
 						break;
@@ -243,9 +259,11 @@ function ( declare, Query, QueryTask ) {
 							let v2 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[1]).html(atts.Site_ID)
 							
 							$('#' + t.id + track + "Wrapper").show();
+							$('#' + t.id + "selectedAttributes").show();
 							$('#' + t.id + 'clickOnMapText').slideUp();
 						}else{
 							$('#' + t.id + track + "Wrapper").hide();
+							$('#' + t.id + "selectedAttributes").hide();
 							$('#' + t.id + 'clickOnMapText').slideDown();
 						}
 						break;
@@ -255,9 +273,13 @@ function ( declare, Query, QueryTask ) {
 							let v1 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[0]).html(atts.Name);
 							let v2 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[1]).html(atts.Watershed)
 							$('#' + t.id + track + "Wrapper").show();
+							$('#' + t.id + "selectedAttributes").show();
 							$('#' + t.id + 'clickOnMapText').slideUp();
+							
+					
 						}else{
 							$('#' + t.id + track + "Wrapper").hide();
+							$('#' + t.id + "selectedAttributes").hide();
 							$('#' + t.id + 'clickOnMapText').slideDown();
 						}
 						break;
@@ -273,9 +295,11 @@ function ( declare, Query, QueryTask ) {
 							let v7 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[6]).html(atts.ROAD_SURF)
 							let v8 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[7]).html(atts.ROAD_WIDTH)
 							$('#' + t.id + track + "Wrapper").show();
+							$('#' + t.id + "selectedAttributes").show();
 							$('#' + t.id + 'clickOnMapText').slideUp();
 						}else{
 							$('#' + t.id + track + "Wrapper").hide();
+							$('#' + t.id + "selectedAttributes").hide();
 							$('#' + t.id + 'clickOnMapText').slideDown();
 						}
 						break;
