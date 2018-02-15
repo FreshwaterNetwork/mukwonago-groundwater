@@ -1,9 +1,9 @@
 define([
 	"esri/layers/ArcGISDynamicMapServiceLayer", "esri/geometry/Extent", "esri/SpatialReference", "esri/tasks/query" ,"esri/tasks/QueryTask", "dojo/_base/declare", "esri/layers/FeatureLayer", 
-	"esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol","esri/symbols/SimpleMarkerSymbol", "esri/graphic", "dojo/_base/Color"
+	"esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol","esri/symbols/SimpleMarkerSymbol", "esri/graphic", "dojo/_base/Color","esri/layers/GraphicsLayer"
 ],
 function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, QueryTask, declare, FeatureLayer, 
-			SimpleLineSymbol, SimpleFillSymbol, SimpleMarkerSymbol, Graphic, Color) {
+			SimpleLineSymbol, SimpleFillSymbol, SimpleMarkerSymbol, Graphic, Color, GraphicsLayer) {
         "use strict";
 
         return declare(null, {
@@ -15,6 +15,35 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 				}
 				t.dynamicLayer.on("load", function () {
+
+// // the code for the flood tags api is below and works as is //////////////////////////////////////////
+// 					console.time('log')
+// 					var url = "https://api.floodtags.com/v1/tags/fews-world/geojson?until=2018-02-11&since=2018-01-01"
+// 				    $.get( url, function( data ) {
+// 				      console.log(data)
+// 				      t.data2 = data;
+// 				      // add graphic to map function call
+// 				     //  t.clicks.addGeoJson(t);
+// 				    	// console.log(t.data2)
+// 				    	t.countiesGraphicsLayer = new GraphicsLayer({ id: "dataGraphic" });
+// 						$.each(t.data2.features, function(i,v){
+// 							let coordinates = v["geometry"]["coordinates"];
+// 							let attributes = v["properties"]
+// 							let point = {"geometry":{"points":[coordinates],"spatialReference":4326},
+// 						    "symbol":{"color":[255,208,100,255],"size":20,"angle":0,"xoffset":0,"yoffset":0,"type":"esriSMS","style":"esriSMSCircle", 
+// 						    "outline":{"color":[176,35,105,255],"width":1,"type":"esriSLS","style":"esriSLSSolid"}}, "attributes":attributes};
+// 						    var gra = new Graphic(point);
+// 						  	t.countiesGraphicsLayer.add(gra);
+// 						})
+// 						 t.map.addLayer(t.countiesGraphicsLayer);
+// 						 t.countiesGraphicsLayer.on("click",function (evt) {
+// 							console.log(evt.graphic.attributes)
+// 						})
+// 						 console.timeEnd('log')
+// 				    });
+
+
+
 					// hide the framework toolbox	
 					$('#map-utils-control').hide();	
 					// create layers array
@@ -67,7 +96,23 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 						// zoom to the correct area of the map
 						t.map.setExtent(t.obj.extent, true);
 					}
-				});					
+					// var symbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_SQUARE, 20,
+				 //    new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+				 //    new Color([255,0,0]), 1),
+				 //    new Color([0,255,0,0.25]));
+	  		// 		var geom = {type: "point", x: -10087540.702448573, y: 5499862.004822096, spatialReference:{wkid: 102100, latestWkid: 3857}}
+	  		// 		// var graph = new Graphic(symbol)
+	  		// 		var graph = new Graphic();
+	  		// 		graph.geometry = geom;
+	  		// 		graph.symbol = symbol;
+	  		// 		console.log(graph)
+	  		// 		t.countiesGraphicsLayer = new GraphicsLayer({ id: "hoverGraphic" });
+	  		// 		t.countiesGraphicsLayer.add(graph);
+	  		// 		t.map.addLayer(t.countiesGraphicsLayer);
+	  		// 		// t.map.graphics.add(graph);  //******How to convert coordinates?********//  
+	  		// 		console.log('after add')		
+				});	
+
 			}
 		});
     }

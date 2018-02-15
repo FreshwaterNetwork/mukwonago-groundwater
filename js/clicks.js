@@ -6,11 +6,35 @@ function ( declare, Query, QueryTask ) {
 
         return declare(null, {
 			eventListeners: function(t){
-				// test flood tags api
-				// var url = "https://api.floodtags.com/v1/tags/fews-world/geojson?until=2018-02-11&since=2018-02-10"
-			 //    $.get( url, function( data ) {
-			 //      console.log(data)
-			 //    });
+				//test flood tags api
+				var url = "https://api.floodtags.com/v1/tags/fews-world/geojson?until=2018-02-11&since=2018-02-10"
+			    // $.get( url, function( data ) {
+			    //   console.log(data)
+			    //   t.data = data;
+			    //   // add graphic to map function call
+			    //   t.clicks.addGeoJson(t);
+			    
+			    // });
+
+
+
+			     // t.data = data;
+			     
+					// var myPoint = new esri.geometry.Point(-89.78, 44.01 ,new esri.SpatialReference({wkid:4326}));  
+				 //      // myPolygon.addRing([[-99.24,28.39],[-99.24,29.37],[-99.482,29.37],[-99.24,28.39]]);  
+				 //  	var sfs =  new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_SQUARE, 10,
+					//     new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+					//     new Color([255,0,0]), 1),
+					//     new Color([0,255,0,0.25]));
+				 //   //    var sfs = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID,  
+				 //   // new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_DASHDOT,  
+				 //   // new dojo.Color([255,0,0]), 2),new dojo.Color([255,255,0,0.25]));  
+     //  				t.map.graphics.add(myPoint, sfs);  //******How to convert coordinates?********//  
+
+
+			     // add graphic to map function call
+			     // t.clicks.addGeoJson(t);
+
 
 			 	// code for my own toolbox clicks //////////////////////////////////////////////////
 				// save and share code outside the toolbox
@@ -127,13 +151,18 @@ function ( declare, Query, QueryTask ) {
 					}
 				});
 			}, 
-
+			addGeoJson: function(t){
+				  $.each(t.data, function(i,v){
+				    	console.log(v);
+				    })
+			},
 			// map click functionality call the map click query function //////////////////////////////////////////////////
 			mapClickFunction: function(t){
 				// wetland array of ids
 				t.wetlandIDArray = [];
 				t.obj.wetQuery = '';
 				t.map.on('click',function(c){
+					console.log(c)
 					t.obj.pnt = c.mapPoint;
 					t.clicks.mapClickQuery(t,t.obj.pnt); // call t.mapClickQuery function
 				});
