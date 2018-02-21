@@ -18,29 +18,37 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 
 // // the code for the flood tags api is below and works as is //////////////////////////////////////////
 // 					console.time('log')
-// 					var url = "https://api.floodtags.com/v1/tags/fews-world/geojson?until=2018-02-11&since=2018-01-01"
-// 				    $.get( url, function( data ) {
-// 				      console.log(data)
-// 				      t.data2 = data;
-// 				      // add graphic to map function call
-// 				     //  t.clicks.addGeoJson(t);
-// 				    	// console.log(t.data2)
-// 				    	t.countiesGraphicsLayer = new GraphicsLayer({ id: "dataGraphic" });
-// 						$.each(t.data2.features, function(i,v){
-// 							let coordinates = v["geometry"]["coordinates"];
-// 							let attributes = v["properties"]
-// 							let point = {"geometry":{"points":[coordinates],"spatialReference":4326},
-// 						    "symbol":{"color":[255,208,100,255],"size":20,"angle":0,"xoffset":0,"yoffset":0,"type":"esriSMS","style":"esriSMSCircle", 
-// 						    "outline":{"color":[176,35,105,255],"width":1,"type":"esriSLS","style":"esriSLSSolid"}}, "attributes":attributes};
-// 						    var gra = new Graphic(point);
-// 						  	t.countiesGraphicsLayer.add(gra);
-// 						})
-// 						 t.map.addLayer(t.countiesGraphicsLayer);
-// 						 t.countiesGraphicsLayer.on("click",function (evt) {
-// 							console.log(evt.graphic.attributes)
-// 						})
-// 						 console.timeEnd('log')
-// 				    });
+					// var url = "https://api.floodtags.com/v1/tags/fews-world/geojson?until=2018-02-19&since=2018-02-01&apiKey=e0692cae-eb63-4160-8850-52be0d7ef7fe"
+				 //    $.get( url, function( data ) {
+				 //      console.log(data)
+				 //      t.data2 = data;
+				 //      // add graphic to map function call
+				 //     //  t.clicks.addGeoJson(t);
+				 //    	// console.log(t.data2);
+				 //    	t.countiesGraphicsLayer = new GraphicsLayer({ id: "dataGraphic" });
+					// 	$.each(t.data2.features, function(i,v){
+					// 		let coordinates = v["geometry"]["coordinates"];
+					// 		let attributes = v["properties"]
+					// 		let point = {"geometry":{"points":[coordinates],"spatialReference":4326},
+					// 	    "symbol":{"color":[255,208,100,255],"size":20,"angle":0,"xoffset":0,"yoffset":0,"type":"esriSMS","style":"esriSMSCircle", 
+					// 	    "outline":{"color":[176,35,105,255],"width":1,"type":"esriSLS","style":"esriSLSSolid"}}, "attributes":attributes};
+					// 	    var gra = new Graphic(point);
+					// 	  	t.countiesGraphicsLayer.add(gra);
+					// 	})
+					// 	 t.map.addLayer(t.countiesGraphicsLayer);
+					// 	 t.countiesGraphicsLayer.on("click",function (evt) {
+					// 		console.log(evt.graphic.attributes)
+							
+					// 	})
+					// 	 console.timeEnd('log')
+				 //    });
+				 //    // var url2 = "https://api.floodtags.com/v1/tags/fews-world/t-959347183396016128&apiKey=e0692cae-eb63-4160-8850-52be0d7ef7fe"
+				 //    // to request a specific tag
+				 //    var url2 = "https://api.floodtags.com/v1/tags/t-964498811530989569"
+				 //    $.get( url2, function( data ) {
+				 //      console.log(data)
+				 //      t.data2 = data;
+				 //  	});
 
 
 
