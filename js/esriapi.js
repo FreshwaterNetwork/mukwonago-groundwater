@@ -83,7 +83,13 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 							$('#' + t.id + "selectedAttributes").show();
 							let v1 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[0]).html(t.obj.attsTracker[0]);
 							let v2 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[1]).html(t.obj.attsTracker[1])
-							let v3 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[2]).html(t.obj.attsTracker[2])
+							// handle the report link for habitat
+							if(t.obj.toggleTracker == 'habitat'){
+								var html = "<a style='color:blue;' href='plugins/AOCapp/assets/report.pdf#page=" + t.obj.attsTracker[2] + "' target='_blank'>Click to view in report</a>"
+								let v3 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[2]).html(html)
+							}else{
+								let v3 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[2]).html(t.obj.attsTracker[2])
+							}
 							let v4 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[3]).html(t.obj.attsTracker[3])
 							let v5 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[4]).html(t.obj.attsTracker[4])
 							let v6 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[5]).html(t.obj.attsTracker[5])
@@ -94,7 +100,6 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 						// check the correct checkboxes in the sup data section ////////////////////////
 						$.each(t.obj.supCheckArray,function(i,y){
-							console.log(y);
 							$.each($('#' + t.id + 'supData input'),function(i,v){
 								if(y == v.value){
 									$(v).prop('checked', 'true');
@@ -102,7 +107,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 							})
 						})
 						// zoom to the correct area of the map
-						t.map.setExtent(t.obj.extent, true);
+						t.map.setExtent(t.obj.extent.expand(1.5), true);
 					}
 					// var symbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_SQUARE, 20,
 				 //    new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,

@@ -302,7 +302,7 @@ function ( declare, Query, QueryTask ) {
 						break;
 					case 'habitat':
 						if(suc == 'y'){
-							t.obj.attsTracker = [atts.Name, atts.Watershed];
+							t.obj.attsTracker = [atts.Name, atts.Watershed, atts.PageNo];
 							let v1 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[0]).html(atts.Name);
 							let v2 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[1]).html(atts.Watershed)
 							let v3 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[2]).html("<a style='color:blue;' href='plugins/AOCapp/assets/report.pdf#page=" + atts.PageNo + "' target='_blank'>Click to view in report</a>")
