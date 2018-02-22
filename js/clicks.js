@@ -7,7 +7,7 @@ function ( declare, Query, QueryTask ) {
         return declare(null, {
 			eventListeners: function(t){
 				//test flood tags api
-				var url = "https://api.floodtags.com/v1/tags/fews-world/geojson?until=2018-02-11&since=2018-02-10"
+				// var url = "https://api.floodtags.com/v1/tags/fews-world/geojson?until=2018-02-11&since=2018-02-10"
 			    // $.get( url, function( data ) {
 			    //   console.log(data)
 			    //   t.data = data;
@@ -35,8 +35,11 @@ function ( declare, Query, QueryTask ) {
 			     // add graphic to map function call
 			     // t.clicks.addGeoJson(t);
 
-
+			     
+			     // build the text object that is used by the popups
+			     t.clicks.buildTextObject(t);
 			 	// code for my own toolbox clicks //////////////////////////////////////////////////
+			 	$('#' + t.id + 'dialogBoxTest').dialog({autoOpen : false,});
 				// save and share code outside the toolbox
 				$('.aoc-saveAndShare').on('click',  function(){
 					let ss = $('#map-utils-control').find('.i18n')[3];
@@ -96,6 +99,13 @@ function ( declare, Query, QueryTask ) {
 						}
 					}
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+					// turn on info icon when checked
+					if(c.currentTarget.checked){
+						$(c.currentTarget).parent().next().removeClass("hide")
+					}else{
+						$(c.currentTarget).parent().next().addClass("hide")
+					}
+
 				})
 				// on radio button click ////////////////////////////////////////////
 				$('.aoc-selRadio input').on('click',function(c){
@@ -108,7 +118,22 @@ function ( declare, Query, QueryTask ) {
 					})
 					$('#' + c.currentTarget.id).parent().prev().addClass('blueFont')
 				})
-				
+				// open dialog box on info icon click //////////////////////////////////
+				$('.aoc-infoIcon').on('click',function(e){
+					var id = $(e.currentTarget).prev().children().first().attr('id').split(t.id)[1]
+					var textParts = t.infographicText[id].split('-')
+					if ($('#' + t.id + 'dialogBoxTest').dialog('isOpen')) {
+						$('#' + t.id + 'dialogBoxTest').html(textParts[1])
+						$('#ui-id-1').html(textParts[0]);
+					}else{
+						$('#' + t.id + 'dialogBoxTest').html(textParts[1])
+						$('#ui-id-1').html(textParts[0]);
+						$('#' + t.id + 'dialogBoxTest').dialog("open");
+						$('#ui-id-1').parent().parent().css('z-index', '100000');
+						$('#ui-id-1').parent().parent().css('top', '250px');
+						$('#ui-id-1').parent().parent().css('left', '521px');
+					}
+				})
 				// checkboxes for selectable layers ////////////////////////////////////////////////////
 				$('#' + t.id + 'selectableLayersWrapper input').on('click',function(c){
 					let val = parseInt(c.currentTarget.value.split('-')[1]);
@@ -162,7 +187,6 @@ function ( declare, Query, QueryTask ) {
 				t.wetlandIDArray = [];
 				t.obj.wetQuery = '';
 				t.map.on('click',function(c){
-					console.log(c)
 					t.obj.pnt = c.mapPoint;
 					t.clicks.mapClickQuery(t,t.obj.pnt); // call t.mapClickQuery function
 				});
@@ -302,14 +326,13 @@ function ( declare, Query, QueryTask ) {
 						break;
 					case 'habitat':
 						if(suc == 'y'){
-							t.obj.attsTracker = [atts.Name, atts.Watershed];
+							t.obj.attsTracker = [atts.Name, atts.Watershed, atts.PageNo];
 							let v1 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[0]).html(atts.Name);
 							let v2 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[1]).html(atts.Watershed)
+							let v3 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[2]).html("<a style='color:blue;' href='plugins/AOCapp/assets/report.pdf#page=" + atts.PageNo + "' target='_blank'>Click to view in report</a>")
 							$('#' + t.id + track + "Wrapper").show();
 							$('#' + t.id + "selectedAttributes").show();
 							$('#' + t.id + 'clickOnMapText').slideUp();
-							
-					
 						}else{
 							$('#' + t.id + track + "Wrapper").hide();
 							$('#' + t.id + "selectedAttributes").hide();
@@ -338,6 +361,15 @@ function ( declare, Query, QueryTask ) {
 						break;
 					default:
 						console.log('none matched')
+				}
+				
+			},
+
+			buildTextObject: function(t){
+				// infographic text object ///////////////////////////////
+			     t.infographicText = {
+					"habitatSites-option":"Habitat Sites - Habitat Sites text",
+					"habitat-option": "Habitat Types - Habitat Types text"
 				}
 			},
 			// makeVariables: function(t){
