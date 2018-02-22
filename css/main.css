@@ -28,6 +28,9 @@ hr{
 	display: none;
 	
 }
+.aoc-infoIcon{
+	vertical-align: bottom; height: 20px; padding: 2px; margin-left: 3px; margin-bottom: 2px;
+}
 .aoc-cbIndent{ 
 	margin-left: 10px;
 }

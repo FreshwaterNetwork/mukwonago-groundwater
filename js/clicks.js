@@ -37,6 +37,7 @@ function ( declare, Query, QueryTask ) {
 
 
 			 	// code for my own toolbox clicks //////////////////////////////////////////////////
+			 	$('#' + t.id + 'dialogBoxTest').dialog({autoOpen : false,});
 				// save and share code outside the toolbox
 				$('.aoc-saveAndShare').on('click',  function(){
 					let ss = $('#map-utils-control').find('.i18n')[3];
@@ -107,6 +108,15 @@ function ( declare, Query, QueryTask ) {
 						$(v).removeClass('blueFont');
 					})
 					$('#' + c.currentTarget.id).parent().prev().addClass('blueFont')
+				})
+				$('.aoc-infoIcon').on('click',function(e){
+					// $('#' + t.id + 'dialogBoxTest').html(textParts[1])
+					$('#' + t.id + 'dialogBoxTest').html('test text')
+					$('#ui-id-1').html('test header');
+					$('#' + t.id + 'dialogBoxTest').dialog("open");
+					$('#ui-id-1').parent().parent().css('z-index', '100000');
+					$('#ui-id-1').parent().parent().css('top', '250px');
+					$('#ui-id-1').parent().parent().css('left', '521px');
 				})
 				
 				// checkboxes for selectable layers ////////////////////////////////////////////////////
