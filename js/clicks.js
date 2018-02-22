@@ -35,6 +35,11 @@ function ( declare, Query, QueryTask ) {
 			     // add graphic to map function call
 			     // t.clicks.addGeoJson(t);
 
+			     // infographic text object ///////////////////////////////
+			     t.infographicText = {
+					"habitatSites-option":"Habitat Sites - Habitat Sites text",
+					"habitat-option": "Habitat Types - Habitat Types text"
+				}
 
 			 	// code for my own toolbox clicks //////////////////////////////////////////////////
 			 	$('#' + t.id + 'dialogBoxTest').dialog({autoOpen : false,});
@@ -97,6 +102,13 @@ function ( declare, Query, QueryTask ) {
 						}
 					}
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+					// turn on info icon when checked
+					if(c.currentTarget.checked){
+						$(c.currentTarget).parent().next().removeClass("hide")
+					}else{
+						$(c.currentTarget).parent().next().addClass("hide")
+					}
+
 				})
 				// on radio button click ////////////////////////////////////////////
 				$('.aoc-selRadio input').on('click',function(c){
@@ -109,14 +121,21 @@ function ( declare, Query, QueryTask ) {
 					})
 					$('#' + c.currentTarget.id).parent().prev().addClass('blueFont')
 				})
+				// open dialog box on info icon click
 				$('.aoc-infoIcon').on('click',function(e){
-					// $('#' + t.id + 'dialogBoxTest').html(textParts[1])
-					$('#' + t.id + 'dialogBoxTest').html('test text')
-					$('#ui-id-1').html('test header');
-					$('#' + t.id + 'dialogBoxTest').dialog("open");
-					$('#ui-id-1').parent().parent().css('z-index', '100000');
-					$('#ui-id-1').parent().parent().css('top', '250px');
-					$('#ui-id-1').parent().parent().css('left', '521px');
+					var id = $(e.currentTarget).prev().children().first().attr('id').split(t.id)[1]
+					var textParts = t.infographicText[id].split('-')
+					if ($('#' + t.id + 'dialogBoxTest').dialog('isOpen')) {
+						$('#' + t.id + 'dialogBoxTest').html(textParts[1])
+						$('#ui-id-1').html(textParts[0]);
+					}else{
+						$('#' + t.id + 'dialogBoxTest').html(textParts[1])
+						$('#ui-id-1').html(textParts[0]);
+						$('#' + t.id + 'dialogBoxTest').dialog("open");
+						$('#ui-id-1').parent().parent().css('z-index', '100000');
+						$('#ui-id-1').parent().parent().css('top', '250px');
+						$('#ui-id-1').parent().parent().css('left', '521px');
+					}
 				})
 				
 				// checkboxes for selectable layers ////////////////////////////////////////////////////
@@ -172,7 +191,6 @@ function ( declare, Query, QueryTask ) {
 				t.wetlandIDArray = [];
 				t.obj.wetQuery = '';
 				t.map.on('click',function(c){
-					console.log(c)
 					t.obj.pnt = c.mapPoint;
 					t.clicks.mapClickQuery(t,t.obj.pnt); // call t.mapClickQuery function
 				});
@@ -348,6 +366,7 @@ function ( declare, Query, QueryTask ) {
 					default:
 						console.log('none matched')
 				}
+				
 			},
 			// makeVariables: function(t){
 			// 	t.aoc = 5;

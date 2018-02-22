@@ -109,23 +109,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 						// zoom to the correct area of the map
 						t.map.setExtent(t.obj.extent.expand(1.5), true);
 					}
-					// var symbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_SQUARE, 20,
-				 //    new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
-				 //    new Color([255,0,0]), 1),
-				 //    new Color([0,255,0,0.25]));
-	  		// 		var geom = {type: "point", x: -10087540.702448573, y: 5499862.004822096, spatialReference:{wkid: 102100, latestWkid: 3857}}
-	  		// 		// var graph = new Graphic(symbol)
-	  		// 		var graph = new Graphic();
-	  		// 		graph.geometry = geom;
-	  		// 		graph.symbol = symbol;
-	  		// 		console.log(graph)
-	  		// 		t.countiesGraphicsLayer = new GraphicsLayer({ id: "hoverGraphic" });
-	  		// 		t.countiesGraphicsLayer.add(graph);
-	  		// 		t.map.addLayer(t.countiesGraphicsLayer);
-	  		// 		// t.map.graphics.add(graph);  //******How to convert coordinates?********//  
-	  		// 		console.log('after add')		
 				});	
-
 			}
 		});
     }
