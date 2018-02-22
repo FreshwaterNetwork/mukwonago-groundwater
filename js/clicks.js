@@ -7,7 +7,7 @@ function ( declare, Query, QueryTask ) {
         return declare(null, {
 			eventListeners: function(t){
 				//test flood tags api
-				var url = "https://api.floodtags.com/v1/tags/fews-world/geojson?until=2018-02-11&since=2018-02-10"
+				// var url = "https://api.floodtags.com/v1/tags/fews-world/geojson?until=2018-02-11&since=2018-02-10"
 			    // $.get( url, function( data ) {
 			    //   console.log(data)
 			    //   t.data = data;
@@ -35,12 +35,9 @@ function ( declare, Query, QueryTask ) {
 			     // add graphic to map function call
 			     // t.clicks.addGeoJson(t);
 
-			     // infographic text object ///////////////////////////////
-			     t.infographicText = {
-					"habitatSites-option":"Habitat Sites - Habitat Sites text",
-					"habitat-option": "Habitat Types - Habitat Types text"
-				}
-
+			     
+			     // build the text object that is used by the popups
+			     t.clicks.buildTextObject(t);
 			 	// code for my own toolbox clicks //////////////////////////////////////////////////
 			 	$('#' + t.id + 'dialogBoxTest').dialog({autoOpen : false,});
 				// save and share code outside the toolbox
@@ -121,7 +118,7 @@ function ( declare, Query, QueryTask ) {
 					})
 					$('#' + c.currentTarget.id).parent().prev().addClass('blueFont')
 				})
-				// open dialog box on info icon click
+				// open dialog box on info icon click //////////////////////////////////
 				$('.aoc-infoIcon').on('click',function(e){
 					var id = $(e.currentTarget).prev().children().first().attr('id').split(t.id)[1]
 					var textParts = t.infographicText[id].split('-')
@@ -137,7 +134,6 @@ function ( declare, Query, QueryTask ) {
 						$('#ui-id-1').parent().parent().css('left', '521px');
 					}
 				})
-				
 				// checkboxes for selectable layers ////////////////////////////////////////////////////
 				$('#' + t.id + 'selectableLayersWrapper input').on('click',function(c){
 					let val = parseInt(c.currentTarget.value.split('-')[1]);
@@ -367,6 +363,14 @@ function ( declare, Query, QueryTask ) {
 						console.log('none matched')
 				}
 				
+			},
+
+			buildTextObject: function(t){
+				// infographic text object ///////////////////////////////
+			     t.infographicText = {
+					"habitatSites-option":"Habitat Sites - Habitat Sites text",
+					"habitat-option": "Habitat Types - Habitat Types text"
+				}
 			},
 			// makeVariables: function(t){
 			// 	t.aoc = 5;
