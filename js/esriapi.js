@@ -50,7 +50,18 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 				 //      t.data2 = data;
 				 //  	});
 
+				 
 
+					// User selections on chosen menus 
+					$('#' + t.id + 'ch-ISL').chosen({width: "182px", disable_search:true})
+				 	t.obj.opacityVal = 50;
+				 	// work with Opacity sliders /////////////////////////////////////////////
+					$("#" + t.id +"sldr").slider({ min: 0, max: 100, range: false, values: [t.obj.opacityVal] })
+					t.dynamicLayer.setOpacity(1 - t.obj.opacityVal/100); // set init opacity
+					$("#" + t.id +"sldr").on( "slide", function(c,ui){
+						t.obj.opacityVal = 1 - ui.value/100;
+						t.dynamicLayer.setOpacity(t.obj.opacityVal);
+					})
 
 					// hide the framework toolbox	
 					$('#map-utils-control').hide();	

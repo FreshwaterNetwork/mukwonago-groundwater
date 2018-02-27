@@ -46,6 +46,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 						</label>
 						<img id="funcInfoIcon" title="" src="plugins/AOCapp/images/info.png" alt="show more info in documentation" class="aoc-infoIcon">
 						<div style="z-index: 100000;" id="dialogBoxTest">test dialog box</div>
+						
 
 						<label class="form-component aoc-selRadio" for="a-3">
 							<input checked type="radio" id="a-3" name="food" value="habitat">
@@ -113,6 +114,28 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 						</label>
 						<img id="funcInfoIcon" title="" src="plugins/AOCapp/images/info.png" alt="show more info in documentation" class="aoc-infoIcon hide">
 					</div>
+					<hr>
+
+					<!-- Vector opacity slider //////////////////////////////////////////////////////////////////////////////////////////// -->
+					<div class="aoc-transOpSlider" style="margin-top: 10px;">	
+						
+						<div class="selectWrapper" style="display: flex; justify-content: center;">
+							<p class="blueFont" style="text-align: center;">Adjust layer opacity for </p>
+							<div class="chosen-wrap" style="margin-bottom:10px; margin-left: 10px; margin-top: -5px;">
+								<select id="ch-ISL" data-placeholder="Select Island" class="chosen chosen-islands" tabindex="16">
+									<option value=""></option>
+									<option value="EasternShore" selected>Habitat Types</option>
+									<option value="Assateague">Wetlands for Water Quality</option>
+									<option value="Wallops">Restorable Fish Habitat</option>
+								</select>
+							</div>	
+						</div>
+						<div class="slider-container">
+							<div class="aoc-sliderLabels">Opaque</div>
+							<div id="sldr" class="slider" style="width: 160px"></div>	
+							<div class="aoc-sliderLabels">Transparent</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<!-- <div id="mainRadioBtns" class="aoc-mainRadioBtnsWrapper">
@@ -137,7 +160,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		</div>
 	<!-- end of header section wrapper -->
 	</div>
-	<div id="contentBelowHeader" class="aoc-contentBelowHeader" style="margin-top: 390px; margin-left: 7px;">
+	<div id="contentBelowHeader" class="aoc-contentBelowHeader" style="margin-top: 465px; margin-left: 7px;">
 		<div id="attributeWrapper" style="margin-bottom: 15px;">
 			<!-- code below to embed a power bi report ////////////// -->
 			<!-- <iframe width="933" height="700" src="https://app.powerbi.com/view?r=eyJrIjoiY2Y2YTc1MDAtYzM5MC00MjhlLWI3ZGUtMzg2ZmY5NDg0OGE0IiwidCI6Ijc5YmU2ZGMxLWQ3OGUtNGJiYi1iMjJiLWQ5OTRjMGE0MTdhNyIsImMiOjF9" frameborder="0" allowFullScreen="true"></iframe> -->
