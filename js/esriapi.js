@@ -9,7 +9,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
         return declare(null, {
 			esriApiFunctions: function(t){	
 				// Add dynamic map service
-				t.dynamicLayer = new ArcGISDynamicMapServiceLayer(t.url, {opacity:0.7});
+				t.dynamicLayer = new ArcGISDynamicMapServiceLayer(t.url, {opacity:0.9});
 				t.map.addLayer(t.dynamicLayer);
 				if (t.obj.visibleLayers.length > 0){	
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
@@ -56,7 +56,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 					$('#' + t.id + 'ch-ISL').chosen({width: "182px", disable_search:true}).change(t,function(c, p){
 						console.log('change', p);
 					})
-				 	t.obj.opacityVal = 50;
+				 	t.obj.opacityVal = 20;
 				 	// work with Opacity sliders /////////////////////////////////////////////
 					$("#" + t.id +"sldr").slider({ min: 0, max: 100, range: false, values: [t.obj.opacityVal] })
 					t.dynamicLayer.setOpacity(1 - t.obj.opacityVal/100); // set init opacity

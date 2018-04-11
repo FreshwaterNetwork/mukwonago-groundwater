@@ -238,7 +238,7 @@ function ( declare, Query, QueryTask ) {
 						// create selection where clause
 						switch(t.obj.toggleTracker){
    							case 'habitat':
-	   							t.obj.query = "OBJECTID = " + evt.featureSet.features[0].attributes.OBJECTID;
+	   							t.obj.query = "OBJECTID_1 = " + evt.featureSet.features[0].attributes.OBJECTID_1;
 	   							break;
 	   						case 'wetland':
 	   							t.obj.query = "WETLAND_ID = " + evt.featureSet.features[0].attributes.WETLAND_ID;
