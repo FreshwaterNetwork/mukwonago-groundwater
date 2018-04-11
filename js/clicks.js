@@ -368,8 +368,12 @@ function ( declare, Query, QueryTask ) {
 			buildTextObject: function(t){
 				// infographic text object ///////////////////////////////
 			     t.infographicText = {
-					"habitatSites-option":"Habitat Sites - Habitat Sites text",
-					"habitat-option": "Habitat Types - Habitat Types text"
+					"habitatSites-option":"Habitat Sites - These AOC tributaries have opportunities to provide benefit to impacted wildlife and habitat LINK TO PLAN",
+					"habitat-option": "Habitat Types - A variety of habitats were mapped in the AOC; for additional information LINK TO UW GREEN BAY SITE",
+					"wetland-option": "Water Quality - Existing and potentially restorable wetlands (PRWs) have, or could have, the ability to improve the quality of surface waters flowing to Green BayLINK TO PLAN PAGE",
+					"restore-option": "Restorable Site Visits - A subset of potentially restorable wetlands were visited by a restoration professional to assess restoration potential LINK TO PLAN PAGE",
+					"barrior-option": "Surveyed Fish Barriers - A comprehensive road stream crossing survey and optimization model provide a prioritized list of barriers to fish passage to the AOC LINK TO PLAN PAGE",
+					"faq-option": "Restorable Fish Habitat - Wetlands by Design: A Watershed Approach ranks the fish and aquatic habitat service provision throughout the state LINK TO wetlandsbydesign.org",
 				}
 			},
 			// makeVariables: function(t){
