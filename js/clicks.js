@@ -158,6 +158,12 @@ function ( declare, Query, QueryTask ) {
 					}
 					// set the visible layers
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+					// turn on info icon when checked
+					if(c.currentTarget.checked){
+						$(c.currentTarget).parent().next().removeClass("hide")
+					}else{
+						$(c.currentTarget).parent().next().addClass("hide")
+					}
 					// if not state set ////////////////////////////////////////////////////////////
 					if(t.obj.stateSet != 'yes'){
 						// create an array that has the values of each checkbox that is checked for save and share
@@ -374,6 +380,7 @@ function ( declare, Query, QueryTask ) {
 					"restore-option": "Restorable Site Visits - A subset of potentially restorable wetlands were visited by a restoration professional to assess restoration potential LINK TO PLAN PAGE",
 					"barrior-option": "Surveyed Fish Barriers - A comprehensive road stream crossing survey and optimization model provide a prioritized list of barriers to fish passage to the AOC LINK TO PLAN PAGE",
 					"faq-option": "Restorable Fish Habitat - Wetlands by Design: A Watershed Approach ranks the fish and aquatic habitat service provision throughout the state LINK TO wetlandsbydesign.org",
+					"swamp-option3": "9 Key Element Plan - County Conservationists, local partners, and WI DNR have created resource management plans to improve water quality in impaired watersheds LINK TO WI DNR 9 Key element plan page "
 				}
 			},
 			// makeVariables: function(t){
