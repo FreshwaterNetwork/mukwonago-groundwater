@@ -31,6 +31,9 @@ hr{
 .aoc-infoIcon{
 	vertical-align: bottom; height: 20px; padding: 2px; margin-left: -4px; margin-bottom: 3px;
 }
+.aoc-infoIcon:hover{
+	cursor: pointer;
+}
 .aoc-cbIndent{ 
 	margin-left: 10px;
 }
