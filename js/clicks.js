@@ -121,7 +121,7 @@ function ( declare, Query, QueryTask ) {
 				// open dialog box on info icon click //////////////////////////////////
 				$('.aoc-infoIcon').on('click',function(e){
 					var id = $(e.currentTarget).prev().children().first().attr('id').split(t.id)[1]
-					var textParts = t.infographicText[id].split('-')
+					var textParts = t.infographicText[id].split('*')
 					if ($('#' + t.id + 'dialogBoxTest').dialog('isOpen')) {
 						$('#' + t.id + 'dialogBoxTest').html(textParts[1])
 						$('#ui-id-1').html(textParts[0]);
@@ -158,6 +158,12 @@ function ( declare, Query, QueryTask ) {
 					}
 					// set the visible layers
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+					// turn on info icon when checked
+					if(c.currentTarget.checked){
+						$(c.currentTarget).parent().next().removeClass("hide")
+					}else{
+						$(c.currentTarget).parent().next().addClass("hide")
+					}
 					// if not state set ////////////////////////////////////////////////////////////
 					if(t.obj.stateSet != 'yes'){
 						// create an array that has the values of each checkbox that is checked for save and share
@@ -178,7 +184,6 @@ function ( declare, Query, QueryTask ) {
 			}, 
 			addGeoJson: function(t){
 				  $.each(t.data, function(i,v){
-				    	console.log(v);
 				    })
 			},
 			// map click functionality call the map click query function //////////////////////////////////////////////////
@@ -232,7 +237,7 @@ function ( declare, Query, QueryTask ) {
 						// create selection where clause
 						switch(t.obj.toggleTracker){
    							case 'habitat':
-	   							t.obj.query = "OBJECTID = " + evt.featureSet.features[0].attributes.OBJECTID;
+	   							t.obj.query = "OBJECTID_1 = " + evt.featureSet.features[0].attributes.OBJECTID_1;
 	   							break;
 	   						case 'wetland':
 	   							t.obj.query = "WETLAND_ID = " + evt.featureSet.features[0].attributes.WETLAND_ID;
@@ -368,12 +373,13 @@ function ( declare, Query, QueryTask ) {
 			buildTextObject: function(t){
 				// infographic text object ///////////////////////////////
 			     t.infographicText = {
-					"habitatSites-option":"Habitat Sites - These AOC tributaries have opportunities to provide benefit to impacted wildlife and habitat LINK TO PLAN",
-					"habitat-option": "Habitat Types - A variety of habitats were mapped in the AOC; for additional information LINK TO UW GREEN BAY SITE",
-					"wetland-option": "Water Quality - Existing and potentially restorable wetlands (PRWs) have, or could have, the ability to improve the quality of surface waters flowing to Green BayLINK TO PLAN PAGE",
-					"restore-option": "Restorable Site Visits - A subset of potentially restorable wetlands were visited by a restoration professional to assess restoration potential LINK TO PLAN PAGE",
-					"barrior-option": "Surveyed Fish Barriers - A comprehensive road stream crossing survey and optimization model provide a prioritized list of barriers to fish passage to the AOC LINK TO PLAN PAGE",
-					"faq-option": "Restorable Fish Habitat - Wetlands by Design: A Watershed Approach ranks the fish and aquatic habitat service provision throughout the state LINK TO wetlandsbydesign.org",
+					"habitatSites-option":"Habitat Sites * These AOC tributaries have opportunities to provide benefit to impacted wildlife and habitat <a class='aoc-links' target='_blank' href='plugins/AOCapp/assets/report.pdf#page=22'>learn more.</a>",
+					"habitat-option": "Habitat Types * A variety of habitats were mapped in the AOC; for additional information <a class='aoc-links' target='_blank' href='http://www.uwgb.edu/green-bay-area-of-concern/fish-wildlife-habitats/habitats/'>click here.</a>",
+					"wetland-option": "Water Quality * Existing and potentially restorable wetlands (PRWs) have, or could have, the ability to improve the quality of surface waters flowing to Green Bay <a class='aoc-links' target='_blank' href='plugins/AOCapp/assets/report.pdf#page=9'>learn more.</a>",
+					"restore-option": "Restorable Site Visits * A subset of potentially restorable wetlands were visited by a restoration professional to assess restoration potential <a class='aoc-links' target='_blank' href='plugins/AOCapp/assets/report.pdf#page=14'>learn more.</a>",
+					"barrior-option": "Surveyed Fish Barriers * A comprehensive road stream crossing survey and optimization model provide a prioritized list of barriers to fish passage to the AOC <a class='aoc-links' target='_blank' href='plugins/AOCapp/assets/report.pdf#page=19'>learn more.</a>",
+					"faq-option": "Restorable Fish Habitat * Wetlands by Design: A Watershed Approach ranks the fish and aquatic habitat service provision throughout the state <a class='aoc-links' target='_blank' href='http://maps.freshwaternetwork.org/wisconsin/plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=58'>learn more.</a>",
+					"swamp-option3": "9 Key Element Plan * County Conservationists, local partners, and WI DNR have created resource management plans to improve water quality in impaired watersheds <a class='aoc-links' target='_blank' href='https://dnr.wi.gov/topic/nonpoint/9keyelementplans.html '>learn more.</a>"
 				}
 			},
 			// makeVariables: function(t){

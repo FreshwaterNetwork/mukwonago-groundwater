@@ -119,7 +119,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 					<!-- Vector opacity slider //////////////////////////////////////////////////////////////////////////////////////////// -->
 					<div class="aoc-transOpSlider" style="margin-top: 10px;">	
 						
-						<div class="selectWrapper" style="display: flex; justify-content: center;">
+						<!-- <div class="selectWrapper" style="display: flex; justify-content: center;">
 							<p class="blueFont" style="text-align: center;">Adjust layer opacity for </p>
 							<div class="chosen-wrap" style="margin-bottom:10px; margin-left: 10px; margin-top: -5px;">
 								<select id="ch-ISL" data-placeholder="Select Island" class="chosen chosen-islands" tabindex="16">
@@ -129,8 +129,8 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 									<option value="12">Restorable Fish Habitat</option>
 								</select>
 							</div>	
-						</div>
-						<div class="slider-container">
+						</div> -->
+						<div class="slider-container" style="padding: 6px;">
 							<div class="aoc-sliderLabels">Opaque</div>
 							<div id="sldr" class="slider" style="width: 160px"></div>	
 							<div class="aoc-sliderLabels">Transparent</div>
@@ -165,7 +165,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			<!-- code below to embed a power bi report ////////////// -->
 			<!-- <iframe width="933" height="700" src="https://app.powerbi.com/view?r=eyJrIjoiY2Y2YTc1MDAtYzM5MC00MjhlLWI3ZGUtMzg2ZmY5NDg0OGE0IiwidCI6Ijc5YmU2ZGMxLWQ3OGUtNGJiYi1iMjJiLWQ5OTRjMGE0MTdhNyIsImMiOjF9" frameborder="0" allowFullScreen="true"></iframe> -->
 			
-			<div id="clickOnMapText" class="blueFont" style="margin-left: 10px; margin-top: 5px;">Please click on map to view details</div>
+			<div id="clickOnMapText" class="blueFont" style="margin-left: 10px; margin-top: 5px;">Please click on map to view details (Use the selectable layers radio buttons above to toggle selectable layers)</div>
 			<h3 id="selectedAttributes" class="hide">Selected Attributes:</h3>
 			<!-- habitat atts wrapper ////////////////////////////////////////////////// -->
 			<div id="habitatWrapper" class="hide aoc-attributeSections">
@@ -200,38 +200,41 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 				</div>
 				<div class="aoc-sum-wrap" data-aoc-mode='huc'>
 					<!-- <div class="aoc-attributePatch"></div> -->
-					<div data-aoc='AllNeeds'  class="elm-title">Absolute Rank: </div>
+					<div data-aoc='AllNeeds'  class="elm-title">Rank: </div>
 					<div class="elm-results">
 						<span class="aoc-attText">Test Name</span>
 					</div>	
 				</div>
-				<div class="aoc-sum-wrap" data-aoc-mode='huc'>
-					<!-- <div class="aoc-attributePatch"></div> -->
-					<div data-aoc='AllNeeds'  class="elm-title">Phosphorus: </div>
-					<div class="elm-results">
-						<span class="aoc-attText">Test Name</span>
-					</div>	
-				</div>
-				<div class="aoc-sum-wrap" data-aoc-mode='huc'>
-					<!-- <div class="aoc-attributePatch"></div> -->
-					<div data-aoc='AllNeeds'  class="elm-title">Sediment: </div>
-					<div class="elm-results">
-						<span class="aoc-attText">Test Name</span>
-					</div>	
-				</div>
-				<div class="aoc-sum-wrap" data-aoc-mode='huc'>
-					<!-- <div class="aoc-attributePatch"></div> -->
-					<div data-aoc='AllNeeds'  class="elm-title">Field Phos: </div>
-					<div class="elm-results">
-						<span class="aoc-attText">Test Name</span>
-					</div>	
-				</div>
-				<div class="aoc-sum-wrap" data-aoc-mode='huc'>
-					<!-- <div class="aoc-attributePatch"></div> -->
-					<div data-aoc='AllNeeds'  class="elm-title">Tiled: </div>
-					<div class="elm-results">
-						<span class="aoc-attText">Test Name</span>
-					</div>	
+				<div style="color: #2f6384; font-size: 17px; margin: -7px 0 -4px 128px;">&#8595;</div>
+				<div style="margin-left: 6px;">
+					<div class="aoc-sum-wrap" data-aoc-mode='huc'>
+						<!-- <div class="aoc-attributePatch"></div> -->
+						<div data-aoc='AllNeeds'  class="elm-title">WbD Sediment: </div>
+						<div class="elm-results">
+							<span class="aoc-attText">Test Name</span>
+						</div>	
+					</div>
+					<div class="aoc-sum-wrap" data-aoc-mode='huc'>
+						<!-- <div class="aoc-attributePatch"></div> -->
+						<div data-aoc='AllNeeds'  class="elm-title">WbD Phosphorus: </div>
+						<div class="elm-results">
+							<span class="aoc-attText">Test Name</span>
+						</div>	
+					</div>
+					<div class="aoc-sum-wrap" data-aoc-mode='huc'>
+						<!-- <div class="aoc-attributePatch"></div> -->
+						<div data-aoc='AllNeeds'  class="elm-title">Soil Phosphorus: </div>
+						<div class="elm-results">
+							<span class="aoc-attText">Test Name</span>
+						</div>	
+					</div>
+					<div class="aoc-sum-wrap" data-aoc-mode='huc'>
+						<!-- <div class="aoc-attributePatch"></div> -->
+						<div data-aoc='AllNeeds'  class="elm-title">Tiled: </div>
+						<div class="elm-results">
+							<span class="aoc-attText">Test Name</span>
+						</div>	
+					</div>
 				</div>
 				<div class="aoc-sum-wrap" data-aoc-mode='huc'>
 					<!-- <div class="aoc-attributePatch"></div> -->
@@ -290,18 +293,19 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 				</div>
 				<div class="aoc-sum-wrap" data-aoc-mode='huc'>
 					<!-- <div class="aoc-attributePatch"></div> -->
-					<div data-aoc='AllNeeds'  class="elm-title">Passibility: </div>
+					<div data-aoc='AllNeeds'  class="elm-title">Pass Method: </div>
 					<div class="elm-results">
 						<span class="aoc-attText">Test Name</span>
 					</div>	
 				</div>
 				<div class="aoc-sum-wrap" data-aoc-mode='huc'>
 					<!-- <div class="aoc-attributePatch"></div> -->
-					<div data-aoc='AllNeeds'  class="elm-title">Pass Method: </div>
+					<div data-aoc='AllNeeds'  class="elm-title">Passibility: </div>
 					<div class="elm-results">
 						<span class="aoc-attText">Test Name</span>
 					</div>	
 				</div>
+				
 				<div class="aoc-sum-wrap" data-aoc-mode='huc'>
 					<!-- <div class="aoc-attributePatch"></div> -->
 					<div data-aoc='AllNeeds'  class="elm-title">Road Surface: </div>
@@ -366,11 +370,16 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 						</label>
 					</div>
 					<div class="aoc-wildCheckWrapper">
-						<label  class="form-component aoc-funcLabel" style="display: block;" for="swamp-option3">
-							<input type="checkbox" id="swamp-option3" name="wild" class="rb_cb" value="layer-15">
-							<div class="check"></div>
-							<span class="form-text">Nine Key Element Plans, LowerFox</span>
-						</label>
+						<div style="display: flex;">
+							<label  class="form-component aoc-funcLabel" style="display: block;" for="swamp-option3">
+								<input type="checkbox" id="swamp-option3" name="wild" class="rb_cb" value="layer-15">
+								<div class="check"></div>
+								<span class="form-text">Nine Key Element Plans, <br>LowerFox</span>
+								
+							</label>
+							<img style="" id="funcInfoIcon" title="" src="plugins/AOCapp/images/info.png" alt="show more info in documentation" class="aoc-nineKeyInfo hide aoc-infoIcon">
+						</div>
+						
 					</div>
 				</div>
 			</div>
