@@ -122,7 +122,6 @@ function ( declare, Query, QueryTask ) {
 				$('.aoc-infoIcon').on('click',function(e){
 					var id = $(e.currentTarget).prev().children().first().attr('id').split(t.id)[1]
 					var textParts = t.infographicText[id].split('*')
-					console.log(textParts)
 					if ($('#' + t.id + 'dialogBoxTest').dialog('isOpen')) {
 						$('#' + t.id + 'dialogBoxTest').html(textParts[1])
 						$('#ui-id-1').html(textParts[0]);
@@ -185,7 +184,6 @@ function ( declare, Query, QueryTask ) {
 			}, 
 			addGeoJson: function(t){
 				  $.each(t.data, function(i,v){
-				    	console.log(v);
 				    })
 			},
 			// map click functionality call the map click query function //////////////////////////////////////////////////
@@ -334,7 +332,6 @@ function ( declare, Query, QueryTask ) {
 					case 'habitat':
 						if(suc == 'y'){
 							t.obj.attsTracker = [atts.Name, atts.Watershed, atts.PageNo];
-							console.log(atts.PageNo);
 							let v1 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[0]).html(atts.Name);
 							let v2 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[1]).html(atts.Watershed)
 							let v3 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[2]).html("<a style='color:blue;' href='plugins/AOCapp/assets/report.pdf#page=" + atts.PageNo + "' target='_blank'>Click to view in report</a>")
