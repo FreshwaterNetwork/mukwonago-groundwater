@@ -24,6 +24,9 @@
 hr{
 	width: 97%; margin-right: 5px;
 }
+.aoc-links{
+	color: blue !important; text-decoration: underline !important;
+}
 .hide{
 	display: none;
 	
