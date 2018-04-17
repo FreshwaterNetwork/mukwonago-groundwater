@@ -48,7 +48,7 @@ function ( declare, Query, QueryTask ) {
 					$("#" + t.id + "seeLess").parent().show();
 					$("#" + t.id + "seeMore").parent().hide();
 					// change content below header top css prop to 390px
-					$("#" + t.id + "contentBelowHeader").css('margin-top', '468px');
+					$("#" + t.id + "contentBelowHeader").css('margin-top', '485px');
 					$("#" + t.id + "mainHeader").css('margin-top', '20px');
 				})
 				// on zoom end turn on layer with and without borders depending on a zoom level scale of 75000 ///////////////
