@@ -48,7 +48,7 @@ function ( declare, Query, QueryTask ) {
 					$("#" + t.id + "seeLess").parent().show();
 					$("#" + t.id + "seeMore").parent().hide();
 					// change content below header top css prop to 390px
-					$("#" + t.id + "contentBelowHeader").css('margin-top', '444px');
+					$("#" + t.id + "contentBelowHeader").css('margin-top', '468px');
 					$("#" + t.id + "mainHeader").css('margin-top', '20px');
 				})
 				// on zoom end turn on layer with and without borders depending on a zoom level scale of 75000 ///////////////
@@ -89,7 +89,7 @@ function ( declare, Query, QueryTask ) {
 					$.each($('#' + t.id + 'contentWrapper').find('.aoc-mainCB'), function(i,v){
 						$(v).removeClass('blueFont');
 					})
-					$('#' + c.currentTarget.id).parent().prev().addClass('blueFont')
+					$('#' + c.currentTarget.id).parent().prev().prev().addClass('blueFont')
 				})
 				// open dialog box on info icon click //////////////////////////////////
 				$('.aoc-infoIcon').on('click',function(e){
@@ -352,7 +352,8 @@ function ( declare, Query, QueryTask ) {
 					"restore-option": "Restorable Site Visits * A subset of potentially restorable wetlands were visited by a restoration professional to assess restoration potential <a class='aoc-links' target='_blank' href='plugins/AOCapp/assets/report.pdf#page=14'>learn more.</a>",
 					"barrior-option": "Surveyed Fish Barriers * A comprehensive road stream crossing survey and optimization model provide a prioritized list of barriers to fish passage to the AOC <a class='aoc-links' target='_blank' href='plugins/AOCapp/assets/report.pdf#page=19'>learn more.</a>",
 					"faq-option": "Restorable Fish Habitat * Wetlands by Design: A Watershed Approach ranks the fish and aquatic habitat service provision throughout the state <a class='aoc-links' target='_blank' href='http://maps.freshwaternetwork.org/wisconsin/plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=58'>learn more.</a>",
-					"swamp-option3": "9 Key Element Plan * County Conservationists, local partners, and WI DNR have created resource management plans to improve water quality in impaired watersheds <a class='aoc-links' target='_blank' href='https://dnr.wi.gov/topic/nonpoint/9keyelementplans.html '>learn more.</a>"
+					"swamp-option3": "9 Key Element Plan * County Conservationists, local partners, and WI DNR have created resource management plans to improve water quality in impaired watersheds <a class='aoc-links' target='_blank' href='https://dnr.wi.gov/topic/nonpoint/9keyelementplans.html '>learn more.</a>",
+					"opp-option": "AOC Wildlife and Habitat Opportunities * A variety of habitat and wildlife evaluations were done in and near the Area of Concern. More information on UW-Green Bay’s complimentary project can be found <a class='aoc-links' target='_blank' href='http://www.uwgb.edu/green-bay-area-of-concern/'>here.</a>"
 				}
 			},
 			// makeVariables: function(t){
