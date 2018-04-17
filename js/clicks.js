@@ -41,13 +41,15 @@ function ( declare, Query, QueryTask ) {
 					$("#" + t.id + "seeLess").parent().hide();
 					$("#" + t.id + "seeMore").parent().show();
 					// change content below header top css prop to 310px
-					$("#" + t.id + "contentBelowHeader").css('margin-top', '385px');
+					$("#" + t.id + "contentBelowHeader").css('margin-top', '394px');
+					$("#" + t.id + "mainHeader").css('margin-top', '-10px');
 				})	
 				$("#" + t.id + "seeMore").on('click', function(c){
 					$("#" + t.id + "seeLess").parent().show();
 					$("#" + t.id + "seeMore").parent().hide();
 					// change content below header top css prop to 390px
-					$("#" + t.id + "contentBelowHeader").css('margin-top', '465px');
+					$("#" + t.id + "contentBelowHeader").css('margin-top', '444px');
+					$("#" + t.id + "mainHeader").css('margin-top', '20px');
 				})
 				// on zoom end turn on layer with and without borders depending on a zoom level scale of 75000 ///////////////
 				t.map.on("zoom-end", function(){
@@ -345,7 +347,7 @@ function ( declare, Query, QueryTask ) {
 				// infographic text object ///////////////////////////////
 			     t.infographicText = {
 					"habitatSites-option":"Habitat Sites * These AOC tributaries have opportunities to provide benefit to impacted wildlife and habitat <a class='aoc-links' target='_blank' href='plugins/AOCapp/assets/report.pdf#page=22'>learn more.</a>",
-					"habitat-option": "Habitat Types * A variety of habitats were mapped in the AOC; for additional information <a class='aoc-links' target='_blank' href='http://www.uwgb.edu/green-bay-area-of-concern/fish-wildlife-habitats/habitats/'>click here.</a>",
+					"habitat-option": "Habitat Types * This layer contains East River and Duck Creek habitat types. For a description of habitat types, <a class='aoc-links' target='_blank' href='http://www.uwgb.edu/green-bay-area-of-concern/fish-wildlife-habitats/habitats/'>click here.</a>",
 					"wetland-option": "Water Quality * Existing and potentially restorable wetlands (PRWs) have, or could have, the ability to improve the quality of surface waters flowing to Green Bay <a class='aoc-links' target='_blank' href='plugins/AOCapp/assets/report.pdf#page=9'>learn more.</a>",
 					"restore-option": "Restorable Site Visits * A subset of potentially restorable wetlands were visited by a restoration professional to assess restoration potential <a class='aoc-links' target='_blank' href='plugins/AOCapp/assets/report.pdf#page=14'>learn more.</a>",
 					"barrior-option": "Surveyed Fish Barriers * A comprehensive road stream crossing survey and optimization model provide a prioritized list of barriers to fish passage to the AOC <a class='aoc-links' target='_blank' href='plugins/AOCapp/assets/report.pdf#page=19'>learn more.</a>",
