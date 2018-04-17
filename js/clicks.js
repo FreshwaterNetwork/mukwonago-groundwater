@@ -6,36 +6,7 @@ function ( declare, Query, QueryTask ) {
 
         return declare(null, {
 			eventListeners: function(t){
-				//test flood tags api
-				// var url = "https://api.floodtags.com/v1/tags/fews-world/geojson?until=2018-02-11&since=2018-02-10"
-			    // $.get( url, function( data ) {
-			    //   console.log(data)
-			    //   t.data = data;
-			    //   // add graphic to map function call
-			    //   t.clicks.addGeoJson(t);
-			    
-			    // });
-
-
-
-			     // t.data = data;
-			     
-					// var myPoint = new esri.geometry.Point(-89.78, 44.01 ,new esri.SpatialReference({wkid:4326}));  
-				 //      // myPolygon.addRing([[-99.24,28.39],[-99.24,29.37],[-99.482,29.37],[-99.24,28.39]]);  
-				 //  	var sfs =  new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_SQUARE, 10,
-					//     new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
-					//     new Color([255,0,0]), 1),
-					//     new Color([0,255,0,0.25]));
-				 //   //    var sfs = new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID,  
-				 //   // new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_DASHDOT,  
-				 //   // new dojo.Color([255,0,0]), 2),new dojo.Color([255,255,0,0.25]));  
-     //  				t.map.graphics.add(myPoint, sfs);  //******How to convert coordinates?********//  
-
-
-			     // add graphic to map function call
-			     // t.clicks.addGeoJson(t);
-
-			     
+				
 			     // build the text object that is used by the popups
 			     t.clicks.buildTextObject(t);
 			 	// code for my own toolbox clicks //////////////////////////////////////////////////
@@ -70,13 +41,15 @@ function ( declare, Query, QueryTask ) {
 					$("#" + t.id + "seeLess").parent().hide();
 					$("#" + t.id + "seeMore").parent().show();
 					// change content below header top css prop to 310px
-					$("#" + t.id + "contentBelowHeader").css('margin-top', '385px');
+					$("#" + t.id + "contentBelowHeader").css('margin-top', '394px');
+					$("#" + t.id + "mainHeader").css('margin-top', '-10px');
 				})	
 				$("#" + t.id + "seeMore").on('click', function(c){
 					$("#" + t.id + "seeLess").parent().show();
 					$("#" + t.id + "seeMore").parent().hide();
 					// change content below header top css prop to 390px
-					$("#" + t.id + "contentBelowHeader").css('margin-top', '465px');
+					$("#" + t.id + "contentBelowHeader").css('margin-top', '468px');
+					$("#" + t.id + "mainHeader").css('margin-top', '20px');
 				})
 				// on zoom end turn on layer with and without borders depending on a zoom level scale of 75000 ///////////////
 				t.map.on("zoom-end", function(){
@@ -116,7 +89,7 @@ function ( declare, Query, QueryTask ) {
 					$.each($('#' + t.id + 'contentWrapper').find('.aoc-mainCB'), function(i,v){
 						$(v).removeClass('blueFont');
 					})
-					$('#' + c.currentTarget.id).parent().prev().addClass('blueFont')
+					$('#' + c.currentTarget.id).parent().prev().prev().addClass('blueFont')
 				})
 				// open dialog box on info icon click //////////////////////////////////
 				$('.aoc-infoIcon').on('click',function(e){
@@ -298,10 +271,26 @@ function ( declare, Query, QueryTask ) {
 						// do somthing for wetland
 						if(suc == 'y'){
 							t.obj.attsTracker = [atts.WETLAND_TYPE, atts.ALL_RANK, atts.PR_RANK,atts.SS_RANK, atts.FLDP_RANK, atts.TILE_RANK, atts.WETLAND_ID]
+							// convert int to text value 
+							function intToText(val){
+								var finalval;
+								if(val == 1){
+									finalval = 'Very High'
+								}else if(val == 2){
+									finalval = 'High'
+								}else if (val == 3) {
+									finalval = 'Moderate'
+
+								}else if(val == 0){
+									finalval = 'N/A'
+								}
+								return finalval
+							}
+
 							let v1 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[0]).html(atts.WETLAND_TYPE);
-							let v2 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[1]).html(atts.ALL_RANK)
-							let v3 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[2]).html(atts.PR_RANK)
-							let v4 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[3]).html(atts.SS_RANK)
+							let v2 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[1]).html(intToText(atts.ALL_RANK))
+							let v3 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[2]).html(intToText(atts.PR_RANK))
+							let v4 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[3]).html(intToText(atts.SS_RANK))
 							let v5 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[4]).html(atts.FLDP_RANK)
 							let v6 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[5]).html(atts.TILE_RANK)
 							let v7 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[6]).html(atts.WETLAND_ID)
@@ -346,13 +335,13 @@ function ( declare, Query, QueryTask ) {
 						break;
 					case 'fish':
 						if(suc == 'y'){
-							t.obj.attsTracker = [atts.RANK, atts.ROAD, atts.OWNER, atts.STREAM, atts.PASS, atts.PASS_METHD, atts.ROAD_SURF, atts.ROAD_WIDTH]
+							t.obj.attsTracker = [atts.RANK, atts.ROAD, atts.OWNER, atts.STREAM, atts.Passability, atts.PASS_METDt, atts.ROAD_SURF, atts.ROAD_WIDTH]
 							let v1 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[0]).html(atts.RANK);
 							let v2 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[1]).html(atts.ROAD)
 							let v3 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[2]).html(atts.OWNER)
 							let v4 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[3]).html(atts.STREAM)
-							let v5 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[4]).html(atts.PASS)
-							let v6 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[5]).html(atts.PASS_METHD)
+							let v5 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[4]).html(atts.Passability)
+							let v6 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[5]).html(atts.PASS_METDt)
 							let v7 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[6]).html(atts.ROAD_SURF)
 							let v8 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[7]).html(atts.ROAD_WIDTH)
 							$('#' + t.id + track + "Wrapper").show();
@@ -374,12 +363,13 @@ function ( declare, Query, QueryTask ) {
 				// infographic text object ///////////////////////////////
 			     t.infographicText = {
 					"habitatSites-option":"Habitat Sites * These AOC tributaries have opportunities to provide benefit to impacted wildlife and habitat <a class='aoc-links' target='_blank' href='plugins/AOCapp/assets/report.pdf#page=22'>learn more.</a>",
-					"habitat-option": "Habitat Types * A variety of habitats were mapped in the AOC; for additional information <a class='aoc-links' target='_blank' href='http://www.uwgb.edu/green-bay-area-of-concern/fish-wildlife-habitats/habitats/'>click here.</a>",
+					"habitat-option": "Habitat Types * This layer contains East River and Duck Creek habitat types. For a description of habitat types, <a class='aoc-links' target='_blank' href='http://www.uwgb.edu/green-bay-area-of-concern/fish-wildlife-habitats/habitats/'>click here.</a>",
 					"wetland-option": "Water Quality * Existing and potentially restorable wetlands (PRWs) have, or could have, the ability to improve the quality of surface waters flowing to Green Bay <a class='aoc-links' target='_blank' href='plugins/AOCapp/assets/report.pdf#page=9'>learn more.</a>",
 					"restore-option": "Restorable Site Visits * A subset of potentially restorable wetlands were visited by a restoration professional to assess restoration potential <a class='aoc-links' target='_blank' href='plugins/AOCapp/assets/report.pdf#page=14'>learn more.</a>",
 					"barrior-option": "Surveyed Fish Barriers * A comprehensive road stream crossing survey and optimization model provide a prioritized list of barriers to fish passage to the AOC <a class='aoc-links' target='_blank' href='plugins/AOCapp/assets/report.pdf#page=19'>learn more.</a>",
 					"faq-option": "Restorable Fish Habitat * Wetlands by Design: A Watershed Approach ranks the fish and aquatic habitat service provision throughout the state <a class='aoc-links' target='_blank' href='http://maps.freshwaternetwork.org/wisconsin/plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=58'>learn more.</a>",
-					"swamp-option3": "9 Key Element Plan * County Conservationists, local partners, and WI DNR have created resource management plans to improve water quality in impaired watersheds <a class='aoc-links' target='_blank' href='https://dnr.wi.gov/topic/nonpoint/9keyelementplans.html '>learn more.</a>"
+					"swamp-option3": "9 Key Element Plan * County Conservationists, local partners, and WI DNR have created resource management plans to improve water quality in impaired watersheds <a class='aoc-links' target='_blank' href='https://dnr.wi.gov/topic/nonpoint/9keyelementplans.html '>learn more.</a>",
+					"opp-option": "AOC Wildlife and Habitat Opportunities * A variety of habitat and wildlife evaluations were done in and near the Area of Concern. More information on UW-Green Bay’s complimentary project can be found <a class='aoc-links' target='_blank' href='http://www.uwgb.edu/green-bay-area-of-concern/'>here.</a>"
 				}
 			},
 			// makeVariables: function(t){

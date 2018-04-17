@@ -8,11 +8,10 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 	<!-- Header section wrapper -->
 	<div class="aoc-headerSectionWrapper">
 		<div class="aoc-openingWrapper">
-			<div class="blueFont hide" style="padding: 0 3px 0 3px;">Fish and wildlife populations.... <span id="seeMore" class="aoc-helpLinkText"> See more...</span></div>
+			<div style="display: flex;">
+				<div class="blueFont hide" style="padding: 0 3px 0 3px;">Fish and wildlife populations.... <span id="seeMore" class="aoc-helpLinkText"> See more...</span></div>
 
-			<div class="blueFont" style="padding: 0 3px 0 3px;">Fish and wildlife populations and habitats in the Lower Green Bay and Fox River Area of Concern have been impaired and need help. Recovery needs to include habitat restoration in and near the AOC, watershed wetland restoration to improve water quality, and reconnecting stream networks for fish and aquatic life. <span id="seeLess" class="aoc-helpLinkText"> See less...</span></div>
-			<div style="display: flex; margin: -4px 0 5px 0;">
-				<h3>How would you like to help the Area of Concern?</h3>
+				<div class="blueFont" style="padding: 0 13px 0 3px;">Fish and wildlife populations and habitats in the Lower Green Bay and Fox River Area of Concern have been impaired and need help. Recovery needs to include habitat restoration in and near the AOC, watershed wetland restoration to improve water quality, and reconnecting stream networks for fish and aquatic life. <span id="seeLess" class="aoc-helpLinkText"> See less...</span></div>
 				<!-- Hamburger tool menu -->
 				<div class="aoc-toolWrapper">
 					<div class="dropdown">
@@ -21,7 +20,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 							<div class="aoc-hamburger"></div>
 							<div class="aoc-hamburger"></div>
 						</button>
-						<ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="margin-left: -128px;">
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="margin-left: -128px; margin-top: -10px;">
 							<li><a class="aoc-saveAndShare" href="#">Bookmark and Share</a></li>
 							<li id="downloadDataWrapper" class="hide"><a id="dlBtn" class="aoc-download" href="#">Download Data</a></li>
 							<li ><a class="aoc-mapCreate" href="#">Print Map</a></li>
@@ -29,6 +28,12 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 						</ul>
 					</div>
 				</div>
+			</div>
+			
+
+			<div style="display: flex; margin: -4px 0 5px 0;">
+				<h3 id="mainHeader">How would you like to help the Area of Concern?</h3>
+				
 			</div> 
 		
 			<!-- Main Checkboxes Buttons -->
@@ -53,6 +58,13 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 							<div class="check"></div>
 							<span class="form-text"></span>
 						</label>
+						<br>
+						<label class="form-component aoc-mainCB" for="opp-option">
+							<input type="checkbox" id="opp-option" name="func" class="rb_cb" value="layer-19"> 
+							<div class="check"></div>
+							<span class="form-text">AOC Wildlife and Habitat Opportunities</span>
+						</label>
+						<img id="funcInfoIcon" title="" src="plugins/AOCapp/images/info.png" alt="show more info in documentation" class="aoc-infoIcon hide">
 
 						<br>
 						<label class="form-component aoc-mainCB" for="habitat-option">
@@ -61,6 +73,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 							<span class="form-text">Habitat Types</span>
 						</label>
 						<img id="funcInfoIcon" title="" src="plugins/AOCapp/images/info.png" alt="show more info in documentation" class="aoc-infoIcon hide">
+						
 					</div>
 				</div>
 				<div>
@@ -160,7 +173,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		</div>
 	<!-- end of header section wrapper -->
 	</div>
-	<div id="contentBelowHeader" class="aoc-contentBelowHeader" style="margin-top: 465px; margin-left: 7px;">
+	<div id="contentBelowHeader" class="aoc-contentBelowHeader" style="margin-top: 468px; margin-left: 7px;">
 		<div id="attributeWrapper" style="margin-bottom: 15px;">
 			<!-- code below to embed a power bi report ////////////// -->
 			<!-- <iframe width="933" height="700" src="https://app.powerbi.com/view?r=eyJrIjoiY2Y2YTc1MDAtYzM5MC00MjhlLWI3ZGUtMzg2ZmY5NDg0OGE0IiwidCI6Ijc5YmU2ZGMxLWQ3OGUtNGJiYi1iMjJiLWQ5OTRjMGE0MTdhNyIsImMiOjF9" frameborder="0" allowFullScreen="true"></iframe> -->
@@ -302,7 +315,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 				</div>
 				<div class="aoc-sum-wrap" data-aoc-mode='huc'>
 					<!-- <div class="aoc-attributePatch"></div> -->
-					<div data-aoc='AllNeeds'  class="elm-title">Passibility: </div>
+					<div data-aoc='AllNeeds'  class="elm-title">Passability: </div>
 					<div class="elm-results">
 						<span class="aoc-attText">Test Name</span>
 					</div>	
