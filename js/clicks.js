@@ -271,10 +271,26 @@ function ( declare, Query, QueryTask ) {
 						// do somthing for wetland
 						if(suc == 'y'){
 							t.obj.attsTracker = [atts.WETLAND_TYPE, atts.ALL_RANK, atts.PR_RANK,atts.SS_RANK, atts.FLDP_RANK, atts.TILE_RANK, atts.WETLAND_ID]
+							// convert int to text value 
+							function intToText(val){
+								var finalval;
+								if(val == 1){
+									finalval = 'Very High'
+								}else if(val == 2){
+									finalval = 'High'
+								}else if (val == 3) {
+									finalval = 'Moderate'
+
+								}else if(val == 0){
+									finalval = 'N/A'
+								}
+								return finalval
+							}
+
 							let v1 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[0]).html(atts.WETLAND_TYPE);
-							let v2 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[1]).html(atts.ALL_RANK)
-							let v3 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[2]).html(atts.PR_RANK)
-							let v4 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[3]).html(atts.SS_RANK)
+							let v2 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[1]).html(intToText(atts.ALL_RANK))
+							let v3 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[2]).html(intToText(atts.PR_RANK))
+							let v4 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[3]).html(intToText(atts.SS_RANK))
 							let v5 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[4]).html(atts.FLDP_RANK)
 							let v6 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[5]).html(atts.TILE_RANK)
 							let v7 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[6]).html(atts.WETLAND_ID)
@@ -319,13 +335,13 @@ function ( declare, Query, QueryTask ) {
 						break;
 					case 'fish':
 						if(suc == 'y'){
-							t.obj.attsTracker = [atts.RANK, atts.ROAD, atts.OWNER, atts.STREAM, atts.PASS, atts.PASS_METHD, atts.ROAD_SURF, atts.ROAD_WIDTH]
+							t.obj.attsTracker = [atts.RANK, atts.ROAD, atts.OWNER, atts.STREAM, atts.Passability, atts.PASS_METDt, atts.ROAD_SURF, atts.ROAD_WIDTH]
 							let v1 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[0]).html(atts.RANK);
 							let v2 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[1]).html(atts.ROAD)
 							let v3 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[2]).html(atts.OWNER)
 							let v4 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[3]).html(atts.STREAM)
-							let v5 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[4]).html(atts.PASS)
-							let v6 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[5]).html(atts.PASS_METHD)
+							let v5 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[4]).html(atts.Passability)
+							let v6 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[5]).html(atts.PASS_METDt)
 							let v7 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[6]).html(atts.ROAD_SURF)
 							let v8 = $($('#' + t.id + track + "Wrapper").find('.aoc-attText')[7]).html(atts.ROAD_WIDTH)
 							$('#' + t.id + track + "Wrapper").show();
