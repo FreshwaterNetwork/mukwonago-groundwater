@@ -1,6 +1,6 @@
 {
     "css": [
-		"plugins/AOCapp/css/main.css"
+		"plugins/mukwonago-groundwater/css/main.css"
     ],
     "use": {
         "underscore": { "attach": "_" },
