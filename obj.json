@@ -1,12 +1,6 @@
 {
-	"visibleLayers": [13,14,7],
-	"toggleSel": "",
+	"visibleLayers": [10],
 	"extent": "",
 	"stateSet": "no",
-	"queryTracker": "3",
-	"toggleTracker": "habitat",
-	"query": "",
-	"cbTracker": [],
-	"radButtonTracker": "",
 	"layerDefinitions": []
 }
