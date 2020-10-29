@@ -17,40 +17,7 @@ define([
     },
     // map click query function /////////////////////////////////////////////////////////////////////
     mapClickQuery: function (t, p) {
-      // if trying to click on a point change the click tolerance
-      if (t.obj.queryTracker == 0 || t.obj.queryTracker == 1) {
-        var centerPoint = new esri.geometry.Point(
-          t.obj.pnt.x,
-          t.obj.pnt.y,
-          t.obj.pnt.spatialReference
-        );
-        var mapWidth = t.map.extent.getWidth();
-        var mapWidthPixels = t.map.width;
-        var pixelWidth = mapWidth / mapWidthPixels;
-        var tolerance = 10 * pixelWidth;
-        var pnt = t.obj.pnt;
-        var ext = new esri.geometry.Extent(
-          1,
-          1,
-          tolerance,
-          tolerance,
-          t.obj.pnt.spatialReference
-        );
-        p = ext.centerAt(centerPoint);
-      }
-
-      // start of query ///////////////////////////////////////////////////////////////////////
-      t.q = new Query();
-      // use query tracker to create the correct url
-      t.qt = new QueryTask(t.url + "/" + t.obj.queryTracker);
-      t.q.geometry = p;
-      // t.q.returnGeometry = true;
-      t.q.outFields = ["*"];
-      // execute query ///////////////////
-      if (t.obj.queryTracker) {
-        t.qt.execute(t.q);
-      }
-      t.qt.on("complete", function (evt) {});
+      console.log(p);
     },
 
     makeVariables: function (t) {
