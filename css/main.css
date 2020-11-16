@@ -1,4 +1,7 @@
 /* Main Content style //////////////////////////////////////////////////////////////////////////////////////*/
-.mgw-appWrapper {
-  padding: 5px;
+h4 {
+  color: red;
+}
+.mgw-introTextWrapper {
+  color: red;
 }

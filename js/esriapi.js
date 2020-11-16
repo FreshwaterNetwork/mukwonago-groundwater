@@ -40,10 +40,6 @@ define([
         t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
       }
       t.dynamicLayer.on("load", function () {
-        // User selections on chosen menus
-        $("#" + t.id + "ch-ISL")
-          .chosen({ width: "182px", disable_search: true })
-          .change(t, function (c, p) {});
         t.obj.opacityVal = 50;
         // work with Opacity sliders /////////////////////////////////////////////
         $("#" + t.id + "sldr").slider({
@@ -52,17 +48,16 @@ define([
           range: false,
           values: [t.obj.opacityVal],
         });
-        t.dynamicLayer.setOpacity(1 - t.obj.opacityVal / 100); // set init opacity
+        // t.dynamicLayer.setOpacity(1 - t.obj.opacityVal / 100); // set init opacity
         $("#" + t.id + "sldr").on("slide", function (c, ui) {
           t.obj.opacityVal = 1 - ui.value / 100;
-          t.dynamicLayer.setOpacity(t.obj.opacityVal);
+          // t.dynamicLayer.setOpacity(t.obj.opacityVal);
         });
         // hide the framework toolbox
-        $("#map-utils-control").hide();
         // create layers array
         t.layersArray = t.dynamicLayer.layerInfos;
         if (t.obj.stateSet == "no") {
-          t.map.setExtent(t.dynamicLayer.fullExtent.expand(1), true);
+          t.map.setExtent(t.dynamicLayer.fullExtent.expand(0.55), true);
         }
         ////////////////////////////// save and share code below ////////////////////////////////////////////////////////////
         if (t.obj.stateSet == "yes") {
