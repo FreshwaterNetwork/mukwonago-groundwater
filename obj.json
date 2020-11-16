@@ -1,5 +1,6 @@
 {
-	"visibleLayers": [10],
+	"url": "https://cirrus.tnc.org/arcgis/rest/services/FN_Wisconsin/mukwonago_groundwater_v11162020/MapServer",
+	"visibleLayers": [0, 10],
 	"extent": "",
 	"stateSet": "no",
 	"layerDefinitions": []
