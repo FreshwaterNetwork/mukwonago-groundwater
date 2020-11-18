@@ -40,7 +40,7 @@ define([
         t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
       }
       t.dynamicLayer.on("load", function () {
-        t.obj.opacityVal = 50;
+        t.obj.opacityVal = 25;
         // work with Opacity sliders /////////////////////////////////////////////
         $("#" + t.id + "sldr").slider({
           min: 0,
@@ -48,6 +48,7 @@ define([
           range: false,
           values: [t.obj.opacityVal],
         });
+
         // t.dynamicLayer.setOpacity(1 - t.obj.opacityVal / 100); // set init opacity
         $("#" + t.id + "sldr").on("slide", function (c, ui) {
           t.obj.opacityVal = 1 - ui.value / 100;
@@ -59,6 +60,21 @@ define([
         if (t.obj.stateSet == "no") {
           t.map.setExtent(t.dynamicLayer.fullExtent.expand(0.55), true);
         }
+
+        t.dynamicLayer.setOpacity(1 - t.obj.opacityVal / 100); // set init opacity
+        $("#" + t.id + "sldr").on("slide", function (c, ui) {
+          t.obj.opacityVal = 1 - ui.value / 100;
+          t.dynamicLayer.setOpacity(t.obj.opacityVal);
+        });
+
+        // create layers array
+        t.layersArray = t.dynamicLayer.layerInfos;
+
+        // if not state set, set extent to starting extent
+        if (t.obj.stateSet == "no") {
+          t.map.setExtent(startingExtent.expand(0.75), true);
+        }
+
         ////////////////////////////// save and share code below ////////////////////////////////////////////////////////////
         if (t.obj.stateSet == "yes") {
           // display the correct layers on the map
