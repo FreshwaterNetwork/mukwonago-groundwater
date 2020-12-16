@@ -4,23 +4,99 @@ takes the ContentPane id and prepends it to every element with a declared id in 
 The unique ContentPane id makes all the element ids unique and prevents duplicate id errors across other apps.-->
 
 <!-- Main Content Wrapper -->
-
-
 <div id="app" class="mgw-appWrapper">
-
-	<div class="mgw-introTextWrapper blueFont">
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-		magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat.
+	<div class="mgw-agree-wrapper">
+		<h3>
+			Protecting Groundwater Dependent Ecosystems Intended Use Agreement
+		</h3>
+		<div class="blueFont">
+			This data is only designed to help evaluate possibly locations to
+			find the least impactful areas, it is not intended to be predictive
+			or ….. This data is intended for planning purposes only. Ask Daniel
+			to edit for USGS needs.
+		</div>
+		<label class="form-component mgw-agree-cb-wrapper" for="agree-option">
+			<input
+				type="checkbox"
+				id="agree-option"
+				class="rb_cb"
+				value="layer-7"
+			/>
+			<div class="check"></div>
+			<span class="form-text">
+				Check this box to acknowledge the intended use of the tool and
+				associated data</span
+			>
+		</label>
+		<div style="text-align: center">
+			<button class="mgw-agree-button button button-primary" disabled>
+				Enter Site
+			</button>
+		</div>
 	</div>
-	<h4>What would you like to do?</h4>
-	<div class="toggle-btn mgw-opening-toggle" style="width:350px;">
-		<input type="radio" id="dijit_layout_ContentPane_1num1" name="num" value="one" checked="">
-		<label for="dijit_layout_ContentPane_1num1">Evaluate pumping sites</label>
-		<input type="radio" id="dijit_layout_ContentPane_1num2" name="num" value="two">
-		<label for="dijit_layout_ContentPane_1num2">Choose a water feature.</label>
+	<div class="mgw-main-app-wrapper">
+		<div class="mgw-introTextWrapper blueFont">
+			Groundwater dependent ecosystems (gde) are systems that depend on
+			groundwater inputs to support their natural flora and fauna. These
+			ecosystems can occur in wetlands, lakes and rivers. One rare gde is
+			the fen, a wetland that depend mostly on groundwater inputs rather
+			than surface water flows to support the wetland. The Mukwonago River
+			Basin in southeast Wisconsin has several remaining fens that need
+			careful protection ***** edit text as needed ****
+		</div>
+		<h4>
+			This tool can be used in two ways, please indicate which option
+			meets your planning needs.
+		</h4>
 
+		<div class="mgw-option-wrap">
+			<div class="mgw-main-option-header">
+				Evaluate a planned pumping site
+			</div>
+			<div style="display: flex; align-items: center">
+				<div class="blueFont">
+					I know the location and pumping rate of a future well and
+					I’d like to evaluate the impacts to a fen, river or lake.
+				</div>
+				<button class="button button-primary mgw-main-option-button">
+					GO
+				</button>
+			</div>
+		</div>
+		<div class="mgw-option-wrap">
+			<div class="mgw-main-option-header">Search for a pumping site</div>
+			<div style="display: flex; align-items: center">
+				<div class="blueFont">
+					I want to review maps of the area around a fen, river or
+					lake to determine where a high capacity well can be sited to
+					reduce impacts on the feature.
+				</div>
+				<button class="button button-primary mgw-main-option-button">
+					GO
+				</button>
+			</div>
+		</div>
 
-
-		<!-- End of main content wrapper -->
+		<!-- <div class="toggle-btn mgw-opening-toggle" style="width: 350px">
+			<input
+				type="radio"
+				id="dijit_layout_ContentPane_1num1"
+				name="num"
+				value="one"
+				checked=""
+			/>
+			<label for="dijit_layout_ContentPane_1num1"
+				>Evaluate pumping sites</label
+			>
+			<input
+				type="radio"
+				id="dijit_layout_ContentPane_1num2"
+				name="num"
+				value="two"
+			/>
+			<label for="dijit_layout_ContentPane_1num2"
+				>Choose a water feature.</label
+			>
+		</div> -->
 	</div>
+</div>

@@ -1,5 +1,40 @@
 /* Main Content style //////////////////////////////////////////////////////////////////////////////////////*/
 
 .mgw-appWrapper {
-  padding: 5px;
+	padding: 5px;
+}
+.mgw-agree-wrapper {
+	display: none;
+}
+.mgw-main-app-wrapper {
+	/* display: none; */
+}
+.mgw-agree-wrapper {
+	width: 90%;
+	margin: auto;
+}
+.mgw-agree-cb-wrapper {
+	margin-top: 10px;
+}
+
+.mgw-option-wrap {
+	border: 1pt solid #cdd5d5;
+	padding: 5px;
+	width: 90%;
+	box-shadow: 0 1px 1px rgba(16, 22, 26, 0.2);
+	position: relative;
+	margin: auto;
+	margin-bottom: 10px;
+}
+.mgw-main-option-header {
+	font-weight: bold;
+	font-size: 15px;
+	margin-bottom: 7px;
+}
+.mgw-main-option-button {
+	padding: 5px !important;
+	margin-left: auto;
+	display: flex;
+	margin-right: 10px;
+	margin-left: 20px;
 }
