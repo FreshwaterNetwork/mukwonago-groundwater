@@ -5,98 +5,96 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 
 <!-- Main Content Wrapper -->
 <div id="app" class="mgw-appWrapper">
-	<div class="mgw-agree-wrapper">
-		<h3>
-			Protecting Groundwater Dependent Ecosystems Intended Use Agreement
-		</h3>
-		<div class="blueFont">
-			This data is only designed to help evaluate possibly locations to
-			find the least impactful areas, it is not intended to be predictive
-			or ….. This data is intended for planning purposes only. Ask Daniel
-			to edit for USGS needs.
-		</div>
-		<label class="form-component mgw-agree-cb-wrapper" for="agree-option">
-			<input
-				type="checkbox"
-				id="agree-option"
-				class="rb_cb"
-				value="layer-7"
-			/>
-			<div class="check"></div>
-			<span class="form-text">
-				Check this box to acknowledge the intended use of the tool and
-				associated data</span
-			>
-		</label>
-		<div style="text-align: center">
-			<button class="mgw-agree-button button button-primary" disabled>
-				Enter Site
-			</button>
-		</div>
-	</div>
-	<div class="mgw-main-app-wrapper">
-		<div class="mgw-introTextWrapper blueFont">
-			Groundwater dependent ecosystems (gde) are systems that depend on
-			groundwater inputs to support their natural flora and fauna. These
-			ecosystems can occur in wetlands, lakes and rivers. One rare gde is
-			the fen, a wetland that depend mostly on groundwater inputs rather
-			than surface water flows to support the wetland. The Mukwonago River
-			Basin in southeast Wisconsin has several remaining fens that need
-			careful protection ***** edit text as needed ****
-		</div>
-		<h4>
-			This tool can be used in two ways, please indicate which option
-			meets your planning needs.
-		</h4>
+    <div class="mgw-agree-wrapper">
+        <h3>
+            Protecting Groundwater Dependent Ecosystems Intended Use Agreement
+        </h3>
+        <div class="blueFont">
+            This data is only designed to help evaluate possibly locations to
+            find the least impactful areas, it is not intended to be predictive
+            or ….. This data is intended for planning purposes only. Ask Daniel
+            to edit for USGS needs.
+        </div>
+        <label class="form-component mgw-agree-cb-wrapper" for="agree-option">
+            <input
+                type="checkbox"
+                id="agree-option"
+                class="rb_cb"
+                value="layer-7"
+            />
+            <div class="check"></div>
+            <span class="form-text">
+                Check this box to acknowledge the intended use of the tool and
+                associated data</span
+            >
+        </label>
+        <div style="text-align: center">
+            <button class="mgw-agree-button button button-primary" disabled>
+                Enter Site
+            </button>
+        </div>
+    </div>
+    <div class="mgw-main-app-intro-wrapper">
+        <div class="mgw-introTextWrapper blueFont">
+            Groundwater dependent ecosystems (gde) are systems that depend on
+            groundwater inputs to support their natural flora and fauna. These
+            ecosystems can occur in wetlands, lakes and rivers. One rare gde is
+            the fen, a wetland that depend mostly on groundwater inputs rather
+            than surface water flows to support the wetland. The Mukwonago River
+            Basin in southeast Wisconsin has several remaining fens that need
+            careful protection ***** edit text as needed ****
+        </div>
+        <h3>
+            This tool can be used in two ways, please indicate which option
+            meets your planning needs.
+        </h3>
 
-		<div class="mgw-option-wrap">
-			<div class="mgw-main-option-header">
-				Evaluate a planned pumping site
-			</div>
-			<div style="display: flex; align-items: center">
-				<div class="blueFont">
-					I know the location and pumping rate of a future well and
-					I’d like to evaluate the impacts to a fen, river or lake.
-				</div>
-				<button class="button button-primary mgw-main-option-button">
-					GO
-				</button>
-			</div>
-		</div>
-		<div class="mgw-option-wrap">
-			<div class="mgw-main-option-header">Search for a pumping site</div>
-			<div style="display: flex; align-items: center">
-				<div class="blueFont">
-					I want to review maps of the area around a fen, river or
-					lake to determine where a high capacity well can be sited to
-					reduce impacts on the feature.
-				</div>
-				<button class="button button-primary mgw-main-option-button">
-					GO
-				</button>
-			</div>
-		</div>
-
-		<!-- <div class="toggle-btn mgw-opening-toggle" style="width: 350px">
-			<input
-				type="radio"
-				id="dijit_layout_ContentPane_1num1"
-				name="num"
-				value="one"
-				checked=""
-			/>
-			<label for="dijit_layout_ContentPane_1num1"
-				>Evaluate pumping sites</label
-			>
-			<input
-				type="radio"
-				id="dijit_layout_ContentPane_1num2"
-				name="num"
-				value="two"
-			/>
-			<label for="dijit_layout_ContentPane_1num2"
-				>Choose a water feature.</label
-			>
-		</div> -->
-	</div>
+        <div class="mgw-option-wrap">
+            <div class="mgw-main-option-header">
+                Evaluate a planned pumping site
+            </div>
+            <div style="display: flex; align-items: center">
+                <div class="blueFont">
+                    I know the location and pumping rate of a future well and
+                    I’d like to evaluate the impacts to a fen, river or lake.
+                </div>
+                <button
+                    class="button button-primary mgw-main-option-button mgw-known-location-button"
+                >
+                    GO
+                </button>
+            </div>
+        </div>
+        <div class="mgw-option-wrap">
+            <div class="mgw-main-option-header">Search for a pumping site</div>
+            <div style="display: flex; align-items: center">
+                <div class="blueFont">
+                    I want to review maps of the area around a fen, river or
+                    lake to determine where a high capacity well can be sited to
+                    reduce impacts on the feature.
+                </div>
+                <button
+                    class="button button-primary mgw-main-option-button mgw-search-location-button"
+                >
+                    GO
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="mgw-known-location-wrapper" style="display: none">
+        <button class="button button-primary" style="padding: 3px">Back</button>
+        <h3 style="margin-bottom: 4px">
+            Find address or place or click on map to drop pin.
+        </h3>
+        <div class="mgw-find-address-note">
+            Exact locations are not permissible, will snap to a pre-determined
+            6-acre grid.
+        </div>
+        <div class="mgw-searchbar-wrapper">
+            <div id="mgw-search-bar"></div>
+        </div>
+    </div>
+    <div class="mgw-search-location-wrapper" style="display: none">
+        search location
+    </div>
 </div>
