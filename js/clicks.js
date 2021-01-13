@@ -43,6 +43,28 @@ define([
             // on search location button click
             $(".mgw-search-location-button").on("click", (evt) => {
                 console.log("search location");
+                $(".mgw-search-location-wrapper").show();
+                $(".mgw-main-app-intro-wrapper").hide();
+            });
+
+            // on back to home button click
+            $(".mgw-back-home-button").on("click", (evt) => {
+                $(".mgw-known-location-wrapper").hide();
+                $(".mgw-search-location-wrapper").hide();
+                $(".mgw-main-app-intro-wrapper").show();
+            });
+
+            // on pumping rate select menu change
+
+            $(".mgw-pumping-rate-select").on("change", (evt) => {
+                $.each($(".mgw-pumping-rate-select option"), function (i, v) {
+                    // console.log($(v));
+                    // console.log(v.selected);
+                    if (v.selected) {
+                        console.log(v.value);
+                        t.obj.knownGPMValue = v.value;
+                    }
+                });
             });
         },
 

@@ -49,7 +49,7 @@
 }
 .mgw-searchbar-wrapper div {
     /* margin: auto; */
-    margin-left: 5px;
+    /* margin-left: 5px; */
 }
 .mgw-find-address-note {
     font-size: 12px;
@@ -66,4 +66,10 @@
 }
 .searchClear {
     right: -106px !important;
+}
+.mgw-pumping-rate-dropdown select {
+    width: 250px;
+}
+.mgw-pumping-rate-dropdown {
+    text-align: center;
 }
