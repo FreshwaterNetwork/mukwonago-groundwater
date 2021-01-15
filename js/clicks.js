@@ -58,26 +58,35 @@ define([
 
             $(".mgw-pumping-rate-select").on("change", (evt) => {
                 $.each($(".mgw-pumping-rate-select option"), function (i, v) {
-                    // console.log($(v));
-                    // console.log(v.selected);
                     if (v.selected) {
-                        console.log(v.value);
+                        // set the GPM value
                         t.obj.knownGPMValue = v.value;
                     }
                 });
+                // t.clicks.buildDrawdownTable(t);
+                t.esriapi.searchWaterFeatures(t);
             });
         },
 
-        // map click functionality call the map click query function //////////////////////////////////////////////////
-        mapClickFunction: function (t) {
-            t.map.on("click", function (c) {
-                t.obj.pnt = c.mapPoint;
-                t.clicks.mapClickQuery(t, t.obj.pnt); // call t.mapClickQuery function
+        // // build the drawdown report table //////////////////////////////////////////////////
+        // do this on map click and on dropdown selection
+        buildDrawdownTable: function (t, waterFeatureData) {
+            let waterFeatureTable = $(".mgw-depletion-table-body");
+            waterFeatureTable.empty();
+            // console.log(waterFeatureTable);
+            waterFeatureData.forEach((feat) => {
+                let data;
+                if (feat.fenDrawdown) {
+                    data = `<tr><td>${feat.commonName}</td><td>${feat.fenDrawdown}</td><td>--</td><td>--</td></tr>`;
+                } else if (feat.lakeDepletion) {
+                    data = `<tr><td>${feat.commonName}</td><td>--</td><td>${feat.lakeDepletion}</td><td>--</td></tr>`;
+                } else if (feat.streamDepletion) {
+                    data = `<tr><td>${feat.commonName}</td><td>--</td><td>${feat.streamDepletion}</td><td>--</td></tr>`;
+                }
+                waterFeatureTable.append(data);
             });
-        },
-        // map click query function /////////////////////////////////////////////////////////////////////
-        mapClickQuery: function (t, p) {
-            console.log(p);
+
+            console.log(waterFeatureData);
         },
 
         makeVariables: function (t) {},

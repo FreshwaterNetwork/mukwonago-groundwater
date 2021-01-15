@@ -4,5 +4,6 @@
 	"extent": "",
 	"stateSet": "no",
 	"layerDefinitions": [],
-	"knownGPMValue": ""
+	"knownGPMValue": 200,
+	"mapClicked": false
 }
