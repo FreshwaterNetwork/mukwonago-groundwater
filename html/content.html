@@ -82,13 +82,16 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
         </div>
     </div>
     <div class="mgw-known-location-wrapper" style="display: none">
-        <button
-            class="button button-primary mgw-back-home-button"
-            style="padding: 3px"
-        >
-            Back
-        </button>
-        <h3 style="margin-bottom: 12px; margin-top: 8px">
+        <div style="width: 100%; text-align: right">
+            <button
+                class="button button-primary mgw-back-home-button"
+                style="padding: 3px"
+            >
+                Back
+            </button>
+        </div>
+
+        <h3 style="margin-bottom: 12px; margin-top: -34px">
             Find address or place or click on map to drop pin.
         </h3>
         <div class="mgw-find-address-note">
@@ -142,23 +145,68 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
                         <th>Depletion from Outside Basin</th>
                     </tr>
                 </thead>
-                <tbody class="mgw-depletion-table-body">
-                    <tr>
-                        <td>Jean</td>
-                        <td>Dupont</td>
-                        <td>Dupont</td>
-                        <td>Dupont</td>
-                    </tr>
-                </tbody>
+                <tbody class="mgw-depletion-table-body"></tbody>
             </table>
         </div>
     </div>
     <div class="mgw-search-location-wrapper" style="display: none">
-        <button
-            class="button button-primary mgw-back-home-button"
-            style="padding: 3px"
-        >
-            Back
-        </button>
+        <div style="width: 100%; text-align: right">
+            <button
+                class="button button-primary mgw-back-home-button"
+                style="padding: 3px"
+            >
+                Back
+            </button>
+        </div>
+        <h3 style="width: 89%; margin-top: -26px">
+            Select one or more features of interest to explore the impact of
+            nearby high capacity pumping.
+        </h3>
+        <h4 style="margin-bottom: 4px">Select pumping rate</h4>
+        <div class="mgw-find-address-note">
+            The minimum pumping rate for a high capacity well is 70 gpm. Typical
+            home uses around 200 gpd. A subdivision of 50 homes uses around X
+            gpm. An irrigation well uses between X and X depending on the time
+            of year and crop. Dave will edit
+        </div>
+        <div class="mgw-search-pumping-rate-dropdown">
+            <select
+                class="mgw-pumping-rate-search-select"
+                placeholder="Pick One Number"
+                name=""
+                id=""
+            >
+                <option disabled value="">Select a pumping rate</option>
+                <option value="25">25 gpm</option>
+                <option selected value="50">50 gpm</option>
+                <option value="75">75 gpm</option>
+                <option value="100">100 gpm</option>
+                <!-- <option value="125">125 gpm</option>
+                <option value="150">150 gpm</option>
+                <option selected value="200">200 gpm</option>
+                <option value="250">250 gpm</option>
+                <option value="300">300 gpm</option>
+                <option value="400">400 gpm</option>
+                <option value="500">500 gpm</option>
+                <option value="600">600 gpm</option>
+                <option value="700">700 gpm</option> -->
+            </select>
+        </div>
+        <div class="mgw-selectFeatures-table-wrapper">
+            <table style="width: 100%">
+                <thead>
+                    <tr>
+                        <th>Feature Name</th>
+                        <th>Drawdown (cm)</th>
+                        <th>Depletion Potential (%)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody class="mgw-selectFeatures-table-body"></tbody>
+            </table>
+        </div>
+        <div class="mgw-no-features-selected-text">
+            Click on map to select water features to analyze
+        </div>
     </div>
 </div>

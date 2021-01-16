@@ -5,5 +5,9 @@
 	"stateSet": "no",
 	"layerDefinitions": [],
 	"knownGPMValue": 200,
-	"mapClicked": false
+	"knownSearchGPMValue": 50,
+	"selectedFeatureName": "",
+	"mapClicked": false,
+	"inEvaluate":false,
+	"inSearch": false
 }

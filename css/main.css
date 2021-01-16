@@ -54,11 +54,11 @@ select {
     margin-left: 20px;
 }
 .mgw-back-home-button {
-    padding: 3px;
+    /* padding: 3px;
     margin-left: auto;
     position: absolute;
     right: 10px;
-    top: 10px;
+    top: 10px; */
 }
 
 .mgw-searchbar-wrapper {
@@ -88,7 +88,12 @@ select {
 .mgw-pumping-rate-dropdown {
     text-align: center;
 }
-
+.mgw-search-pumping-rate-dropdown {
+    text-align: center;
+}
+.mgw-search-pumping-rate-dropdown select {
+    width: 250px;
+}
 /* overwrite esri styles */
 .arcgisSearch .searchGroup .searchInput {
     width: 257px !important;
@@ -98,4 +103,30 @@ select {
 }
 .mgw-drawdown-table-wrapper {
     margin-top: 20px;
+    display: none;
+}
+.mgw-selectFeatures-table-wrapper {
+    margin-top: 20px;
+    display: none;
+}
+.mgw-table-select-button {
+    color: blue;
+    text-align: center;
+}
+.mgw-table-select-button:hover {
+    cursor: pointer;
+}
+.mgw-no-features-selected-text {
+    margin-top: 20px;
+    text-align: center;
+    color: grey;
+    font-size: 14px;
+}
+.mgw-table-close {
+    font-size: 20px;
+    line-height: 1;
+    text-align: center;
+}
+.mgw-table-close:hover {
+    cursor: pointer;
 }
