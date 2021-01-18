@@ -52,6 +52,7 @@ define([
                 t.obj.visibleLayers = [0, 1, 2, 3];
                 t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
             });
+            console.log("test");
 
             // on pumping rate select menu change
 
