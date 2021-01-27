@@ -5,183 +5,173 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 
 <!-- Main Content Wrapper -->
 <div id="app" class="mgw-appWrapper">
-    <div class="mgw-agree-wrapper">
-        <h3>
-            Protecting Groundwater Dependent Ecosystems Intended Use Agreement
-        </h3>
+  <div class="mgw-agree-wrapper">
+    <h3>Protecting Groundwater Dependent Ecosystems Intended Use Agreement</h3>
+    <div class="blueFont">
+      This data is only designed to help evaluate possibly locations to find the
+      least impactful areas, it is not intended to be predictive or ….. This
+      data is intended for planning purposes only. Ask Daniel to edit for USGS
+      needs.
+    </div>
+    <label class="form-component mgw-agree-cb-wrapper" for="agree-option">
+      <input type="checkbox" id="agree-option" class="rb_cb" value="layer-7" />
+      <div class="check"></div>
+      <span class="form-text">
+        Check this box to acknowledge the intended use of the tool and
+        associated data</span
+      >
+    </label>
+    <div style="text-align: center">
+      <button class="mgw-agree-button button button-primary" disabled>
+        Enter Site
+      </button>
+    </div>
+  </div>
+  <div class="mgw-main-app-intro-wrapper">
+    <div class="mgw-introTextWrapper blueFont">
+      Groundwater dependent ecosystems (gde) are systems that depend on
+      groundwater inputs to support their natural flora and fauna. These
+      ecosystems can occur in wetlands, lakes and rivers. One rare gde is the
+      fen, a wetland that depend mostly on groundwater inputs rather than
+      surface water flows to support the wetland. The Mukwonago River Basin in
+      southeast Wisconsin has several remaining fens that need careful
+      protection ***** edit text as needed ****
+    </div>
+    <h3>
+      This tool can be used in two ways, please indicate which option meets your
+      planning needs.
+    </h3>
+
+    <div class="mgw-option-wrap">
+      <div class="mgw-main-option-header">Evaluate a planned pumping site</div>
+      <div style="display: flex; align-items: center">
         <div class="blueFont">
-            This data is only designed to help evaluate possibly locations to
-            find the least impactful areas, it is not intended to be predictive
-            or ….. This data is intended for planning purposes only. Ask Daniel
-            to edit for USGS needs.
+          I know the location and pumping rate of a future well and I’d like to
+          evaluate the impacts to a fen, river or lake.
         </div>
-        <label class="form-component mgw-agree-cb-wrapper" for="agree-option">
-            <input
-                type="checkbox"
-                id="agree-option"
-                class="rb_cb"
-                value="layer-7"
-            />
-            <div class="check"></div>
-            <span class="form-text">
-                Check this box to acknowledge the intended use of the tool and
-                associated data</span
-            >
-        </label>
-        <div style="text-align: center">
-            <button class="mgw-agree-button button button-primary" disabled>
-                Enter Site
-            </button>
-        </div>
+        <button
+          class="button button-primary mgw-main-option-button mgw-known-location-button"
+        >
+          GO
+        </button>
+      </div>
     </div>
-    <div class="mgw-main-app-intro-wrapper">
-        <div class="mgw-introTextWrapper blueFont">
-            Groundwater dependent ecosystems (gde) are systems that depend on
-            groundwater inputs to support their natural flora and fauna. These
-            ecosystems can occur in wetlands, lakes and rivers. One rare gde is
-            the fen, a wetland that depend mostly on groundwater inputs rather
-            than surface water flows to support the wetland. The Mukwonago River
-            Basin in southeast Wisconsin has several remaining fens that need
-            careful protection ***** edit text as needed ****
+    <div class="mgw-option-wrap">
+      <div class="mgw-main-option-header">Search for a pumping site</div>
+      <div style="display: flex; align-items: center">
+        <div class="blueFont">
+          I want to review maps of the area around a fen, river or lake to
+          determine where a high capacity well can be sited to reduce impacts on
+          the feature.
         </div>
-        <h3>
-            This tool can be used in two ways, please indicate which option
-            meets your planning needs.
-        </h3>
+        <button
+          class="button button-primary mgw-main-option-button mgw-search-location-button"
+        >
+          GO
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="mgw-known-location-wrapper" style="display: none">
+    <div style="width: 100%; text-align: right">
+      <button
+        class="button button-primary mgw-back-home-button"
+        style="padding: 3px"
+      >
+        Back
+      </button>
+    </div>
 
-        <div class="mgw-option-wrap">
-            <div class="mgw-main-option-header">
-                Evaluate a planned pumping site
-            </div>
-            <div style="display: flex; align-items: center">
-                <div class="blueFont">
-                    I know the location and pumping rate of a future well and
-                    I’d like to evaluate the impacts to a fen, river or lake.
-                </div>
-                <button
-                    class="button button-primary mgw-main-option-button mgw-known-location-button"
-                >
-                    GO
-                </button>
-            </div>
-        </div>
-        <div class="mgw-option-wrap">
-            <div class="mgw-main-option-header">Search for a pumping site</div>
-            <div style="display: flex; align-items: center">
-                <div class="blueFont">
-                    I want to review maps of the area around a fen, river or
-                    lake to determine where a high capacity well can be sited to
-                    reduce impacts on the feature.
-                </div>
-                <button
-                    class="button button-primary mgw-main-option-button mgw-search-location-button"
-                >
-                    GO
-                </button>
-            </div>
-        </div>
+    <h3 style="margin-bottom: 12px; margin-top: -34px">
+      Find address or place or click on map to drop pin.
+    </h3>
+    <div class="mgw-find-address-note">
+      Exact locations are not permissible, will snap to a pre-determined 6-acre
+      grid.
     </div>
-    <div class="mgw-known-location-wrapper" style="display: none">
-        <div style="width: 100%; text-align: right">
-            <button
-                class="button button-primary mgw-back-home-button"
-                style="padding: 3px"
-            >
-                Back
-            </button>
-        </div>
-
-        <h3 style="margin-bottom: 12px; margin-top: -34px">
-            Find address or place or click on map to drop pin.
-        </h3>
-        <div class="mgw-find-address-note">
-            Exact locations are not permissible, will snap to a pre-determined
-            6-acre grid.
-        </div>
-        <div class="mgw-searchbar-wrapper">
-            <div id="mgw-search-bar"></div>
-        </div>
-        <div class="mgw-pumping-rate-dropdown-wrapper">
-            <h3 style="margin-bottom: 4px">
-                What is the yearly average pumping rate for the well?
-            </h3>
-            <div class="mgw-find-address-note">
-                The minimum pumping rate for a high capacity well is 70 gpm.
-                Typical home uses around 200 gpd. A subdivision of 50 homes uses
-                around X gpm. An irrigation well uses between X and X depending
-                on the time of year and crop. Dave will edit
-            </div>
-            <div class="mgw-pumping-rate-dropdown">
-                <select
-                    class="mgw-pumping-rate-select"
-                    placeholder="Pick One Number"
-                    name=""
-                    id=""
-                >
-                    <option disabled value="">Select a pumping rate</option>
-                    <option value="25">25 gpm</option>
-                    <option value="50">50 gpm</option>
-                    <option value="75">75 gpm</option>
-                    <option value="100">100 gpm</option>
-                    <option value="125">125 gpm</option>
-                    <option value="150">150 gpm</option>
-                    <option selected value="200">200 gpm</option>
-                    <option value="250">250 gpm</option>
-                    <option value="300">300 gpm</option>
-                    <option value="400">400 gpm</option>
-                    <option value="500">500 gpm</option>
-                    <option value="600">600 gpm</option>
-                    <option value="700">700 gpm</option>
-                </select>
-            </div>
-        </div>
-        <div class="mgw-drawdown-table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Feature Name</th>
-                        <th>Drawdown (cm)</th>
-                        <th>Depletion Potential (%)</th>
-                        <th>Depletion from Outside Basin</th>
-                    </tr>
-                </thead>
-                <tbody class="mgw-depletion-table-body"></tbody>
-            </table>
-        </div>
+    <div class="mgw-searchbar-wrapper">
+      <div id="mgw-search-bar"></div>
     </div>
-    <div class="mgw-search-location-wrapper" style="display: none">
-        <div style="width: 100%; text-align: right">
-            <button
-                class="button button-primary mgw-back-home-button"
-                style="padding: 3px"
-            >
-                Back
-            </button>
-        </div>
-        <h3 style="width: 89%; margin-top: -26px">
-            Select one or more features of interest to explore the impact of
-            nearby high capacity pumping.
-        </h3>
-        <h4 style="margin-bottom: 4px">Select pumping rate</h4>
-        <div class="mgw-find-address-note">
-            The minimum pumping rate for a high capacity well is 70 gpm. Typical
-            home uses around 200 gpd. A subdivision of 50 homes uses around X
-            gpm. An irrigation well uses between X and X depending on the time
-            of year and crop. Dave will edit
-        </div>
-        <div class="mgw-search-pumping-rate-dropdown">
-            <select
-                class="mgw-pumping-rate-search-select"
-                placeholder="Pick One Number"
-                name=""
-                id=""
-            >
-                <option disabled value="">Select a pumping rate</option>
-                <option value="25">25 gpm</option>
-                <option selected value="50">50 gpm</option>
-                <option value="75">75 gpm</option>
-                <option value="100">100 gpm</option>
-                <!-- <option value="125">125 gpm</option>
+    <div class="mgw-pumping-rate-dropdown-wrapper">
+      <h3 style="margin-bottom: 4px">
+        What is the yearly average pumping rate for the well?
+      </h3>
+      <div class="mgw-find-address-note">
+        The minimum pumping rate for a high capacity well is 70 gpm. Typical
+        home uses around 200 gpd. A subdivision of 50 homes uses around X gpm.
+        An irrigation well uses between X and X depending on the time of year
+        and crop. Dave will edit
+      </div>
+      <div class="mgw-pumping-rate-dropdown">
+        <select
+          class="mgw-pumping-rate-select"
+          placeholder="Pick One Number"
+          name=""
+          id=""
+        >
+          <option disabled value="">Select a pumping rate</option>
+          <option value="25">25 gpm</option>
+          <option value="50">50 gpm</option>
+          <option value="75">75 gpm</option>
+          <option value="100">100 gpm</option>
+          <option value="125">125 gpm</option>
+          <option value="150">150 gpm</option>
+          <option selected value="200">200 gpm</option>
+          <option value="250">250 gpm</option>
+          <option value="300">300 gpm</option>
+          <option value="400">400 gpm</option>
+          <option value="500">500 gpm</option>
+          <option value="600">600 gpm</option>
+          <option value="700">700 gpm</option>
+        </select>
+      </div>
+    </div>
+    <div class="mgw-drawdown-table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Feature Name</th>
+            <th>Drawdown (cm)</th>
+            <th>Depletion Potential (%)</th>
+          </tr>
+        </thead>
+        <tbody class="mgw-depletion-table-body"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="mgw-search-location-wrapper" style="display: none">
+    <div style="width: 100%; text-align: right">
+      <button
+        class="button button-primary mgw-back-home-button"
+        style="padding: 3px"
+      >
+        Back
+      </button>
+    </div>
+    <h3 style="width: 89%; margin-top: -26px">
+      Select one or more features of interest to explore the impact of nearby
+      high capacity pumping.
+    </h3>
+    <h4 style="margin-bottom: 4px">Select pumping rate</h4>
+    <div class="mgw-find-address-note">
+      The minimum pumping rate for a high capacity well is 70 gpm. Typical home
+      uses around 200 gpd. A subdivision of 50 homes uses around X gpm. An
+      irrigation well uses between X and X depending on the time of year and
+      crop. Dave will edit
+    </div>
+    <div class="mgw-search-pumping-rate-dropdown">
+      <select
+        class="mgw-pumping-rate-search-select"
+        placeholder="Pick One Number"
+        name=""
+        id=""
+      >
+        <option disabled value="">Select a pumping rate</option>
+        <option value="25">25 gpm</option>
+        <option selected value="50">50 gpm</option>
+        <option value="75">75 gpm</option>
+        <option value="100">100 gpm</option>
+        <!-- <option value="125">125 gpm</option>
                 <option value="150">150 gpm</option>
                 <option selected value="200">200 gpm</option>
                 <option value="250">250 gpm</option>
@@ -190,23 +180,23 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
                 <option value="500">500 gpm</option>
                 <option value="600">600 gpm</option>
                 <option value="700">700 gpm</option> -->
-            </select>
-        </div>
-        <div class="mgw-selectFeatures-table-wrapper">
-            <table style="width: 100%">
-                <thead>
-                    <tr>
-                        <th>Feature Name</th>
-                        <th>Drawdown (cm)</th>
-                        <th>Depletion Potential (%)</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody class="mgw-selectFeatures-table-body"></tbody>
-            </table>
-        </div>
-        <div class="mgw-no-features-selected-text">
-            Click on map to select water features to analyze
-        </div>
+      </select>
     </div>
+    <div class="mgw-selectFeatures-table-wrapper">
+      <table style="width: 100%">
+        <thead>
+          <tr>
+            <th>Feature Name</th>
+            <th>Drawdown (cm)</th>
+            <th>Depletion Potential (%)</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody class="mgw-selectFeatures-table-body"></tbody>
+      </table>
+    </div>
+    <div class="mgw-no-features-selected-text">
+      Click on map to select water features to analyze
+    </div>
+  </div>
 </div>

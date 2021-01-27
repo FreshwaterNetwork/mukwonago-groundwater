@@ -51,6 +51,11 @@ define([
         $(".mgw-main-app-intro-wrapper").show();
         t.obj.visibleLayers = [0, 1, 2, 3];
         t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+
+        // clear and hide depletion table wrapper
+        let waterFeatureTable = $(".mgw-depletion-table-body");
+        waterFeatureTable.empty();
+        $(".mgw-drawdown-table-wrapper").hide();
       });
       console.log("test");
 
@@ -89,68 +94,47 @@ define([
     // // build the drawdown report table //////////////////////////////////////////////////
     // do this on map click and on dropdown selection
     buildDrawdownTable: function (t, waterFeatureData) {
-      console.log(waterFeatureData);
-
-      //   waterFeatureData.sort((a, b) => (a.fenDrawdown < b.fenDrawdown ? 1 : -1));
       let fenFeats = [];
-      //   let lakeFeats = [];
-      //   let streamFeats = [];
       let lakeStreamFeats = [];
       waterFeatureData.forEach((feat) => {
         if (feat.fenDrawdown) {
           fenFeats.push(feat);
         } else if (feat.lakeDepletion) {
           feat["depletion"] = feat.lakeDepletion;
-          console.log(feat);
           lakeStreamFeats.push(feat);
         } else if (feat.streamDepletion) {
           feat.depletion = feat.streamDepletion;
-          console.log(feat);
           lakeStreamFeats.push(feat);
         }
       });
       fenFeats.sort((a, b) => (a.fenDrawdown < b.fenDrawdown ? 1 : -1));
       lakeStreamFeats.sort((a, b) => (a.depletion < b.depletion ? 1 : -1));
-      //   streamFeats.sort((a, b) =>
-      //     a.streamDepletion < b.streamDepletion ? 1 : -1
-      //   );
-      console.log(fenFeats, lakeStreamFeats);
+
       $(".mgw-drawdown-table-wrapper").show();
       let waterFeatureTable = $(".mgw-depletion-table-body");
       waterFeatureTable.empty();
       fenFeats.forEach((feat) => {
         let data;
         if (feat.fenDrawdown) {
-          data = `<tr><td>${feat.commonName}</td><td>${feat.fenDrawdown}</td><td>--</td><td>--</td></tr>`;
+          if (feat.fenDrawdown >= 20) {
+            data = `<tr><td>${feat.commonName}</td><td style="color:red !important;">${feat.fenDrawdown}</td><td>--</td></tr>`;
+          } else {
+            data = `<tr><td>${feat.commonName}</td><td>${feat.fenDrawdown}</td><td>--</td></tr>`;
+          }
         }
         waterFeatureTable.append(data);
       });
       lakeStreamFeats.forEach((feat) => {
         let data;
         if (feat.depletion) {
-          data = `<tr><td>${feat.commonName}</td><td></td>--<td>${feat.depletion}</td><td>--</td></tr>`;
+          if (feat.depletion >= 5) {
+            data = `<tr><td>${feat.commonName}</td><td></td>--<td style="color:red !important;">${feat.depletion}</td></tr>`;
+          } else {
+            data = `<tr><td>${feat.commonName}</td><td></td>--<td>${feat.depletion}</td></tr>`;
+          }
         }
         waterFeatureTable.append(data);
       });
-      //   streamFeats.forEach((feat) => {
-      //     let data;
-      //     if (feat.streamDepletion) {
-      //       data = `<tr><td>${feat.commonName}</td><td>--</td><td>${feat.streamDepletion}</td><td>--</td></tr>`;
-      //     }
-      //     waterFeatureTable.append(data);
-      //   });
-      // console.log(waterFeatureTable);
-      //   waterFeatureData.forEach((feat) => {
-      //     let data;
-      //     if (feat.fenDrawdown) {
-      //       data = `<tr><td>${feat.commonName}</td><td>${feat.fenDrawdown}</td><td>--</td><td>--</td></tr>`;
-      //     } else if (feat.lakeDepletion) {
-      //       data = `<tr><td>${feat.commonName}</td><td>-</td><td>${feat.lakeDepletion}</td><td>-</td></tr>`;
-      //     } else if (feat.streamDepletion) {
-      //       data = `<tr><td>${feat.commonName}</td><td>--</td><td>${feat.streamDepletion}</td><td>--</td></tr>`;
-      //     }
-      //     waterFeatureTable.append(data);
-      //   });
     },
     buildSelectedWaterFeatureTable: function (t) {
       $(".mgw-selectFeatures-table-wrapper").show();
