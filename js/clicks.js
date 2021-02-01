@@ -56,11 +56,12 @@ define([
         let waterFeatureTable = $(".mgw-depletion-table-body");
         waterFeatureTable.empty();
         $(".mgw-drawdown-table-wrapper").hide();
+        // t.selectedFeatureTable.empty();
+        $(".mgw-selectFeatures-table-wrapper").hide();
+        t.selectedWaterFeatures = [];
       });
-      console.log("test");
 
       // on pumping rate select menu change
-
       $(".mgw-pumping-rate-select").on("change", (evt) => {
         $.each($(".mgw-pumping-rate-select option"), function (i, v) {
           if (v.selected) {
@@ -90,13 +91,60 @@ define([
           t.esriapi.displayDrawdownRasterOnMap(t);
         }
       );
+
+      // search table row click
+
+      $(document).on("mouseover", ".mgw-search-table-row", function (evt) {
+        // add hover selected class
+        $(evt.currentTarget).css("background-color", "rgba(255, 255, 0, .3)");
+        // add geometry to selected graphic on map
+        let selectedRow = t.selectedFeatures.filter(function (waterFeature) {
+          return (
+            waterFeature.attributes.CommonName ==
+            $(evt.currentTarget).data().name
+          );
+        });
+        if (selectedRow.length > 0) {
+          let geometry = selectedRow[0].geometry;
+          t.esriapi.highlightSelectedWaterFeatures(t, geometry);
+        }
+      });
+      $(document).on("mouseout", ".mgw-search-table-row", function (evt) {
+        // remove hover selected class
+        $(evt.currentTarget).css("background-color", "white");
+
+        // remove geometry to selected graphic on map
+        t.hoverGraphicsLayer.clear();
+      });
+
+      // on selected water feature table row close click
+      $(document).on("click", ".mgw-selected-row-close", function (evt) {
+        console.log(evt);
+        console.log(t.selectedWaterFeatures);
+        t.selectedWaterFeatures = t.selectedWaterFeatures.filter(function (
+          waterFeature
+        ) {
+          return (
+            waterFeature.attributes.CommonName !=
+            $(evt.currentTarget).data().name
+          );
+        });
+
+        t.clicks.buildSelectedWaterFeatureTable(t);
+        t.esriapi.highlightSelectedWaterFeatures(t);
+        if (t.selectedWaterFeatures.length == 0) {
+          $(".mgw-selectFeatures-table-wrapper").hide();
+          t.selectedWaterFeatures = [];
+          $(".mgw-no-features-selected-text").show();
+        }
+      });
     },
     // // build the drawdown report table //////////////////////////////////////////////////
     // do this on map click and on dropdown selection
     buildDrawdownTable: function (t, waterFeatureData) {
       let fenFeats = [];
       let lakeStreamFeats = [];
-      waterFeatureData.forEach((feat) => {
+      t.waterFeatureData.forEach((feat) => {
         if (feat.fenDrawdown) {
           fenFeats.push(feat);
         } else if (feat.lakeDepletion) {
@@ -117,9 +165,9 @@ define([
         let data;
         if (feat.fenDrawdown) {
           if (feat.fenDrawdown >= 20) {
-            data = `<tr><td>${feat.commonName}</td><td style="color:red !important;">${feat.fenDrawdown}</td><td>--</td></tr>`;
+            data = `<tr class="mgw-search-table-row" data-name='${feat.commonName}'><td>${feat.commonName}</td><td style="color:red !important;">${feat.fenDrawdown}</td><td>--</td></tr>`;
           } else {
-            data = `<tr><td>${feat.commonName}</td><td>${feat.fenDrawdown}</td><td>--</td></tr>`;
+            data = `<tr class="mgw-search-table-row" data-name='${feat.commonName}'><td>${feat.commonName}</td><td>${feat.fenDrawdown}</td><td>--</td></tr>`;
           }
         }
         waterFeatureTable.append(data);
@@ -128,9 +176,9 @@ define([
         let data;
         if (feat.depletion) {
           if (feat.depletion >= 5) {
-            data = `<tr><td>${feat.commonName}</td><td></td>--<td style="color:red !important;">${feat.depletion}</td></tr>`;
+            data = `<tr class="mgw-search-table-row" data-name='${feat.commonName}'><td>${feat.commonName}</td><td></td>--<td style="color:red !important;">${feat.depletion}</td></tr>`;
           } else {
-            data = `<tr><td>${feat.commonName}</td><td></td>--<td>${feat.depletion}</td></tr>`;
+            data = `<tr class="mgw-search-table-row" data-name='${feat.commonName}'><td>${feat.commonName}</td><td></td>--<td>${feat.depletion}</td></tr>`;
           }
         }
         waterFeatureTable.append(data);
@@ -140,22 +188,20 @@ define([
       $(".mgw-selectFeatures-table-wrapper").show();
       $(".mgw-no-features-selected-text").hide();
 
-      let selectedFeatureTable = $(".mgw-selectFeatures-table-body");
-      selectedFeatureTable.empty();
-      console.log("build water feature table", t.selectedWaterFeatures);
+      t.selectedFeatureTable = $(".mgw-selectFeatures-table-body");
+      t.selectedFeatureTable.empty();
       t.selectedWaterFeatures.forEach((feat) => {
-        console.log(feat.attributes);
         let isFen = feat.attributes.Name.includes("fen");
         let isLake = feat.attributes.Name.includes("lk");
         let data;
         if (isFen) {
-          data = `<tr><td>${feat.attributes.CommonName}</td><td class="mgw-table-select-button" data-featureName="${feat.attributes.Name}">View Map</td><td>--</td><td class="mgw-table-close">×</td></tr>`;
+          data = `<tr><td>${feat.attributes.CommonName}</td><td class="mgw-table-select-button" data-featureName="${feat.attributes.Name}">View Map</td><td>--</td><td data-name="${feat.attributes.CommonName}" class="mgw-selected-row-close">×</td></tr>`;
         } else if (isLake) {
-          data = `<tr><td>${feat.attributes.CommonName}</td><td>--</td><td class="mgw-table-select-button" data-featureName="${feat.attributes.Name}">View Map</td><td class="mgw-table-close">×</td></tr>`;
+          data = `<tr><td>${feat.attributes.CommonName}</td><td>--</td><td class="mgw-table-select-button" data-featureName="${feat.attributes.Name}">View Map</td><td data-name="${feat.attributes.CommonName}" class="mgw-selected-row-close">×</td></tr>`;
         } else {
-          data = `<tr><td>${feat.attributes.ID}</td><td>--</td><td class="mgw-table-select-button" data-featureName="${feat.attributes.Name}">View Map</td><td class="mgw-table-close">×</td></tr>`;
+          data = `<tr><td>${feat.attributes.CommonName}</td><td>--</td><td class="mgw-table-select-button" data-featureName="${feat.attributes.Name}">View Map</td><td data-name="${feat.attributes.CommonName}" class="mgw-selected-row-close">×</td></tr>`;
         }
-        selectedFeatureTable.append(data);
+        t.selectedFeatureTable.append(data);
       });
     },
 

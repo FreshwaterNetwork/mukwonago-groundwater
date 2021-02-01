@@ -36,6 +36,8 @@ define([
   return declare(null, {
     esriApiFunctions: function (t) {
       t.selectedWaterFeatures = [];
+      t.hoverGraphicsLayer = new GraphicsLayer();
+      t.map.addLayer(t.hoverGraphicsLayer);
       // circle symbology
       t.circleSymb = new SimpleFillSymbol(
         SimpleFillSymbol.STYLE_NULL,
@@ -73,7 +75,6 @@ define([
 
       // on search event
       t.search.on("search-results", function (results) {
-        console.log(results.results[0][0].feature, "eeeeee");
         t.obj.knownMapPoint = results.results[0][0].feature.geometry;
         t.esriapi.searchWaterFeatures(t);
       });
@@ -86,7 +87,6 @@ define([
           t.obj.mapClicked = true;
         }
         if (t.obj.inSearch) {
-          console.log(evt.mapPoint, "in search");
           t.searchMapPoint = evt.mapPoint;
           t.esriapi.selectWaterFeature(t);
         }
@@ -163,14 +163,13 @@ define([
           });
           i++;
           if (i === 3) {
-            // t.clicks.buildDrawdownTable(t);
             findDrawdownDepletions(t.selectedFeatures);
           }
         });
       });
 
       function findDrawdownDepletions(feats) {
-        let waterFeatureData = [];
+        t.waterFeatureData = [];
         feats.forEach((feat) => {
           let commonName;
           if (feat.attributes.CommonName) {
@@ -178,7 +177,7 @@ define([
           } else {
             commonName = feat.attributes.Name;
           }
-          waterFeatureData.push({
+          t.waterFeatureData.push({
             shortName: feat.attributes.Name,
             commonName: commonName,
           });
@@ -190,11 +189,12 @@ define([
         let qt = new QueryTask(t.obj.url + "/4");
         qt.execute(query, (results) => {
           results.features.forEach((feat) => {
+            let geometry = feat.geometry;
             if (
               parseInt(t.obj.knownGPMValue) === parseInt(feat.attributes.gpm)
             ) {
               // build out water feature data
-              waterFeatureData.forEach((waterFeat) => {
+              t.waterFeatureData.forEach((waterFeat) => {
                 let streamFlowDepletion = null;
                 let lakeDepletion = null;
                 let fenDrawdown = waterFeat.shortName + "_ddn_max";
@@ -215,16 +215,16 @@ define([
                 waterFeat.lakeDepletion = feat.attributes[lakeDepletion];
                 waterFeat.streamDepletion =
                   feat.attributes[streamFlowDepletion];
+                waterFeat.geometry = geometry;
               });
               // send data to clicks to build the html table
-              t.clicks.buildDrawdownTable(t, waterFeatureData);
+              t.clicks.buildDrawdownTable(t, t.waterFeatureData);
             }
           });
         });
       }
     },
     selectWaterFeature: function (t) {
-      console.log("select water features");
       // scale dependent click to grab a point
       let centerPoint = new esri.geometry.Point(
         t.searchMapPoint.x,
@@ -246,26 +246,44 @@ define([
       query.geometry = ext.centerAt(centerPoint);
       query.returnGeometry = true;
       query.outFields = ["*"];
-      let qt1 = new QueryTask(t.obj.url + "/1");
+      let qt1 = new QueryTask(t.obj.url + "/3");
       let qt2 = new QueryTask(t.obj.url + "/2");
-      let qt3 = new QueryTask(t.obj.url + "/3");
-
+      let qt3 = new QueryTask(t.obj.url + "/1");
       qt1.execute(query, (fens) => {
         if (fens.features.length > 0) {
           fens.features.forEach((fen) => {
-            t.selectedWaterFeatures.push(fen);
+            const index = t.selectedWaterFeatures.findIndex(
+              (item) => item.attributes.CommonName == fen.attributes.CommonName
+            );
+            if (index == -1) {
+              t.selectedWaterFeatures.push(fen);
+            }
           });
         }
         qt2.execute(query, (lakes) => {
           if (lakes.features.length > 0) {
             lakes.features.forEach((lake) => {
-              t.selectedWaterFeatures.push(lake);
+              //   t.selectedWaterFeatures.push(lake);
+              const index = t.selectedWaterFeatures.findIndex(
+                (item) =>
+                  item.attributes.CommonName == lake.attributes.CommonName
+              );
+              if (index == -1) {
+                t.selectedWaterFeatures.push(lake);
+              }
             });
           }
           qt3.execute(query, (streams) => {
             if (streams.features.length > 0) {
               streams.features.forEach((stream) => {
-                t.selectedWaterFeatures.push(stream);
+                // t.selectedWaterFeatures.push(stream);
+                const index = t.selectedWaterFeatures.findIndex(
+                  (item) =>
+                    item.attributes.CommonName == stream.attributes.CommonName
+                );
+                if (index == -1) {
+                  t.selectedWaterFeatures.push(stream);
+                }
               });
             }
             t.esriapi.highlightSelectedWaterFeatures(t);
@@ -274,8 +292,7 @@ define([
         });
       });
     },
-    highlightSelectedWaterFeatures: function (t) {
-      t.map.graphics.clear();
+    highlightSelectedWaterFeatures: function (t, hoverRowGeometry) {
       // Add the buffer graphic to the map
       var polySelectSym = new SimpleFillSymbol()
         .setColor(new Color([56, 102, 164, 0.0]))
@@ -296,15 +313,29 @@ define([
         ),
         new Color([255, 255, 0, 1])
       );
-      t.selectedWaterFeatures.forEach((feat) => {
-        if (feat.attributes.Name.includes("sfr")) {
-          var polySelectGraphic = new Graphic(feat.geometry, pointMarker);
-          t.map.graphics.add(polySelectGraphic);
+      if (hoverRowGeometry) {
+        let selectGraphic;
+        t.hoverGraphicsLayer.clear();
+        let isPoly = hoverRowGeometry.hasOwnProperty("rings");
+
+        if (isPoly) {
+          selectGraphic = new Graphic(hoverRowGeometry, polySelectSym);
         } else {
-          var polySelectGraphic = new Graphic(feat.geometry, polySelectSym);
-          t.map.graphics.add(polySelectGraphic);
+          selectGraphic = new Graphic(hoverRowGeometry, pointMarker);
         }
-      });
+        t.hoverGraphicsLayer.add(selectGraphic);
+      } else {
+        t.map.graphics.clear();
+        t.selectedWaterFeatures.forEach((feat) => {
+          if (feat.attributes.Name.includes("sfr")) {
+            var polySelectGraphic = new Graphic(feat.geometry, pointMarker);
+            t.map.graphics.add(polySelectGraphic);
+          } else {
+            var polySelectGraphic = new Graphic(feat.geometry, polySelectSym);
+            t.map.graphics.add(polySelectGraphic);
+          }
+        });
+      }
     },
     displayDrawdownRasterOnMap: function (t) {
       t.obj.visibleLayers = [0, 1, 2, 3];
@@ -315,11 +346,10 @@ define([
         layerName = `${t.obj.selectedFeatureName}_flow_rel_${t.obj.knownSearchGPMValue}_gpm`;
       }
       console.log(t.obj.selectedFeatureName);
-      console.log(t.obj.knownSearchGPMValue);
-      console.log(t.layersArray);
+      //   console.log(t.obj.knownSearchGPMValue);
+      //   console.log(t.layersArray);
       console.log(layerName);
       t.layersArray.forEach((lyr) => {
-        // console.log(lyr.name, layerName);
         if (lyr.name == layerName) {
           console.log(lyr.id);
           t.obj.visibleLayers.push(lyr.id);

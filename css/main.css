@@ -3,12 +3,12 @@ th,
 td,
 table,
 select {
-    border: solid 1px rgba(0, 0, 0, 0.2);
-    border-collapse: collapse;
-    /* padding: 0;
+  border: solid 1px rgba(0, 0, 0, 0.2);
+  border-collapse: collapse;
+  /* padding: 0;
     margin: 0; */
-    color: #525454;
-    border-radius: 3px;
+  color: #525454;
+  border-radius: 3px;
 }
 /* select {
     color: #525454;
@@ -16,45 +16,45 @@ select {
     border-radius: 3px;
 } */
 .mgw-appWrapper {
-    padding: 5px;
+  padding: 5px;
 }
 .mgw-agree-wrapper {
-    display: none;
+  display: none;
 }
 .mgw-main-app-intro-wrapper {
-    /* display: none; */
+  /* display: none; */
 }
 .mgw-agree-wrapper {
-    width: 90%;
-    margin: auto;
+  width: 90%;
+  margin: auto;
 }
 .mgw-agree-cb-wrapper {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .mgw-option-wrap {
-    border: 1pt solid #cdd5d5;
-    padding: 5px;
-    width: 90%;
-    box-shadow: 0 1px 1px rgba(16, 22, 26, 0.2);
-    position: relative;
-    margin: auto;
-    margin-bottom: 10px;
+  border: 1pt solid #cdd5d5;
+  padding: 5px;
+  width: 90%;
+  box-shadow: 0 1px 1px rgba(16, 22, 26, 0.2);
+  position: relative;
+  margin: auto;
+  margin-bottom: 10px;
 }
 .mgw-main-option-header {
-    font-weight: bold;
-    font-size: 15px;
-    margin-bottom: 7px;
+  font-weight: bold;
+  font-size: 15px;
+  margin-bottom: 7px;
 }
 .mgw-main-option-button {
-    padding: 5px !important;
-    margin-left: auto;
-    display: flex;
-    margin-right: 10px;
-    margin-left: 20px;
+  padding: 5px !important;
+  margin-left: auto;
+  display: flex;
+  margin-right: 10px;
+  margin-left: 20px;
 }
 .mgw-back-home-button {
-    /* padding: 3px;
+  /* padding: 3px;
     margin-left: auto;
     position: absolute;
     right: 10px;
@@ -62,71 +62,72 @@ select {
 }
 
 .mgw-searchbar-wrapper {
-    background-color: #457545;
-    width: 91%;
-    text-align: center;
-    padding: 7px;
-    border-radius: 5px;
-    margin-left: 10px;
-    /* margin: auto; */
+  background-color: #457545;
+  width: 91%;
+  text-align: center;
+  padding: 7px;
+  border-radius: 5px;
+  margin-left: 10px;
+  /* margin: auto; */
 }
 .mgw-searchbar-wrapper div {
-    /* margin: auto; */
-    /* margin-left: 5px; */
+  /* margin: auto; */
+  /* margin-left: 5px; */
 }
 .mgw-find-address-note {
-    font-size: 12px;
-    font-style: italic;
-    color: grey;
-    width: 100%;
-    margin-left: 0px;
-    margin-bottom: 5px;
+  font-size: 12px;
+  font-style: italic;
+  color: grey;
+  width: 100%;
+  margin-left: 0px;
+  margin-bottom: 5px;
 }
 .mgw-pumping-rate-dropdown select {
-    width: 250px;
+  width: 250px;
 }
 .mgw-pumping-rate-dropdown {
-    text-align: center;
+  text-align: center;
 }
 .mgw-search-pumping-rate-dropdown {
-    text-align: center;
+  text-align: center;
 }
 .mgw-search-pumping-rate-dropdown select {
-    width: 250px;
+  width: 250px;
 }
 /* overwrite esri styles */
 .arcgisSearch .searchGroup .searchInput {
-    width: 257px !important;
+  width: 257px !important;
 }
 .searchClear {
-    right: -106px !important;
+  right: -106px !important;
 }
 .mgw-drawdown-table-wrapper {
-    margin-top: 20px;
-    display: none;
+  margin-top: 20px;
+  display: none;
+  margin-bottom: 20px;
 }
 .mgw-selectFeatures-table-wrapper {
-    margin-top: 20px;
-    display: none;
+  margin-top: 20px;
+  display: none;
 }
 .mgw-table-select-button {
-    color: blue;
-    text-align: center;
+  color: blue;
+  text-align: center;
 }
 .mgw-table-select-button:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 .mgw-no-features-selected-text {
-    margin-top: 20px;
-    text-align: center;
-    color: grey;
-    font-size: 14px;
+  margin-top: 20px;
+  text-align: center;
+  color: grey;
+  font-size: 14px;
 }
-.mgw-table-close {
-    font-size: 20px;
-    line-height: 1;
-    text-align: center;
+.mgw-selected-row-close {
+  font-size: 20px;
+  line-height: 1;
+  text-align: center;
 }
-.mgw-table-close:hover {
-    cursor: pointer;
+.mgw-selected-row-close:hover {
+  cursor: pointer;
 }
