@@ -87,7 +87,20 @@ define([
         "click",
         ".mgw-table-select-button",
         function (evt) {
-          t.obj.selectedFeatureName = evt.currentTarget.dataset.featurename;
+          console.log($(evt.currentTarget).data());
+          t.obj.selectedFeatureName = $(evt.currentTarget).data().featurename;
+          let selectBtns = $(evt.currentTarget)
+            .parent()
+            .parent()
+            .find(".mgw-table-select-button");
+
+          $.each(selectBtns, (i, selectBtn) => {
+            $(selectBtn)[0].innerHTML = "View Map";
+            $(selectBtn).css("font-weight", "normal");
+          });
+          $(evt.currentTarget)[0].innerHTML = "Map Selected";
+          $(evt.currentTarget).css("font-weight", "bold");
+
           t.esriapi.displayDrawdownRasterOnMap(t);
         }
       );
@@ -119,8 +132,19 @@ define([
 
       // on selected water feature table row close click
       $(document).on("click", ".mgw-selected-row-close", function (evt) {
-        console.log(evt);
-        console.log(t.selectedWaterFeatures);
+        let currentMapStatus = $(evt.currentTarget)
+          .parent()
+          .find(".mgw-table-select-button")[0].innerHTML;
+        if (currentMapStatus != "View Map") {
+          console.log("remove layer form viz layers");
+          t.obj.visibleLayers = [0, 1, 2, 3];
+          t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+        } else {
+          console.log("dont remove layer");
+        }
+
+        $(evt.currentTarget).parent().hide();
+
         t.selectedWaterFeatures = t.selectedWaterFeatures.filter(function (
           waterFeature
         ) {
@@ -130,8 +154,9 @@ define([
           );
         });
 
-        t.clicks.buildSelectedWaterFeatureTable(t);
+        // t.clicks.buildSelectedWaterFeatureTable(t);
         t.esriapi.highlightSelectedWaterFeatures(t);
+
         if (t.selectedWaterFeatures.length == 0) {
           $(".mgw-selectFeatures-table-wrapper").hide();
           t.selectedWaterFeatures = [];
@@ -185,24 +210,26 @@ define([
       });
     },
     buildSelectedWaterFeatureTable: function (t) {
-      $(".mgw-selectFeatures-table-wrapper").show();
-      $(".mgw-no-features-selected-text").hide();
-
-      t.selectedFeatureTable = $(".mgw-selectFeatures-table-body");
-      t.selectedFeatureTable.empty();
-      t.selectedWaterFeatures.forEach((feat) => {
-        let isFen = feat.attributes.Name.includes("fen");
-        let isLake = feat.attributes.Name.includes("lk");
-        let data;
-        if (isFen) {
-          data = `<tr><td>${feat.attributes.CommonName}</td><td class="mgw-table-select-button" data-featureName="${feat.attributes.Name}">View Map</td><td>--</td><td data-name="${feat.attributes.CommonName}" class="mgw-selected-row-close">×</td></tr>`;
-        } else if (isLake) {
-          data = `<tr><td>${feat.attributes.CommonName}</td><td>--</td><td class="mgw-table-select-button" data-featureName="${feat.attributes.Name}">View Map</td><td data-name="${feat.attributes.CommonName}" class="mgw-selected-row-close">×</td></tr>`;
-        } else {
-          data = `<tr><td>${feat.attributes.CommonName}</td><td>--</td><td class="mgw-table-select-button" data-featureName="${feat.attributes.Name}">View Map</td><td data-name="${feat.attributes.CommonName}" class="mgw-selected-row-close">×</td></tr>`;
-        }
-        t.selectedFeatureTable.append(data);
-      });
+      if (t.selectedWaterFeatures.length > 0) {
+        $(".mgw-selectFeatures-table-wrapper").show();
+        $(".mgw-no-features-selected-text").hide();
+        console.log(t.selectedWaterFeatures);
+        t.selectedFeatureTable = $(".mgw-selectFeatures-table-body");
+        t.selectedFeatureTable.empty();
+        t.selectedWaterFeatures.forEach((feat) => {
+          let isFen = feat.attributes.Name.includes("fen");
+          let isLake = feat.attributes.Name.includes("lk");
+          let data;
+          if (isFen) {
+            data = `<tr><td>${feat.attributes.CommonName}</td><td class="mgw-table-select-button" data-featureName="${feat.attributes.CommonName}">View Map</td><td>--</td><td data-name="${feat.attributes.CommonName}" class="mgw-selected-row-close">×</td></tr>`;
+          } else if (isLake) {
+            data = `<tr><td>${feat.attributes.CommonName}</td><td>--</td><td class="mgw-table-select-button" data-featureName="${feat.attributes.CommonName}">View Map</td><td data-name="${feat.attributes.CommonName}" class="mgw-selected-row-close">×</td></tr>`;
+          } else {
+            data = `<tr><td>${feat.attributes.CommonName}</td><td>--</td><td class="mgw-table-select-button" data-featureName="${feat.attributes.CommonName}">View Map</td><td data-name="${feat.attributes.CommonName}" class="mgw-selected-row-close">×</td></tr>`;
+          }
+          t.selectedFeatureTable.append(data);
+        });
+      }
     },
 
     makeVariables: function (t) {},

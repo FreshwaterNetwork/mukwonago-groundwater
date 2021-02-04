@@ -340,10 +340,11 @@ define([
     displayDrawdownRasterOnMap: function (t) {
       t.obj.visibleLayers = [0, 1, 2, 3];
       let layerName;
-      if (t.obj.selectedFeatureName.includes("fen")) {
-        layerName = `${t.obj.selectedFeatureName}_ddn_max_${t.obj.knownSearchGPMValue}_gpm`;
+      console.log(t.obj.selectedFeatureName);
+      if (t.obj.selectedFeatureName.includes("Fen")) {
+        layerName = `${t.obj.selectedFeatureName} - Drawdown - ${t.obj.knownSearchGPMValue} gpm`;
       } else {
-        layerName = `${t.obj.selectedFeatureName}_flow_rel_${t.obj.knownSearchGPMValue}_gpm`;
+        layerName = `${t.obj.selectedFeatureName} - Depletion - ${t.obj.knownSearchGPMValue} gpm`;
       }
       console.log(t.obj.selectedFeatureName);
       //   console.log(t.obj.knownSearchGPMValue);
