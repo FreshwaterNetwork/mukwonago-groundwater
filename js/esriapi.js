@@ -341,7 +341,7 @@ define([
       }
     },
     displayDrawdownRasterOnMap: function (t) {
-      t.obj.visibleLayers = [0, 1, 2, 3];
+      t.obj.visibleLayers = [0, 1, 2, 3, 4];
       t.layersArray.forEach((lyr) => {
         let lyrNameSplit = lyr.name.split("-");
         if (

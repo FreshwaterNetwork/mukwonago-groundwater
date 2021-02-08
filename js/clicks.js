@@ -49,7 +49,7 @@ define([
         $(".mgw-known-location-wrapper").hide();
         $(".mgw-search-location-wrapper").hide();
         $(".mgw-main-app-intro-wrapper").show();
-        t.obj.visibleLayers = [0, 1, 2, 3];
+        t.obj.visibleLayers = [0, 1, 2, 3, 4];
         t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 
         // clear and hide depletion table wrapper
@@ -95,7 +95,6 @@ define([
         t.esriapi.searchWaterFeatures(t);
       });
       $(".mgw-search-pumping-rate-dropdown").on("change", (evt) => {
-        console.log("change");
         $.each($(".mgw-search-pumping-rate-dropdown option"), function (i, v) {
           if (v.selected) {
             // set the GPM value
@@ -110,7 +109,6 @@ define([
         "click",
         ".mgw-table-select-button",
         function (evt) {
-          console.log($(evt.currentTarget).data());
           t.obj.selectedFeatureName = $(evt.currentTarget).data().featurename;
           let selectBtns = $(evt.currentTarget)
             .parent()
@@ -158,11 +156,10 @@ define([
           .parent()
           .find(".mgw-table-select-button")[0].innerHTML;
         if (currentMapStatus != "View Map") {
-          console.log("remove layer form viz layers");
-          t.obj.visibleLayers = [0, 1, 2, 3];
+          t.obj.visibleLayers = [0, 1, 2, 3, 4];
           t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
         } else {
-          console.log("dont remove layer");
+          ("");
         }
 
         $(evt.currentTarget).parent().hide();
@@ -235,7 +232,6 @@ define([
       if (t.selectedWaterFeatures.length > 0) {
         $(".mgw-selectFeatures-table-wrapper").show();
         $(".mgw-no-features-selected-text").hide();
-        console.log(t.selectedWaterFeatures);
         t.selectedFeatureTable = $(".mgw-selectFeatures-table-body");
         t.selectedFeatureTable.empty();
         t.selectedWaterFeatures.forEach((feat) => {
