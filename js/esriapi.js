@@ -189,7 +189,7 @@ define([
         query.geometry = t.obj.knownMapPoint;
         query.returnGeometry = true;
         query.outFields = ["*"];
-        let qt = new QueryTask(t.obj.url + "/4");
+        let qt = new QueryTask(t.obj.url + "/5");
         qt.execute(query, (results) => {
           results.features.forEach((feat) => {
             let geometry = feat.geometry;
