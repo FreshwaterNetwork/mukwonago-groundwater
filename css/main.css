@@ -173,3 +173,43 @@ select {
 .mgw-search-help-body {
   padding: 5px;
 }
+
+.mgw-known-learn-more {
+  color: blue;
+  margin: auto;
+  text-align: center;
+  margin-bottom: 3px;
+  font-weight: bold;
+}
+.mgw-known-learn-more span:hover {
+  cursor: pointer;
+}
+
+.mgw-known-help-box {
+  position: fixed;
+  margin-left: 480px;
+  z-index: 10000000;
+  background: white;
+  top: 180px;
+  width: 300px;
+  display: none;
+}
+.mgw-known-help-header {
+  border-bottom: 1px solid #cdd5d5;
+  display: flex;
+  align-items: center;
+}
+.mgw-known-help-header h4 {
+  font-size: 13px;
+  padding: 5px;
+  margin: 0;
+}
+.mgw-known-help-header i {
+  margin-left: auto;
+}
+.mgw-known-help-header i:hover {
+  cursor: pointer;
+}
+.mgw-known-help-body {
+  padding: 5px;
+}

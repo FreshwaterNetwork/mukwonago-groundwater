@@ -61,17 +61,26 @@ define([
         t.selectedWaterFeatures = [];
         t.obj.knownSearchGPMValue = "";
         t.obj.selectedFeatureName = "";
+        $(".mgw-search-help-box").hide();
+        $(".mgw-known-help-box").hide();
       });
 
       // on search learn more click
       $(".mgw-search-learn-more span").on("click", (evt) => {
-        console.log(evt, "open");
         $(".mgw-search-help-box").show();
       });
       // on search leanr more close click
       $(".mgw-search-help-header i").on("click", (evt) => {
-        console.log(evt, "close");
         $(".mgw-search-help-box").hide();
+      });
+
+      // on known learn more click
+      $(".mgw-known-learn-more span").on("click", (evt) => {
+        $(".mgw-known-help-box").show();
+      });
+      // on known leanr more close click
+      $(".mgw-known-help-header i").on("click", (evt) => {
+        $(".mgw-known-help-box").hide();
       });
 
       // on pumping rate select menu change
