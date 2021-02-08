@@ -90,9 +90,12 @@ select {
 }
 .mgw-search-pumping-rate-dropdown {
   text-align: center;
+  /* display: flex; */
 }
 .mgw-search-pumping-rate-dropdown select {
   width: 250px;
+  /* margin-left: 20px; */
+  /* margin-right: 20px; */
 }
 /* overwrite esri styles */
 .arcgisSearch .searchGroup .searchInput {
@@ -130,4 +133,43 @@ select {
 }
 .mgw-selected-row-close:hover {
   cursor: pointer;
+}
+.mgw-search-learn-more {
+  color: blue;
+  margin: auto;
+  text-align: center;
+  margin-bottom: 3px;
+  font-weight: bold;
+}
+.mgw-search-learn-more span:hover {
+  cursor: pointer;
+}
+
+.mgw-search-help-box {
+  position: fixed;
+  margin-left: 480px;
+  z-index: 10000000;
+  background: white;
+  top: 180px;
+  width: 300px;
+  display: none;
+}
+.mgw-search-help-header {
+  border-bottom: 1px solid #cdd5d5;
+  display: flex;
+  align-items: center;
+}
+.mgw-search-help-header h4 {
+  font-size: 13px;
+  padding: 5px;
+  margin: 0;
+}
+.mgw-search-help-header i {
+  margin-left: auto;
+}
+.mgw-search-help-header i:hover {
+  cursor: pointer;
+}
+.mgw-search-help-body {
+  padding: 5px;
 }

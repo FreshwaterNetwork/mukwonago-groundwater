@@ -94,6 +94,9 @@ define([
 
       // on dynamic layer load
       t.dynamicLayer.on("load", function () {
+        t.map.on("mouse-over", function (e) {
+          t.map.setMapCursor("pointer");
+        });
         // create layers array
         t.layersArray = t.dynamicLayer.layerInfos;
         if (t.obj.stateSet == "no") {
@@ -339,20 +342,12 @@ define([
     },
     displayDrawdownRasterOnMap: function (t) {
       t.obj.visibleLayers = [0, 1, 2, 3];
-      let layerName;
-      console.log(t.obj.selectedFeatureName);
-      if (t.obj.selectedFeatureName.includes("Fen")) {
-        layerName = `${t.obj.selectedFeatureName} - Drawdown - ${t.obj.knownSearchGPMValue} gpm`;
-      } else {
-        layerName = `${t.obj.selectedFeatureName} - Depletion - ${t.obj.knownSearchGPMValue} gpm`;
-      }
-      console.log(t.obj.selectedFeatureName);
-      //   console.log(t.obj.knownSearchGPMValue);
-      //   console.log(t.layersArray);
-      console.log(layerName);
       t.layersArray.forEach((lyr) => {
-        if (lyr.name == layerName) {
-          console.log(lyr.id);
+        let lyrNameSplit = lyr.name.split("-");
+        if (
+          lyrNameSplit[0].trim() == t.obj.selectedFeatureName &&
+          lyr.name.includes(`${t.obj.knownSearchGPMValue} gpm`)
+        ) {
           t.obj.visibleLayers.push(lyr.id);
           t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
         }

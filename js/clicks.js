@@ -59,6 +59,19 @@ define([
         // t.selectedFeatureTable.empty();
         $(".mgw-selectFeatures-table-wrapper").hide();
         t.selectedWaterFeatures = [];
+        t.obj.knownSearchGPMValue = "";
+        t.obj.selectedFeatureName = "";
+      });
+
+      // on search learn more click
+      $(".mgw-search-learn-more span").on("click", (evt) => {
+        console.log(evt, "open");
+        $(".mgw-search-help-box").show();
+      });
+      // on search leanr more close click
+      $(".mgw-search-help-header i").on("click", (evt) => {
+        console.log(evt, "close");
+        $(".mgw-search-help-box").hide();
       });
 
       // on pumping rate select menu change
@@ -73,6 +86,7 @@ define([
         t.esriapi.searchWaterFeatures(t);
       });
       $(".mgw-search-pumping-rate-dropdown").on("change", (evt) => {
+        console.log("change");
         $.each($(".mgw-search-pumping-rate-dropdown option"), function (i, v) {
           if (v.selected) {
             // set the GPM value
@@ -106,7 +120,6 @@ define([
       );
 
       // search table row click
-
       $(document).on("mouseover", ".mgw-search-table-row", function (evt) {
         // add hover selected class
         $(evt.currentTarget).css("background-color", "rgba(255, 255, 0, .3)");
