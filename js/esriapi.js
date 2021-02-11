@@ -174,6 +174,7 @@ define([
       function findDrawdownDepletions(feats) {
         t.waterFeatureData = [];
         feats.forEach((feat) => {
+          console.log(feat, "^^^^^^^^^^^");
           let commonName;
           if (feat.attributes.CommonName) {
             commonName = feat.attributes.CommonName;
@@ -192,12 +193,14 @@ define([
         let qt = new QueryTask(t.obj.url + "/5");
         qt.execute(query, (results) => {
           results.features.forEach((feat) => {
+            console.log(feat, "*************");
             let geometry = feat.geometry;
             if (
               parseInt(t.obj.knownGPMValue) === parseInt(feat.attributes.gpm)
             ) {
               // build out water feature data
               t.waterFeatureData.forEach((waterFeat) => {
+                console.log(waterFeat);
                 let streamFlowDepletion = null;
                 let lakeDepletion = null;
                 let fenDrawdown = waterFeat.shortName + "_ddn_max";
@@ -219,6 +222,7 @@ define([
                 waterFeat.streamDepletion =
                   feat.attributes[streamFlowDepletion];
                 waterFeat.geometry = geometry;
+                waterFeat.cap = feat.attributes.cap;
               });
               // send data to clicks to build the html table
               t.clicks.buildDrawdownTable(t, t.waterFeatureData);
@@ -342,6 +346,9 @@ define([
     },
     displayDrawdownRasterOnMap: function (t) {
       t.obj.visibleLayers = [0, 1, 2, 3, 4];
+      if (t.obj.knownSearchGPMValue == "") {
+        t.obj.knownSearchGPMValue = 50;
+      }
       t.layersArray.forEach((lyr) => {
         let lyrNameSplit = lyr.name.split("-");
         if (

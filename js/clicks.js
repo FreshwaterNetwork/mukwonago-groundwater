@@ -97,6 +97,7 @@ define([
       $(".mgw-search-pumping-rate-dropdown").on("change", (evt) => {
         $.each($(".mgw-search-pumping-rate-dropdown option"), function (i, v) {
           if (v.selected) {
+            console.log(v.value);
             // set the GPM value
             t.obj.knownSearchGPMValue = v.value;
             t.esriapi.displayDrawdownRasterOnMap(t);
@@ -206,12 +207,13 @@ define([
       let waterFeatureTable = $(".mgw-depletion-table-body");
       waterFeatureTable.empty();
       fenFeats.forEach((feat) => {
+        console.log(feat, "68734786327846783264782367868");
         let data;
         if (feat.fenDrawdown) {
           if (feat.fenDrawdown >= 20) {
-            data = `<tr class="mgw-search-table-row" data-name='${feat.commonName}'><td>${feat.commonName}</td><td style="color:red !important;">${feat.fenDrawdown}</td><td>--</td></tr>`;
+            data = `<tr class="mgw-search-table-row" data-name='${feat.commonName}'><td>${feat.commonName}</td><td style="color:red !important;">${feat.fenDrawdown}</td><td>--</td><td>${feat.cap}</td></tr>`;
           } else {
-            data = `<tr class="mgw-search-table-row" data-name='${feat.commonName}'><td>${feat.commonName}</td><td>${feat.fenDrawdown}</td><td>--</td></tr>`;
+            data = `<tr class="mgw-search-table-row" data-name='${feat.commonName}'><td>${feat.commonName}</td><td>${feat.fenDrawdown}</td><td>--</td><td>${feat.cap}</td></tr>`;
           }
         }
         waterFeatureTable.append(data);
@@ -220,9 +222,9 @@ define([
         let data;
         if (feat.depletion) {
           if (feat.depletion >= 5) {
-            data = `<tr class="mgw-search-table-row" data-name='${feat.commonName}'><td>${feat.commonName}</td><td></td>--<td style="color:red !important;">${feat.depletion}</td></tr>`;
+            data = `<tr class="mgw-search-table-row" data-name='${feat.commonName}'><td>${feat.commonName}</td><td></td>--<td style="color:red !important;">${feat.depletion}</td><td>${feat.cap}</td></tr>`;
           } else {
-            data = `<tr class="mgw-search-table-row" data-name='${feat.commonName}'><td>${feat.commonName}</td><td></td>--<td>${feat.depletion}</td></tr>`;
+            data = `<tr class="mgw-search-table-row" data-name='${feat.commonName}'><td>${feat.commonName}</td><td></td>--<td>${feat.depletion}</td><td>${feat.cap}</td></tr>`;
           }
         }
         waterFeatureTable.append(data);

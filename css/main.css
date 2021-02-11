@@ -18,13 +18,12 @@ select {
 .mgw-appWrapper {
   padding: 5px;
 }
-.mgw-agree-wrapper {
+
+.mgw-main-app-intro-wrapper {
   display: none;
 }
-.mgw-main-app-intro-wrapper {
-  /* display: none; */
-}
 .mgw-agree-wrapper {
+  /* display: none; */
   width: 90%;
   margin: auto;
 }
@@ -151,13 +150,18 @@ select {
   z-index: 10000000;
   background: white;
   top: 180px;
-  width: 300px;
+  width: 400px;
+  max-height: 400px;
   display: none;
+  overflow: auto;
 }
 .mgw-search-help-header {
   border-bottom: 1px solid #cdd5d5;
   display: flex;
   align-items: center;
+  position: fixed;
+  background-color: white;
+  width: 398px;
 }
 .mgw-search-help-header h4 {
   font-size: 13px;
@@ -172,6 +176,8 @@ select {
 }
 .mgw-search-help-body {
   padding: 5px;
+  margin-bottom: 10px;
+  margin-top: 20px;
 }
 
 .mgw-known-learn-more {
@@ -191,13 +197,18 @@ select {
   z-index: 10000000;
   background: white;
   top: 180px;
-  width: 300px;
+  width: 400px;
+  max-height: 400px;
   display: none;
+  overflow: auto;
 }
 .mgw-known-help-header {
   border-bottom: 1px solid #cdd5d5;
   display: flex;
   align-items: center;
+  position: fixed;
+  background-color: white;
+  width: 398px;
 }
 .mgw-known-help-header h4 {
   font-size: 13px;
@@ -212,4 +223,6 @@ select {
 }
 .mgw-known-help-body {
   padding: 5px;
+  margin-bottom: 10px;
+  margin-top: 20px;
 }

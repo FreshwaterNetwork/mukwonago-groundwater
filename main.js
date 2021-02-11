@@ -164,7 +164,7 @@ define([
       // Click listeners
       this.clicks.eventListeners(this);
       // // Create ESRI objects and event listeners
-      this.esriapi.esriApiFunctions(this);
+      // this.esriapi.esriApiFunctions(this);
 
       this.rendered = true;
     },

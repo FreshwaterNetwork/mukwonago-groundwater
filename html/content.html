@@ -8,10 +8,12 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
   <div class="mgw-agree-wrapper">
     <h3>Protecting Groundwater Dependent Ecosystems Intended Use Agreement</h3>
     <div class="blueFont">
-      This data is only designed to help evaluate possibly locations to find the
-      least impactful areas, it is not intended to be predictive or ….. This
-      data is intended for planning purposes only. Ask Daniel to edit for USGS
-      needs.
+      This data presented in this tool is intended to help evaluate possible
+      high capacity well locations to find the least impactful places to site a
+      new well when considering the impacts on groundwater dependent ecosystems.
+      The tool it is not intended to be predictive or account for all impacts of
+      groundwater pumping on the health of a watershed. This data is intended
+      for planning purposes only.
     </div>
     <label class="form-component mgw-agree-cb-wrapper" for="agree-option">
       <input type="checkbox" id="agree-option" class="rb_cb" value="layer-7" />
@@ -35,7 +37,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
       fen, a wetland that depend mostly on groundwater inputs rather than
       surface water flows to support the wetland. The Mukwonago River Basin in
       southeast Wisconsin has several remaining fens that need careful
-      protection ***** edit text as needed ****
+      protection.
     </div>
     <h3>
       This tool can be used in two ways, please indicate which option meets your
@@ -97,10 +99,14 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
         What is the yearly average pumping rate for the well?
       </h3>
       <div class="mgw-find-address-note">
-        The minimum pumping rate for a high capacity well is 70 gpm. Typical
-        home uses around 200 gpd. A subdivision of 50 homes uses around X gpm.
-        An irrigation well uses between X and X depending on the time of year
-        and crop. Dave will edit
+        A typical home uses around 200 gallons per day or 0.14 gpm, so a
+        subdivision of 50 homes uses around 7-10 gpm on average. An irrigation
+        well uses between 400 and 1200 gpm for 10-50 percent of the time during
+        the summer growing months. The exact amount depends on the time of year,
+        rainfall, and crop. Municipal wells might pump up to 700 gpm, however
+        most would be less when averaged over an entire year. To put these
+        pumping rates into perspective, a garden hose turned on full blast has a
+        flow of about 3 gpm.
       </div>
       <div class="mgw-pumping-rate-dropdown">
         <select
@@ -134,6 +140,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
             <th>Feature Name</th>
             <th>Drawdown (cm)</th>
             <th>Depletion Potential (%)</th>
+            <th>Well Yield from Outside of Basin (%)</th>
           </tr>
         </thead>
         <tbody class="mgw-depletion-table-body"></tbody>
@@ -153,12 +160,18 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
       Select one or more features of interest to explore the impact of nearby
       high capacity pumping.
     </h3>
-    <h4 style="margin-bottom: 4px">Select pumping rate</h4>
+    <h3 style="margin-bottom: 4px">
+      What is the yearly average pumping rate for the well?
+    </h3>
     <div class="mgw-find-address-note">
-      The minimum pumping rate for a high capacity well is 70 gpm. Typical home
-      uses around 200 gpd. A subdivision of 50 homes uses around X gpm. An
-      irrigation well uses between X and X depending on the time of year and
-      crop. Dave will edit
+      A typical home uses around 200 gallons per day or 0.14 gpm, so a
+      subdivision of 50 homes uses around 7-10 gpm on average. An irrigation
+      well uses between 400 and 1200 gpm for 10-50 percent of the time during
+      the summer growing months. The exact amount depends on the time of year,
+      rainfall, and crop. Municipal wells might pump up to 700 gpm, however most
+      would be less when averaged over an entire year. To put these pumping
+      rates into perspective, a garden hose turned on full blast has a flow of
+      about 3 gpm.
     </div>
     <div class="mgw-search-pumping-rate-dropdown">
       <select
@@ -211,20 +224,43 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
   </div>
   <div class="mgw-search-help-body">
     <div style="font-size: 14px; font-weight: bold; margin-top: 4px">
-      Drawdown:
+      Drawdown (cm):
     </div>
     <div>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl
-      eros, pulvinar facilisis justo mollis, auctor consequat urna. Morbi a
-      bibendum metus. Donec scelerisque sollicitudin enim eu venenatis.
+      A pumping well creates a cone of depression in the water table that is
+      centered on the well. Here, drawdown is the maximum amount the water table
+      is lowered over the area of the fen by the pumping well in units of
+      centimeters. Because healthy fens are associated more with shallow and
+      stable water levels and less with minimum seepage rates and because
+      drawdown in fens is more easily measured than seepage, drawdown is used as
+      the primary indicator of potential harm to the fen. Drawdowns of 20 cm or
+      greater over the area of a fen have been shown to negatively impact the
+      health of the fen (Aldous and Bach, 2014).
     </div>
     <div style="font-size: 14px; font-weight: bold; margin-top: 4px">
-      Depletion:
+      Depletion Potential (%):
     </div>
     <div>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl
-      eros, pulvinar facilisis justo mollis, auctor consequat urna. Morbi a
-      bibendum metus. Donec scelerisque sollicitudin enim eu venenatis.
+      This is the percent reduction in groundwater discharge to a stream, river,
+      or lake due to pumping. When a well pumps, groundwater discharge is
+      decreased since some of the groundwater is now flowing to the well rather
+      than to the surface water. Depletion potential rather than drawdown is
+      used as the primary indicator of harm to stream, rivers and lakes. This is
+      because reduced groundwater flows are related to poor water and habitat
+      quality. In addition, depletion potential is a more sensitive measure than
+      drawdown because only very large pumping rates will cause measurable
+      drawdowns in streams, rivers, and lakes. Depletion potentials over 5% are
+      considered significant, and further consideration should be given to the
+      impact of groundwater pumping on the stream, river or lake.
+    </div>
+    <br />
+    <div style="text-align: center">
+      <img
+        src="plugins/mukwonago-groundwater/images/wss-cycle-groundwater-drawdown-diagram.gif"
+        alt=""
+        srcset=""
+        style="width: 300px"
+      />
     </div>
   </div>
 </div>
@@ -236,20 +272,43 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
   </div>
   <div class="mgw-known-help-body">
     <div style="font-size: 14px; font-weight: bold; margin-top: 4px">
-      Drawdown:
+      Drawdown (cm):
     </div>
     <div>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl
-      eros, pulvinar facilisis justo mollis, auctor consequat urna. Morbi a
-      bibendum metus. Donec scelerisque sollicitudin enim eu venenatis.
+      A pumping well creates a cone of depression in the water table that is
+      centered on the well. Here, drawdown is the maximum amount the water table
+      is lowered over the area of the fen by the pumping well in units of
+      centimeters. Because healthy fens are associated more with shallow and
+      stable water levels and less with minimum seepage rates and because
+      drawdown in fens is more easily measured than seepage, drawdown is used as
+      the primary indicator of potential harm to the fen. Drawdowns of 20 cm or
+      greater over the area of a fen have been shown to negatively impact the
+      health of the fen (Aldous and Bach, 2014).
     </div>
     <div style="font-size: 14px; font-weight: bold; margin-top: 4px">
-      Depletion:
+      Depletion Potential (%):
     </div>
     <div>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl
-      eros, pulvinar facilisis justo mollis, auctor consequat urna. Morbi a
-      bibendum metus. Donec scelerisque sollicitudin enim eu venenatis.
+      This is the percent reduction in groundwater discharge to a stream, river,
+      or lake due to pumping. When a well pumps, groundwater discharge is
+      decreased since some of the groundwater is now flowing to the well rather
+      than to the surface water. Depletion potential rather than drawdown is
+      used as the primary indicator of harm to stream, rivers and lakes. This is
+      because reduced groundwater flows are related to poor water and habitat
+      quality. In addition, depletion potential is a more sensitive measure than
+      drawdown because only very large pumping rates will cause measurable
+      drawdowns in streams, rivers, and lakes. Depletion potentials over 5% are
+      considered significant, and further consideration should be given to the
+      impact of groundwater pumping on the stream, river or lake.
+    </div>
+    <br />
+    <div style="text-align: center">
+      <img
+        src="plugins/mukwonago-groundwater/images/wss-cycle-groundwater-drawdown-diagram.gif"
+        alt=""
+        srcset=""
+        style="width: 300px"
+      />
     </div>
   </div>
 </div>
