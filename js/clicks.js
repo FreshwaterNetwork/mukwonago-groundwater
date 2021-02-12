@@ -97,7 +97,6 @@ define([
       $(".mgw-search-pumping-rate-dropdown").on("change", (evt) => {
         $.each($(".mgw-search-pumping-rate-dropdown option"), function (i, v) {
           if (v.selected) {
-            console.log(v.value);
             // set the GPM value
             t.obj.knownSearchGPMValue = v.value;
             t.esriapi.displayDrawdownRasterOnMap(t);
@@ -207,7 +206,6 @@ define([
       let waterFeatureTable = $(".mgw-depletion-table-body");
       waterFeatureTable.empty();
       fenFeats.forEach((feat) => {
-        console.log(feat, "68734786327846783264782367868");
         let data;
         if (feat.fenDrawdown) {
           if (feat.fenDrawdown >= 20) {
