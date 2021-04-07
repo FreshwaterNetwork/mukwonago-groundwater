@@ -226,3 +226,9 @@ select {
   margin-bottom: 10px;
   margin-top: 20px;
 }
+.muk-see-more-text {
+  color: blue;
+}
+.muk-see-more-text:hover {
+  cursor: pointer;
+}

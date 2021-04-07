@@ -8,12 +8,17 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
   <div class="mgw-agree-wrapper">
     <h3>Protecting Groundwater Dependent Ecosystems Intended Use Agreement</h3>
     <div class="blueFont">
-      This data presented in this tool is intended to help evaluate possible
-      high capacity well locations to find the least impactful places to site a
-      new well when considering the impacts on groundwater dependent ecosystems.
-      The tool it is not intended to be predictive or account for all impacts of
-      groundwater pumping on the health of a watershed. This data is intended
-      for planning purposes only.
+      The data presented in this tool is intended to help evaluate potential impacts on groundwater dependent ecosystems
+      when
+      siting new high-capacity wells. The maps included in this tool are interpretations of model results and every
+      reasonable
+      effort was made to ensure that the information presented conforms to sound scientific principles; however, the
+      maps
+      should not be used to guide site-specific decisions without verification. The tool is not intended to be
+      predictive or
+      account for all impacts of groundwater pumping on the health of a watershed. This data is intended for planning
+      purposes
+      only. Proper use of the tool is the sole responsibility of the user.
     </div>
     <!-- <label class="form-component mgw-agree-cb-wrapper" for="agree-option">
       <input type="checkbox" id="agree-option" class="rb_cb" value="layer-7" />
@@ -24,23 +29,19 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
       >
     </label> -->
     <div style="text-align: center">
-      <button
-        style="margin-top: 10px"
-        class="mgw-agree-button button button-primary"
-      >
+      <button style="margin-top: 10px" class="mgw-agree-button button button-primary">
         Agree & Enter Site
       </button>
     </div>
   </div>
   <div class="mgw-main-app-intro-wrapper">
     <div class="mgw-introTextWrapper blueFont">
-      Groundwater dependent ecosystems (gde) are systems that depend on
-      groundwater inputs to support their natural flora and fauna. These
-      ecosystems can occur in wetlands, lakes and rivers. One rare gde is the
-      fen, a wetland that depend mostly on groundwater inputs rather than
-      surface water flows to support the wetland. The Mukwonago River Basin in
-      southeast Wisconsin has several remaining fens that need careful
-      protection.
+      Groundwater dependent ecosystems (gde) are systems that depend on groundwater inputs to support their natural
+      flora and
+      fauna. These ecosystems can occur in wetlands, lakes and rivers. One rare gde is the fen, a type of wetland that
+      depends
+      mostly on groundwater inputs rather than surface water flows to support the wetland. The Mukwonago River Basin in
+      southeast Wisconsin has several remaining fens that need careful protection.
     </div>
     <h3>
       This tool can be used in two ways, please indicate which option meets your
@@ -54,9 +55,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
           I know the location and pumping rate of a future well and I’d like to
           evaluate the impacts to a fen, river or lake.
         </div>
-        <button
-          class="button button-primary mgw-main-option-button mgw-known-location-button"
-        >
+        <button class="button button-primary mgw-main-option-button mgw-known-location-button">
           GO
         </button>
       </div>
@@ -69,9 +68,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
           determine where a high capacity well can be sited to reduce impacts on
           the feature.
         </div>
-        <button
-          class="button button-primary mgw-main-option-button mgw-search-location-button"
-        >
+        <button class="button button-primary mgw-main-option-button mgw-search-location-button">
           GO
         </button>
       </div>
@@ -79,10 +76,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
   </div>
   <div class="mgw-known-location-wrapper" style="display: none">
     <div style="width: 100%; text-align: right">
-      <button
-        class="button button-primary mgw-back-home-button"
-        style="padding: 3px"
-      >
+      <button class="button button-primary mgw-back-home-button" style="padding: 3px">
         Back
       </button>
     </div>
@@ -112,12 +106,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
         flow of about 3 gpm.
       </div>
       <div class="mgw-pumping-rate-dropdown">
-        <select
-          class="mgw-pumping-rate-select"
-          placeholder="Pick One Number"
-          name=""
-          id=""
-        >
+        <select class="mgw-pumping-rate-select" placeholder="Pick One Number" name="" id="">
           <option disabled value="">Select a pumping rate</option>
           <option value="25">25 gpm</option>
           <option value="50">50 gpm</option>
@@ -130,13 +119,14 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
           <option value="300">300 gpm</option>
           <option value="400">400 gpm</option>
           <option value="500">500 gpm</option>
-          <option value="600">600 gpm</option>
-          <option value="700">700 gpm</option>
+          <!-- <option value="600">600 gpm</option>
+          <option value="700">700 gpm</option> -->
         </select>
       </div>
     </div>
     <div class="mgw-drawdown-table-wrapper">
       <div class="mgw-known-learn-more"><span>Learn More</span></div>
+      <h5 style="margin: 5px;">Groundwater impacts within 2 miles of pumping site</h5>
       <table>
         <thead>
           <tr>
@@ -152,10 +142,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
   </div>
   <div class="mgw-search-location-wrapper" style="display: none">
     <div style="width: 100%; text-align: right">
-      <button
-        class="button button-primary mgw-back-home-button"
-        style="padding: 3px"
-      >
+      <button class="button button-primary mgw-back-home-button" style="padding: 3px">
         Back
       </button>
     </div>
@@ -177,12 +164,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
       about 3 gpm.
     </div>
     <div class="mgw-search-pumping-rate-dropdown">
-      <select
-        class="mgw-pumping-rate-search-select"
-        placeholder="Pick One Number"
-        name=""
-        id=""
-      >
+      <select class="mgw-pumping-rate-search-select" placeholder="Pick One Number" name="" id="">
         <option disabled value="">Select a pumping rate</option>
         <option value="25">25 gpm</option>
         <option selected value="50">50 gpm</option>
@@ -230,21 +212,47 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
       Drawdown (cm):
     </div>
     <div>
-      A pumping well creates a cone of depression in the water table that is
-      centered on the well. Here, drawdown is the maximum amount the water table
-      is lowered over the area of the fen by the pumping well in units of
-      centimeters. Because healthy fens are associated more with shallow and
-      stable water levels and less with minimum seepage rates and because
-      drawdown in fens is more easily measured than seepage, drawdown is used as
-      the primary indicator of potential harm to the fen. Drawdowns of 20 cm or
-      greater over the area of a fen have been shown to negatively impact the
-      health of the fen (Aldous and Bach, 2014).
+      <span>A pumping well creates a cone of depression in the water table that is centered on the well. Here, drawdown
+        is the
+        average amount the water table is lowered over the area of the fen by the pumping well in units of
+        centimeters.
+      </span>
+      <span style="display: none;">Because healthy fens are associated more with shallow and stable water levels and
+        less with minimum seepage rates and
+        because drawdown in fens is more easily measured than seepage, drawdown is used as the primary indicator of
+        potential
+        harm to the fen. An average drawdown of 5 cm or greater over the area of the fen is likely to include localized
+        areas
+        with much greater drawdowns, up to 20 cm or more. Drawdowns of 20 cm or greater have been shown to negatively
+        impact the
+        health of the fen (Aldous and Bach, 2014).</span>
+      <span class="muk-see-more-text muk-dep-see-more">more...</span>
+
     </div>
     <div style="font-size: 14px; font-weight: bold; margin-top: 4px">
       Depletion Potential (%):
     </div>
     <div>
-      This is the percent reduction in groundwater discharge to a stream, river,
+      <span>This is the percent reduction in groundwater discharge to a stream, river, or lake due to pumping.</span>
+      <span style="display: none;">When a well pumps, groundwater discharge is decreased since some of the groundwater
+        is now flowing to the well rather
+        than to the surface water. Depletion potential rather than drawdown is used as the primary indicator of harm to
+        stream,
+        rivers and lakes. This is because reduced groundwater flows are related to poor water and habitat quality. In
+        addition,
+        depletion potential is a more sensitive measure than drawdown because only very large pumping rates will cause
+        measurable drawdowns in streams, rivers, and lakes. Depletion potentials over 5% are considered significant, and
+        further
+        consideration should be given to the impact of groundwater pumping on the stream, river or lake. Please note
+        that the
+        data for headwater river locations includes information about depletion potential for both the stream reaches
+        and ponds
+        of the headwaters.</span>
+      <span class="muk-see-more-text muk-dep-see-more">more...</span>
+
+
+
+      <!-- This is the percent reduction in groundwater discharge to a stream, river,
       or lake due to pumping. When a well pumps, groundwater discharge is
       decreased since some of the groundwater is now flowing to the well rather
       than to the surface water. Depletion potential rather than drawdown is
@@ -254,16 +262,12 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
       drawdown because only very large pumping rates will cause measurable
       drawdowns in streams, rivers, and lakes. Depletion potentials over 5% are
       considered significant, and further consideration should be given to the
-      impact of groundwater pumping on the stream, river or lake.
+      impact of groundwater pumping on the stream, river or lake. -->
     </div>
     <br />
     <div style="text-align: center">
-      <img
-        src="plugins/mukwonago-groundwater/images/wss-cycle-groundwater-drawdown-diagram.gif"
-        alt=""
-        srcset=""
-        style="width: 300px"
-      />
+      <img src="plugins/mukwonago-groundwater/images/wss-cycle-groundwater-drawdown-diagram.gif" alt="" srcset=""
+        style="width: 300px" />
     </div>
   </div>
 </div>
@@ -277,41 +281,57 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
     <div style="font-size: 14px; font-weight: bold; margin-top: 4px">
       Drawdown (cm):
     </div>
-    <div>
-      A pumping well creates a cone of depression in the water table that is
-      centered on the well. Here, drawdown is the maximum amount the water table
-      is lowered over the area of the fen by the pumping well in units of
-      centimeters. Because healthy fens are associated more with shallow and
-      stable water levels and less with minimum seepage rates and because
-      drawdown in fens is more easily measured than seepage, drawdown is used as
-      the primary indicator of potential harm to the fen. Drawdowns of 20 cm or
-      greater over the area of a fen have been shown to negatively impact the
-      health of the fen (Aldous and Bach, 2014).
-    </div>
+    <span>
+      A pumping well creates a cone of depression in the water table that is centered on the well. Here, drawdown is the
+      average amount the water table is lowered over the area of the fen by the pumping well in units of centimeters.
+    </span>
+    <span style="display: none;">Because healthy fens are associated more with shallow and stable water levels and less
+      with minimum seepage rates and
+      because drawdown in fens is more easily measured than seepage, drawdown is used as the primary indicator of
+      potential
+      harm to the fen. An average drawdown of 5 cm or greater over the area of the fen is likely to include localized
+      areas
+      with much greater drawdowns, up to 20 cm or more. Drawdowns of 20 cm or greater have been shown to negatively
+      impact the
+      health of the fen (Aldous and Bach, 2014).</span>
+    <span class="muk-see-more-text muk-dep-see-more">more...</span>
+
     <div style="font-size: 14px; font-weight: bold; margin-top: 4px">
       Depletion Potential (%):
     </div>
-    <div>
-      This is the percent reduction in groundwater discharge to a stream, river,
-      or lake due to pumping. When a well pumps, groundwater discharge is
-      decreased since some of the groundwater is now flowing to the well rather
-      than to the surface water. Depletion potential rather than drawdown is
-      used as the primary indicator of harm to stream, rivers and lakes. This is
-      because reduced groundwater flows are related to poor water and habitat
-      quality. In addition, depletion potential is a more sensitive measure than
-      drawdown because only very large pumping rates will cause measurable
-      drawdowns in streams, rivers, and lakes. Depletion potentials over 5% are
-      considered significant, and further consideration should be given to the
-      impact of groundwater pumping on the stream, river or lake.
+    <span>
+      This is the percent reduction in groundwater discharge to a stream, river, or lake due to pumping.
+    </span>
+    <span style="display: none;">When a well pumps, groundwater discharge is decreased since some of the groundwater is
+      now flowing to the well rather
+      than to the surface water. Depletion potential rather than drawdown is used as the primary indicator of harm to
+      stream,
+      rivers and lakes. This is because reduced groundwater flows are related to poor water and habitat quality. In
+      addition,
+      depletion potential is a more sensitive measure than drawdown because only very large pumping rates will cause
+      measurable drawdowns in streams, rivers, and lakes. Depletion potentials over 5% are considered significant, and
+      further
+      consideration should be given to the impact of groundwater pumping on the stream, river or lake. Please note that
+      the
+      data for headwater river locations includes information about depletion potential for both the stream reaches and
+      ponds
+      of the headwaters.</span>
+    <span class="muk-see-more-text muk-dep-see-more">more...</span>
+
+    <div style="font-size: 14px; font-weight: bold; margin-top: 4px">
+      Well Yield from Outside of Basin (%):
     </div>
+    <span>
+      This is the percentage of water that is coming from outside the Mukwonago basin and flowing to the well. A well
+      located
+      near the basin boundary would capture more water from outside the basin than a well located near the center of the
+      basin.
+    </span>
+
     <br />
     <div style="text-align: center">
-      <img
-        src="plugins/mukwonago-groundwater/images/wss-cycle-groundwater-drawdown-diagram.gif"
-        alt=""
-        srcset=""
-        style="width: 300px"
-      />
+      <img src="plugins/mukwonago-groundwater/images/wss-cycle-groundwater-drawdown-diagram.gif" alt="" srcset=""
+        style="width: 300px" />
     </div>
   </div>
 </div>

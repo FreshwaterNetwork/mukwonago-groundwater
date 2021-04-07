@@ -17,6 +17,18 @@ define([
           $(".mgw-agree-button").prop("disabled", true);
         }
       });
+      // on see more text click
+      $(".muk-dep-see-more").on("click", (evt) => {
+        console.log("clikc");
+        console.log(evt.currentTarget.innerHTML);
+        if (evt.currentTarget.innerHTML == "more...") {
+          evt.currentTarget.innerHTML = "less...";
+          $(evt.currentTarget).prev().show();
+        } else {
+          evt.currentTarget.innerHTML = "more...";
+          $(evt.currentTarget).prev().hide();
+        }
+      });
       // on agree button click
       $(".mgw-agree-button").on("click", (evt) => {
         // Create ESRI objects and event listeners
@@ -208,7 +220,7 @@ define([
       fenFeats.forEach((feat) => {
         let data;
         if (feat.fenDrawdown) {
-          if (feat.fenDrawdown >= 20) {
+          if (feat.fenDrawdown >= 5) {
             data = `<tr class="mgw-search-table-row" data-name='${feat.commonName}'><td>${feat.commonName}</td><td style="color:red !important;">${feat.fenDrawdown}</td><td>--</td><td>${feat.cap}</td></tr>`;
           } else {
             data = `<tr class="mgw-search-table-row" data-name='${feat.commonName}'><td>${feat.commonName}</td><td>${feat.fenDrawdown}</td><td>--</td><td>${feat.cap}</td></tr>`;

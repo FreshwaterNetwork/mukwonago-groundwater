@@ -1,5 +1,5 @@
 {
-	"url": "https://cirrus.tnc.org/arcgis/rest/services/FN_Wisconsin/muk_groundwater_v01292021/MapServer",
+	"url": "https://cirrus.tnc.org/arcgis/rest/services/FN_Wisconsin/mukwonago_groundwater_data/MapServer",
 	"visibleLayers": [0,1,2,3,4],
 	"extent": "",
 	"stateSet": "no",

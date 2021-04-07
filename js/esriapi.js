@@ -126,11 +126,11 @@ define([
       // clear map of graphics and then construct a new graphic based on searchCircle
       t.map.graphics.clear();
       t.selectedFeatures = [];
-      // create a search circle with a 3 mile radius
+      // create a search circle with a 2 mile radius
       var searchCircle = new Circle({
         center: t.obj.knownMapPoint,
         geodesic: true,
-        radius: 3,
+        radius: 2,
         radiusUnit: "esriMiles",
       });
       const pointMarker = new SimpleMarkerSymbol(
@@ -203,7 +203,7 @@ define([
                 console.log(waterFeat);
                 let streamFlowDepletion = null;
                 let lakeDepletion = null;
-                let fenDrawdown = waterFeat.shortName + "_ddn_max";
+                let fenDrawdown = waterFeat.shortName + "_ddn_mean";
 
                 let isLake = waterFeat.shortName.includes("lk");
                 if (isLake) {
