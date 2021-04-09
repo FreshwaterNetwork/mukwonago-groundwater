@@ -56,6 +56,7 @@ define([
       // on back to home button click
       $(".mgw-back-home-button").on("click", (evt) => {
         t.map.graphics.clear();
+        t.upstreamSfrGraphics.clear();
         t.obj.inSearch = false;
         t.obj.inEvaluate = false;
         $(".mgw-known-location-wrapper").hide();

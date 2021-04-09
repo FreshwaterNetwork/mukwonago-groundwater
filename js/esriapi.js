@@ -38,6 +38,8 @@ define([
       t.selectedWaterFeatures = [];
       t.hoverGraphicsLayer = new GraphicsLayer();
       t.map.addLayer(t.hoverGraphicsLayer);
+      t.upstreamSfrGraphics = new GraphicsLayer();
+      t.map.addLayer(t.upstreamSfrGraphics);
       // circle symbology
       t.circleSymb = new SimpleFillSymbol(
         SimpleFillSymbol.STYLE_NULL,
@@ -214,9 +216,7 @@ define([
                 if (isStream) {
                   streamFlowDepletion = waterFeat.shortName + "_flow_rel";
                 }
-                // waterFeat.fenDrawdown = feat.attributes[fenDrawdown];
-                // waterFeat.depletion = feat.attributes[lakeDepletion];
-                // waterFeat.depletion = feat.attributes[streamFlowDepletion];
+
                 waterFeat.fenDrawdown = feat.attributes[fenDrawdown];
                 waterFeat.lakeDepletion = feat.attributes[lakeDepletion];
                 waterFeat.streamDepletion =
@@ -333,6 +333,7 @@ define([
         t.hoverGraphicsLayer.add(selectGraphic);
       } else {
         t.map.graphics.clear();
+        t.upstreamSfrGraphics.clear();
         t.selectedWaterFeatures.forEach((feat) => {
           if (feat.attributes.Name.includes("sfr")) {
             var polySelectGraphic = new Graphic(feat.geometry, pointMarker);
@@ -345,6 +346,7 @@ define([
       }
     },
     displayDrawdownRasterOnMap: function (t) {
+      t.esriapi.displayWaterFeaturesOnRasterDisplay(t);
       t.obj.visibleLayers = [0, 1, 2, 3, 4];
       if (t.obj.knownSearchGPMValue == "") {
         t.obj.knownSearchGPMValue = 50;
@@ -359,6 +361,131 @@ define([
           t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
         }
       });
+    },
+    displayWaterFeaturesOnRasterDisplay: function (t) {
+      // let highlightColor = "#F00"; // red
+      let highlightColor = "#00FFFF"; // cyan
+      t.upstreamSfrGraphics.clear();
+      let sfr_highlight_features = {
+        "Muk R. at Fox R.": {
+          str: "sfr_1",
+          lakes: ["lk1", "lk2", "lk3", "lk4", "lk5", "lk6", "lk7", "lk8"],
+        },
+        "Muk Trib below I43": {
+          str: "sfr_2",
+          lakes: [],
+        },
+        "Muk R. below Holz Pkwy": {
+          str: "sfr_3",
+          lakes: ["lk1", "lk2", "lk3", "lk4", "lk5", "lk6", "lk7", "lk8"],
+        },
+        "Muk R. below Lower Phantom Lake": {
+          str: "sfr_4",
+          lakes: ["lk1", "lk2", "lk3", "lk4", "lk5", "lk6", "lk7", "lk8"],
+        },
+        "Muk R. at Lower Phantom Lake": {
+          str: "sfr_5",
+          lakes: ["lk1", "lk3", "lk4", "lk5", "lk6", "lk7", "lk8"],
+        },
+        "Muk R. below Beulah Rd": {
+          str: "sfr_6",
+          lakes: ["lk3", "lk4", "lk6", "lk7", "lk8"],
+        },
+        "Muk Trib at Muk R.": {
+          str: "sfr_7",
+          lakes: ["lk1", "lk5"],
+        },
+        "Muk Trib below Lake Beulah": {
+          str: "sfr_8",
+          lakes: ["lk1", "lk5"],
+        },
+        "Muk Trib at Town Line Rd": {
+          str: "sfr_9",
+          lakes: ["lk5"],
+        },
+        "Muk R. at Rainbow Spring Rd": {
+          str: "sfr_10",
+          lakes: ["lk3", "lk4", "lk6", "lk7", "lk8"],
+        },
+        "Muk R. below Eagle Spring Lake": {
+          str: "sfr_11",
+          lakes: ["lk3", "lk4", "lk7", "lk8"],
+        },
+        "Jericho Ck at Co Rd LO": {
+          str: "sfr_12",
+          lakes: [],
+        },
+        "Jericho Ck at Co Rd NN": {
+          str: "sfr_13",
+          lakes: [],
+        },
+        "Muk R. at Eagle Spring Lake": {
+          str: "sfr_14",
+          lakes: ["lk4", "lk7", "lk8"],
+        },
+        "Muk R. at Lulu Lake": {
+          str: "sfr_15",
+          lakes: ["lk7", "lk8"],
+        },
+        "Muk R. below Bluff Rd Fen": {
+          str: "sfr_16",
+          lakes: ["lk7", "lk8"],
+        },
+        "Muk Trib below Bluff Rd Fen": {
+          str: "sfr_17",
+          lakes: ["lk7"],
+        },
+        "Muk R. at Bluff Rd": {
+          str: "sfr_18",
+          lakes: ["lk7"],
+        },
+      };
+
+      if (sfr_highlight_features[t.obj.selectedFeatureName]) {
+        let lakes = sfr_highlight_features[t.obj.selectedFeatureName]["lakes"];
+        let stream = sfr_highlight_features[t.obj.selectedFeatureName]["str"];
+        // query stream layer and create a where clause that uses the stream name
+        var query = new Query();
+        query.where = `sfr_name = '${stream}'`;
+        query.returnGeometry = true;
+        query.outFields = ["*"];
+        let qt1 = new QueryTask(t.obj.url + "/7");
+
+        let streamSymbol = new SimpleLineSymbol(
+          SimpleLineSymbol.STYLE_DASH,
+          new Color(highlightColor),
+          2
+        );
+        qt1.execute(query, (stream) => {
+          // return geometry from query
+          let geom = stream.features[0].geometry;
+          // take geometry and create new graphic
+          let streamGraphic = new Graphic(geom, streamSymbol);
+          // show graphics layer on map
+          t.upstreamSfrGraphics.add(streamGraphic);
+        });
+
+        lakes.forEach((lake) => {
+          // get geometry and build from lake data
+          var lakeQ = new Query();
+          lakeQ.where = `lake_name = '${lake}'`;
+          lakeQ.returnGeometry = true;
+          lakeQ.outFields = ["*"];
+          let qtL = new QueryTask(t.obj.url + "/6");
+          qtL.execute(lakeQ, (lake) => {
+            let lakeGeom = lake.features[0].geometry;
+            var polygonSymbol = new SimpleFillSymbol(
+              "solid",
+              new SimpleLineSymbol("solid", new Color(highlightColor), 2),
+              new Color([0, 0, 255, 0.5])
+            );
+            // take geometry and create new graphic
+            let lakeGraphic = new Graphic(lakeGeom, polygonSymbol);
+            // show graphics layer on map
+            t.upstreamSfrGraphics.add(lakeGraphic);
+          });
+        });
+      }
     },
   });
 });
