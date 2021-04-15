@@ -232,3 +232,6 @@ select {
 .muk-see-more-text:hover {
   cursor: pointer;
 }
+.legend-layer .item {
+  height: 20px !important;
+}
